@@ -78,6 +78,74 @@ A/C 유형은 **코드 변경 없이 설계·문서만** 산출하는 경우가 
 - 이 경로의 문서는 실제 SQL 과 불일치 확인되어 deprecated ([ISS-001](../../common-data-airflow/docs/hellobot-data/catalog/issues.md))
 - 테이블 정보는 **`common-data-airflow/docs/hellobot-data/catalog/tables/*.md`** 또는 SQL 파일(`scripts/hellobot/<layer>/*.sql`) 직접 참조
 
+## 카탈로그 갱신 프로토콜 (작업 중 새 룰·정책 발견 시) ★
+
+`/dev-data` 가 작업 도중 카탈로그(SSOT)에 명시되지 않은 정책·룰·컨벤션을 인지하면 — 출처가 사용자 발화·BQ 직접 검증·외부 문서·다른 에이전트 산출물 어느 것이든 — **즉시 사용자에게 계약 문서 반영 여부를 확인**하고 승인 시 갱신합니다. 룰을 머릿속에만 두고 다음 작업으로 넘어가면 SSOT 가 또 어긋납니다 (이번 세션에서 ISS-011·012·014·015·016 이 모두 그 결과).
+
+### 트리거 (인지 즉시 본 흐름 진입)
+
+- 사용자가 정책·운영 룰을 알려줌 (예: "env 필터는 prod 만", "ID 보내면 이름도 함께")
+- BQ 직접 조회로 카탈로그와 다른 사실 발견 (스키마·파티션·실 분포)
+- 외부 문서 (Notion 설계 DB, 슬랙, 다른 리포 PR) 에서 컨벤션 발견
+- 다른 에이전트(`/architect`, `/qa`, `/review`) 산출물에서 새 합의 발견
+- 카탈로그·코드 간 불일치 (ISS-NNN 후보) 발견
+
+### 흐름 (5 step)
+
+1. **기존 등록 여부 검색** — `grep` 으로 카탈로그 전체 (`docs/hellobot-data/catalog/**`) 검색.
+   - 등록되어 있음 → 위치·현행 표현을 사용자에게 보고. stale 이면 갱신 흐름.
+   - 없음 → 신규 등록 흐름.
+
+2. **계약 문서 매핑** — 룰 종류에 따라 1차/인접 문서 식별 (아래 매핑 표).
+
+3. **사용자에게 제안** — 다음 정형 포맷:
+   ```
+   [발견] {룰 한줄 요약}
+   [출처] {사용자 발화 / BQ 쿼리·실행일·스캔 / Notion URL / PR / ...}
+   [영향] 카탈로그 [현재] {기존 표현 또는 "미반영"} → [제안] {반영안 한줄}
+   [위치] {파일 경로 + 섹션 + 형태(표 / 박스 / cross-link / Changelog)}
+   [인접] {인접 갱신 후보 문서 — 있으면}
+   확인 부탁드립니다 — 반영할까요?
+   ```
+
+4. **승인 후 갱신** — 다음 모두 처리:
+   - 1차 위치 갱신 (제안한 섹션 + 형태)
+   - **개정 이력 / Changelog** (날짜 + 출처 + 1줄 변경 내용)
+   - 인접 stale 문서 갱신 (예: SSOT 정책이면 event-catalog 외 architecture·playbook·recipes)
+   - 신규 갭이면 `issues.md` ISS-NNN 등록
+   - 외부 확인 필요면 `external-tasks.md` 등록
+   - infra-map 진입 표 / readme 인벤토리 영향 시 함께 갱신
+
+5. **연쇄 stale 점검** — 갱신 후 `grep` 한번 더로 다른 곳에 옛 표현이 남아있는지 확인 (예: ISS 해결 시 다른 문서의 "외부 확인 대기 중" 표현 정리).
+
+### 룰 종류 → 계약 문서 매핑
+
+| 룰 종류 | 1차 반영 위치 | 인접 갱신 후보 |
+|---|---|---|
+| 이벤트 발송·수집 정책 (게이트키핑·env·페어 규칙·타이밍) | `recipes/event-design-guide.md` + `event-catalog.md §2 / §5` | `architecture.md §5`, `playbook.md`, `recipes/feature-performance-measurement.md` |
+| 이벤트 스펙 (이름·파라미터·소스) | `event-catalog.md §4-1` 해당 이벤트 표 + §5 | `recipes/event-design-guide.md` 안티패턴, Notion 설계 DB |
+| 지표 정의·산식 | `metric-dictionary.md` 해당 도메인 | `recipes/feature-performance-measurement.md` 카테고리 템플릿 |
+| 마트 스키마·그레인·lineage | `tables/{레이어}/{table}.md` + `mart-catalog.md` | `architecture.md §3 DAG 체인` |
+| 파이프라인·DAG 컨벤션 (시간대·매출·user_id·KRW_PER_HEART) | `architecture.md §5 공통 규약` | `infra-map.md §컨벤션`, `common-data-airflow/CLAUDE.md` |
+| BigQuery 접근·비용·파티션 | `bq-access.md` + `architecture.md §5-7` | 워크스페이스 본 파일 §파티션 필터 표 |
+| SSOT·문서 운영 정책 | `event-catalog.md` 상단 SSOT 블록 + `architecture.md §5-4` | `readme.md`, `infra-map.md`, `common-data-airflow/CLAUDE.md §데이터 카탈로그 동기화` |
+| 신규 알게 된 갭·제약 | `issues.md` (ISS-NNN 신규) | 영향 받는 문서 cross-link |
+| 외부 확인 필요 항목 | `external-tasks.md` (A/B/C/D 분류) | 영향 받는 문서 cross-link |
+| 신규 절차·운영 기준 | `recipes/` (필요 시 신규 recipe 파일) | `infra-map.md §과업 유형 진입 문서`, `readme.md` 인벤토리 |
+
+### 공통 절차 안에서의 위치
+
+수행 절차 §공통 step 2 (프로젝트 문서 확인) **다음** 에 본 프로토콜 진입 여부를 1초 점검:
+> 이번 작업 도중 새 룰·정책·사실을 인지했나? → 인지 즉시 본 §카탈로그 갱신 프로토콜 진입.
+
+### 금지
+
+- ❌ 룰을 인지하고 사용자에게 보고만 한 채 카탈로그 미갱신 — 다음 세션에서 다시 어긋남
+- ❌ 사용자 확인 없이 임의로 카탈로그 수정 — 잘못된 추측일 가능성
+- ❌ 1차 문서만 갱신하고 인접 stale 미점검 — playbook·recipe 가 옛 표현 그대로 남음
+- ❌ Changelog / 개정 이력 / `last_updated` 누락 — 변경 시점·출처 추적 불가
+- ❌ 본 프로토콜을 작업 종료 후 일괄 처리로 미루기 — 인지 즉시가 원칙
+
 ## 작업 디렉토리 규칙
 
 - **코드 수정**: 프로젝트 워크트리에서 작업 (`projects/해당프로젝트/worktrees/common-data-airflow/`)
@@ -243,6 +311,7 @@ bq --project_id=hellobot-f445c head --max_rows=5 hellobot-f445c:hlb_mart.mart_us
 0. **과업 유형 식별** — 요청을 A/B/C/D 로 분류 (상단 표 참조)
 1. **infra-map 로드** — `common-data-airflow/docs/hellobot-data/catalog/infra-map.md` (3분, 항상 먼저)
 2. **프로젝트 문서 확인** — 요구사항·배경·기존 설계 파악 (`projects/해당프로젝트/`)
+2.5. **★ 새 룰·정책 인지 점검** — 작업 도중 카탈로그 미반영 룰을 인지했나? 인지 즉시 [§카탈로그 갱신 프로토콜](#카탈로그-갱신-프로토콜-작업-중-새-룰정책-발견-시-) 진입 (작업 종료 후 일괄 처리 금지)
 
 ### 유형 A — 성과 분석 계획 / 이벤트 설계
 
