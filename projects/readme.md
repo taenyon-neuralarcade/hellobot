@@ -307,7 +307,7 @@ git worktree add ../projects/YYYYMMDD-feature-name/worktrees/hellobot-server fea
 
 | 산출물 | 원위치 (프로젝트) | 승격 위치 |
 |--------|------------------|----------|
-| 데이터 카탈로그 | `planning/` | `common-data-airflow/docs/hellobot/catalog/` |
+| 데이터 카탈로그 | `planning/` | `common-data-airflow/docs/hellobot-data/catalog/` |
 
 (없으면 "없음" 으로 표기)
 
@@ -555,7 +555,9 @@ git worktree add ../projects/YYYYMMDD-feature-name/worktrees/hellobot-server fea
 
 | 날짜 | 프로젝트명 | 상태 | 설명 |
 |------|-----------|------|------|
-| 2026-04-22 | [data-infra-documentation](./20260422-data-infra-documentation/) | 완료 (2026-04-22) | HelloBot 데이터 카탈로그를 `common-data-airflow/docs/hellobot/catalog/` 로 이전 + 동기화 규칙 신설 ([PR #176](https://github.com/thingsflow/common-data-airflow/pull/176)). ISS-001 해결, ISS-002~011 SSOT 이전 |
+| 2026-04-23 | [admin-performance](./20260423-admin-performance/) | 설계완료 · 구현대기 | AdminJS dev 환경 초기 로드 지연 해결 — dev Secrets Manager에 `NODE_ENV=production` 추가 + 서버 번들 프리빌드·compression 방어 |
+| 2026-04-22 | [data-infra-documentation-v2](./20260422-data-infra-documentation-v2/) | 진행중 (장기) | 데이터 카탈로그 SSOT 점진적 보강 — 1차 인계 백로그 + 다른 프로젝트 진행 중 식별되는 카탈로그 확장 누적 |
+| 2026-04-22 | [data-infra-documentation](./20260422-data-infra-documentation/) | 완료 (2026-04-22) | HelloBot 데이터 카탈로그를 `common-data-airflow/docs/hellobot-data/catalog/` 로 이전 + 동기화 규칙 신설 ([PR #176](https://github.com/thingsflow/common-data-airflow/pull/176)). ISS-001 해결, ISS-002~011 SSOT 이전. 후속: data-infra-documentation-v2 |
 | 2026-04-15 | [workspace-ops-improvement](./20260415-workspace-ops-improvement/) | 완료 | 프로젝트 문서 구조 개선 — 중복 제거, 단일 소스 확립, design.md→architecture.md 명칭 변경 |
 | 2026-04-11 | [workspace-setup](./20260411-workspace-setup/) | 시범운영 | 통합 개발 환경 구축 — 구조/문서/커맨드 완료, coop-integration으로 검증 중 |
 | 2026-03-24 | [coop-integration](./20260324-coop-integration/) | 개발중 | 카카오 선물하기 상품권 연동 — Phase 1 아키텍처 개편 완료(서버/iOS/Android/웹 구현 완료), QA 검증 및 배포 대기 |

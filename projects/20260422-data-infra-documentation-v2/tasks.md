@@ -42,41 +42,41 @@
 
 ### 우선순위: 높음
 
-- [ ] **Firebase 이벤트 파라미터 스펙 보강** — `analytics_164027297.events_*` 직접 조회로 주요 이벤트의 `event_params` 키·타입·필수여부 확인 후 [`catalog/event-catalog.md §4-1`](../../common-data-airflow/docs/hellobot/catalog/event-catalog.md) 각 이벤트의 파라미터 표 채우기
+- [ ] **Firebase 이벤트 파라미터 스펙 보강** — `analytics_164027297.events_*` 직접 조회로 주요 이벤트의 `event_params` 키·타입·필수여부 확인 후 [`catalog/event-catalog.md §4-1`](../../common-data-airflow/docs/hellobot-data/catalog/event-catalog.md) 각 이벤트의 파라미터 표 채우기
   - **출처**: 2026-04-22 v2 시작 시점 식별 — 이벤트 설계 시 파라미터 스펙 부재로 재사용 vs 신규 판별 정확도 저하
-  - **외부 의존**: BQ 직접 조회 필요 (쿼리 템플릿: [`catalog/external-tasks.md A-2`](../../common-data-airflow/docs/hellobot/catalog/external-tasks.md))
+  - **외부 의존**: BQ 직접 조회 필요 (쿼리 템플릿: [`catalog/external-tasks.md A-2`](../../common-data-airflow/docs/hellobot-data/catalog/external-tasks.md))
   - **영향**: 이벤트 설계 정확성 + 신규 이벤트 재사용 판별 + 향후 dbt sources.yml 자동 생성 기반
   - **산출물**: `event-catalog.md §4-1` 각 이벤트의 파라미터 표 + §5 "파라미터 스키마 확인 범위" 갱신 (현재 6종 → 전체)
   - **권장 범위**: P0 마트(`union_mart_user_key_actions` 계보 9건)에서 사용되는 이벤트 약 20종 우선
 
 ### 우선순위: 중간
 
-- [x] **`.claude/commands/dev-data.md` §파티션 필터 표 갱신 — `analytics_164027297.server_events` 행** (2026-04-27, [ISS-012](../../common-data-airflow/docs/hellobot/catalog/issues.md) 해결)
+- [x] **`.claude/commands/dev-data.md` §파티션 필터 표 갱신 — `analytics_164027297.server_events` 행** (2026-04-27, [ISS-012](../../common-data-airflow/docs/hellobot-data/catalog/issues.md) 해결)
   - **출처**: 2026-04-27 `/review` 검증 — server_events 파티션 컬럼은 `event_timestamp` (TIMESTAMP) 인데 가이드는 `event_date = ...` 로 잘못 안내. 따라가면 32GB 풀스캔 가능
   - **수정 완료**: 파티션 필터 표의 server_events 행을 `WHERE DATE(TIMESTAMP_TRUNC(event_timestamp, DAY), 'Asia/Seoul') = ...` 로 변경 (검증된 0.9MB 패턴) + ISS-012 cross-link
   - **위치**: 워크스페이스 `.claude/commands/dev-data.md` — 워크스페이스 단일 변경, 데이터 리포 커밋과 별도
 
-- [ ] **ID/이름 페어 발송 규칙 미준수 이벤트 보강** ([ISS-015](../../common-data-airflow/docs/hellobot/catalog/issues.md))
+- [ ] **ID/이름 페어 발송 규칙 미준수 이벤트 보강** ([ISS-015](../../common-data-airflow/docs/hellobot-data/catalog/issues.md))
   - **출처**: 2026-04-27 페어 규칙 명문화 + Notion 설계 DB 검토 후 케이스 분기
   - **케이스 A** (Notion 설계 누락 — 재설계 필요): `touch_result_image_message`, `delete_result_image_storage`
   - **케이스 B** (설계 준수, 구현 누락 — 발송 코드만 보강, **우선순위 1**): `touch_result_image_item`
-  - **케이스 C** (서버 이벤트, 설계 문서 부재): `use_attribute` (299K/일), `update_attribute` (268K/일), `receive_user_message` (161K/일) — 서버 이벤트 설계 문서 위치 확인 후 처리 ([external-tasks A-5](../../common-data-airflow/docs/hellobot/catalog/external-tasks.md))
+  - **케이스 C** (서버 이벤트, 설계 문서 부재): `use_attribute` (299K/일), `update_attribute` (268K/일), `receive_user_message` (161K/일) — 서버 이벤트 설계 문서 위치 확인 후 처리 ([external-tasks A-5](../../common-data-airflow/docs/hellobot-data/catalog/external-tasks.md))
   - **케이스 D** (별도 ISS-016): `view_skill_feedback` — 소스·파라미터 모두 불일치, 별도 추적
 
-- [ ] **`view_skill_feedback` 코드↔Notion 설계 불일치 정리** ([ISS-016](../../common-data-airflow/docs/hellobot/catalog/issues.md))
+- [ ] **`view_skill_feedback` 코드↔Notion 설계 불일치 정리** ([ISS-016](../../common-data-airflow/docs/hellobot-data/catalog/issues.md))
   - **출처**: 2026-04-27 Notion 설계 검토 — Notion: Server 발송, 파라미터 menu_title / 실제: Firebase 6,913건/일, menu_seq 1,851건. SSOT(event-catalog) 와 historical(Notion) 불일치
   - **결정 필요**: A) 코드 정정 (설계대로) B) SSOT 기준 카탈로그 정의 (Notion 폐기) C) 양쪽 다 활용 (의미 분리)
   - **임시**: SSOT 정책에 따라 실 운영(Firebase) 기준 카탈로그 §4-1 유지
 
-- [ ] **서버 이벤트 설계 문서 위치 확인** ([external-tasks A-5](../../common-data-airflow/docs/hellobot/catalog/external-tasks.md))
+- [ ] **서버 이벤트 설계 문서 위치 확인** ([external-tasks A-5](../../common-data-airflow/docs/hellobot-data/catalog/external-tasks.md))
   - **출처**: 2026-04-27 — Notion DB(📓 이벤트) 는 Firebase 위주. use_attribute/update_attribute/receive_user_message 같은 서버 이벤트 설계 문서가 별도 위치에 있는지 또는 부재인지 확인 필요
 
-- [ ] **이벤트 화이트리스트 의도/구현 정합화** ([ISS-014](../../common-data-airflow/docs/hellobot/catalog/issues.md))
+- [ ] **이벤트 화이트리스트 의도/구현 정합화** ([ISS-014](../../common-data-airflow/docs/hellobot-data/catalog/issues.md))
   - **출처**: 2026-04-27 Phase 0 G3 — 운영자 의도 (events_list = 1차 / `*_fb_events_list` = 2차) 와 `staging_key_events_fb.sql` 의 OR 통합 패턴이 다름. 다음 단계 SQL 들 (`intermediate_v2_metrics_*` / `staging_marketing_utm_fb` / `adhoc_mart_acquisition_with_utm*`) 은 둘 중 하나만 참조 → 한쪽만 등록 시 일부 마트 미관측 발생 가능
   - **결정 필요**: A) staging SQL 분리 (의도와 맞춤) / B) 의도를 현 구현에 맞게 재정의 / C) 양쪽 등록 권장으로 운영
   - **임시 운영**: `recipes/add-new-event.md` 의 권장대로 **분석/마트 사용 예정이면 양쪽 등록**
 
-- [ ] **`env` 필터 일관성 정리** ([ISS-013](../../common-data-airflow/docs/hellobot/catalog/issues.md))
+- [ ] **`env` 필터 일관성 정리** ([ISS-013](../../common-data-airflow/docs/hellobot-data/catalog/issues.md))
   - **출처**: 2026-04-27 Phase 0 G2 — staging SQL 은 `env IN ("production","prod")` 인데 일부 ad-hoc 함수(`hellobot_ltv_func.py`, `hackle_dashboard_2023_func.py`)는 `env = 'production'` 단일 필터. 7일 실측에 `prod` 미관측이지만 historical 가능
   - **결정 필요**: A) `prod` 폴백 제거 (단순화) vs B) 전체 함수 `IN ("production","prod")` 로 통일
   - **선결**: `prod` 가 historical 에 정말 존재했는지 확인 (예: 30일+ 범위 dry-run)
@@ -104,7 +104,7 @@
   - 깨진 워크스페이스 링크 (`.claude/*`, `references/*`) 3개 → 텍스트 표기로 변경 (외부 클론 사용자에게도 의미 통하도록)
   - `bq-access.md §2-2` 의 .gitignore 사실 불일치 → 톤 다운 + 후속 task 등록 (§우선순위 중간)
   - `event-design-guide.md §6-2` BQ 검증 쿼리 패턴 → 실측 검증 후 정확한 패턴 (`DATE(TIMESTAMP_TRUNC(event_timestamp, DAY), 'Asia/Seoul')`) 으로 교체
-  - 신규 발견: [ISS-012](../../common-data-airflow/docs/hellobot/catalog/issues.md) — `analytics_164027297.server_events` 파티션 컬럼 가이드 오류 (32GB 풀스캔 위험), 후속 task 등록
+  - 신규 발견: [ISS-012](../../common-data-airflow/docs/hellobot-data/catalog/issues.md) — `analytics_164027297.server_events` 파티션 컬럼 가이드 오류 (32GB 풀스캔 위험), 후속 task 등록
 
 - [x] **event-catalog SSOT 정책 명문화 + Notion historical DB 활용 흐름 정의** (2026-04-27)
   - **출처**: taenyon 운영 정책 — event-catalog 가 SSOT, BQ events_list 등록 = 검증된 활성, Notion 설계 DB 는 historical 참고
@@ -132,7 +132,7 @@
     - `issues.md ISS-015` 신규 등록 (Firebase 4건 + 서버 3건 미준수 실측)
   - 워크트리: `Feat/data-infra-v2-catalog-event-design`
 
-- [x] **Phase 0 G3 — 이벤트 화이트리스트 등록 절차 확정** (2026-04-27, [ISS-011](../../common-data-airflow/docs/hellobot/catalog/issues.md) 해결, [external-tasks A-1](../../common-data-airflow/docs/hellobot/catalog/external-tasks.md) 해결)
+- [x] **Phase 0 G3 — 이벤트 화이트리스트 등록 절차 확정** (2026-04-27, [ISS-011](../../common-data-airflow/docs/hellobot-data/catalog/issues.md) 해결, [external-tasks A-1](../../common-data-airflow/docs/hellobot-data/catalog/external-tasks.md) 해결)
   - **출처**: Phase 0 사전 보강 — 신규 이벤트가 운영 BQ 까지 도달하는 절차 미문서화 → 신기능 출시 시 데이터 누락 위험
   - **방법**: taenyon 운영자 5문항 인터뷰 + staging SQL 코드 스캔 검증
   - **결과**:
@@ -151,7 +151,7 @@
     - `issues.md ISS-011` 해결, `ISS-014` 신규
   - 워크트리: `Feat/data-infra-v2-catalog-event-design`
 
-- [x] **Phase 0 G2 — `server_events` 전체 스키마 + `env` 분포 검증** (2026-04-27, [external-tasks A-3](../../common-data-airflow/docs/hellobot/catalog/external-tasks.md) 해결)
+- [x] **Phase 0 G2 — `server_events` 전체 스키마 + `env` 분포 검증** (2026-04-27, [external-tasks A-3](../../common-data-airflow/docs/hellobot-data/catalog/external-tasks.md) 해결)
   - **출처**: Phase 0 사전 보강 — 신기능 성과 분석 설계 정확도 확보를 위해 server_events 의 실제 컬럼·env 분포 확정
   - **방법**: `bq show --format=prettyjson` + `env`/`platform`/`channel` 분포 1쿼리 (어제 26MB) + 7일 env 분포 (89MB)
   - **발견 1**: 카탈로그 §6 의 "주요 컬럼" 리스트(chatbot_seq, menu_seq 등)가 실제로는 staging 변환 후 컬럼 — server_events 원천에는 `event_params` REPEATED RECORD 만 존재. event-catalog.md §6 전면 재구성 (§6-1 원천 / §6-2 staging 변환 후)
@@ -168,8 +168,8 @@
 
 ## 영속 이슈 추적
 
-본 프로젝트의 영속 이슈(SSOT 의 ISS-002~011 + 신규 발견)는 [`common-data-airflow/docs/hellobot/catalog/issues.md`](../../common-data-airflow/docs/hellobot/catalog/issues.md) 에서 추적합니다. 본 파일은 과업 추적 전용.
+본 프로젝트의 영속 이슈(SSOT 의 ISS-002~011 + 신규 발견)는 [`common-data-airflow/docs/hellobot-data/catalog/issues.md`](../../common-data-airflow/docs/hellobot-data/catalog/issues.md) 에서 추적합니다. 본 파일은 과업 추적 전용.
 
 ## 외부 DB / 시스템 확인 과업
 
-[`common-data-airflow/docs/hellobot/catalog/external-tasks.md`](../../common-data-airflow/docs/hellobot/catalog/external-tasks.md) 에서 추적. 본 파일에 중복하지 않음.
+[`common-data-airflow/docs/hellobot-data/catalog/external-tasks.md`](../../common-data-airflow/docs/hellobot-data/catalog/external-tasks.md) 에서 추적. 본 파일에 중복하지 않음.

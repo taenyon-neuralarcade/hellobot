@@ -3,7 +3,7 @@
 > **원칙**: 등록만 여기서, 해결 내역은 git log + tasks.md에 남김. 상태 필드만 업데이트.
 > 이슈 발견 시 등록 → 사용자와 협의 → 필요 시 설계 반영 (여기선 코드 없음, 문서 규약) → 구현 → 상태 "해결 (YYYY-MM-DD)"
 
-> **2026-04-22 프로젝트 종료** — ISS-001 해결 처리, ISS-002~011 (10건) 은 데이터 인프라 영속 이슈로 SSOT([`common-data-airflow/docs/hellobot/catalog/issues.md`](../../common-data-airflow/docs/hellobot/catalog/issues.md))로 이전. 본 파일은 종료 시점 스냅샷이며, 추적은 SSOT에서 계속됩니다.
+> **2026-04-22 프로젝트 종료** — ISS-001 해결 처리, ISS-002~011 (10건) 은 데이터 인프라 영속 이슈로 SSOT([`common-data-airflow/docs/hellobot-data/catalog/issues.md`](../../common-data-airflow/docs/hellobot-data/catalog/issues.md))로 이전. 본 파일은 종료 시점 스냅샷이며, 추적은 SSOT에서 계속됩니다.
 
 ## 종료 시점 이슈 현황 (2026-04-22)
 
@@ -13,10 +13,10 @@
 - **심각도**: ★★★
 - **발견**: 2026-04-22 (`/dev-data` 포맷 샘플 작성 중)
 - **상태**: 해결 (2026-04-22)
-- **해결**: `docs/hellobot/tables/` 58개 파일에 deprecated 배너 부착 + 신규 카탈로그(`docs/hellobot/catalog/`) 경로 안내. PR [#176](https://github.com/thingsflow/common-data-airflow/pull/176) 머지 완료.
+- **해결**: `docs/hellobot-data/tables/` 58개 파일에 deprecated 배너 부착 + 신규 카탈로그(`docs/hellobot-data/catalog/`) 경로 안내. PR [#176](https://github.com/thingsflow/common-data-airflow/pull/176) 머지 완료.
 
 **현상**
-- `common-data-airflow/docs/hellobot/tables/mart/mart_user_daily_info.md` (295줄)가 실제 `scripts/hellobot/mart/mart_user_daily_info.sql` 과 **심각하게 불일치**
+- `common-data-airflow/docs/hellobot-data/tables/mart/mart_user_daily_info.md` (295줄)가 실제 `scripts/hellobot/mart/mart_user_daily_info.sql` 과 **심각하게 불일치**
   - 문서 주장: `sessions_count`, `engagement_score`, `churn_risk_score`, `skill_completion_rate`, ML 예측 필드 등 80+ 컬럼
   - 실제 SQL: 22개 컬럼의 단순 SELECT (사용자 마스터 × 날짜 속성만)
 - 문서의 "사용 예시 SQL"들은 **존재하지 않는 컬럼을 참조**하여 실행 불가
@@ -42,7 +42,7 @@
 - **분류**: `enhancement`
 - **심각도**: ★★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - `scripts/hellobot/mart/queries.py` 의 `mart_user_daily_info` 생성 쿼리가 `PARTITION BY` 없이 `CREATE OR REPLACE TABLE` 수행
@@ -59,7 +59,7 @@
 - **분류**: `edge-case`
 - **심각도**: ★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - `mart_skill_open_date_se.sql` 의 유일한 소스가 `hlb_mart.mart_use_skill_se` — 같은 mart 레이어의 다른 마트를 참조
@@ -77,7 +77,7 @@
 - **분류**: `enhancement`
 - **심각도**: ★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - `intermediate_ir_dashboard_metrics_fb` 는 `.sql` 파일이 없고 `scripts/hellobot/intermediate/queries.py` 내에 inline SQL 문자열로만 존재
@@ -96,7 +96,7 @@
 - **분류**: `edge-case`
 - **심각도**: ★★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - `union_mart_user_key_actions.sql` 내 `user_daily_revenue` CTE 가 생성 대상 테이블 자신(`hlb_mart_integrated.union_mart_user_key_actions`)을 `FROM` 으로 읽음
@@ -116,7 +116,7 @@
 - **분류**: `enhancement`
 - **심각도**: ★★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - 프로덕션 파이프라인(`union_mart_user_key_actions`)이 `google_sheet_sync.taenyon_temp_skill_tag_info_v2` 참조
@@ -138,7 +138,7 @@
 - **분류**: `enhancement`
 - **심각도**: ★★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - `mart_purchase_fb` 가 `manual_server_rdb.product` 참조
@@ -160,7 +160,7 @@
 - **분류**: `edge-case`
 - **심각도**: ★★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - SQL 주석: "매일 어제자 데이터를 추가/업데이트"
@@ -184,7 +184,7 @@
 - **분류**: `bug` (문서 결함, 기능 영향 없음)
 - **심각도**: ★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - `staging_key_events_fb.sql` 주석 (10행): "WEB 의 경우에는 2019-12-01 이후로 user_id 사용"
@@ -206,7 +206,7 @@
 - **분류**: `enhancement`
 - **심각도**: ★★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - `staging_key_events_fb.sql` 은 수집할 이벤트를 3개 BQ 테이블에서 LOOKUP:
@@ -233,7 +233,7 @@
 - **분류**: `bug`
 - **심각도**: ★
 - **발견**: 2026-04-22
-- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot/catalog/issues.md`)
+- **상태**: 이관 (2026-04-22, SSOT: `common-data-airflow/docs/hellobot-data/catalog/issues.md`)
 
 **현상**
 - `adhoc_mart_user_rfm_info_daily.sql` 의 `payment_segment` CASE WHEN 순서:

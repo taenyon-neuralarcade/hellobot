@@ -4,9 +4,9 @@
 
 **최근 결정 (2026-04-22)**
 - 산출물 포맷: dbt-ready (sources/schema/metrics/exposures 호환 YAML 병기)
-- 문서 위치: **[`common-data-airflow/docs/hellobot/catalog/`](../../common-data-airflow/docs/hellobot/catalog/)** (리포 내, SSOT) — 워크스페이스 `planning/` 에서 이전 완료
+- 문서 위치: **[`common-data-airflow/docs/hellobot-data/catalog/`](../../common-data-airflow/docs/hellobot-data/catalog/)** (리포 내, SSOT) — 워크스페이스 `planning/` 에서 이전 완료
 - 동기화 규칙: `common-data-airflow/CLAUDE.md` §데이터 카탈로그 동기화 (코드 PR 시 함께 갱신 의무)
-- 기존 `common-data-airflow/docs/hellobot/tables/` 는 deprecated
+- 기존 `common-data-airflow/docs/hellobot-data/tables/` 는 deprecated
 - 이슈는 종료 시점에 SSOT(`catalog/issues.md`) 로 이전 — [§종료 정보](#종료-정보) 참조
 
 ## 파트별 현황
@@ -45,13 +45,13 @@
 
 | 리포 | PR | 제목 | 머지일 |
 |------|----|----|--------|
-| common-data-airflow | [#176](https://github.com/thingsflow/common-data-airflow/pull/176) | docs: HelloBot 데이터 카탈로그를 리포 docs/hellobot/catalog/ 로 이전 + 동기화 규칙 추가 | 2026-04-22 |
+| common-data-airflow | [#176](https://github.com/thingsflow/common-data-airflow/pull/176) | docs: HelloBot 데이터 카탈로그를 리포 docs/hellobot-data/catalog/ 로 이전 + 동기화 규칙 추가 | 2026-04-22 |
 
 ### 승격된 영속 산출물
 
 | 산출물 | 원위치 | 승격 위치 |
 |--------|--------|----------|
-| 데이터 카탈로그 (infra-map · architecture · event-catalog · metric-dictionary · mart-catalog · playbook · recipes/ · tables/ · external-tasks · issues · scope-union-user-key-actions · readme) | `projects/20260422-data-infra-documentation/planning/` (워크스페이스, 삭제됨) | [`common-data-airflow/docs/hellobot/catalog/`](../../common-data-airflow/docs/hellobot/catalog/) |
+| 데이터 카탈로그 (infra-map · architecture · event-catalog · metric-dictionary · mart-catalog · playbook · recipes/ · tables/ · external-tasks · issues · scope-union-user-key-actions · readme) | `projects/20260422-data-infra-documentation/planning/` (워크스페이스, 삭제됨) | [`common-data-airflow/docs/hellobot-data/catalog/`](../../common-data-airflow/docs/hellobot-data/catalog/) |
 | 카탈로그 동기화 규칙 (코드 변경 시 카탈로그 동시 갱신 의무) | (신규) | `common-data-airflow/CLAUDE.md` §데이터 카탈로그 동기화 |
 | `/dev-data` 에이전트 카탈로그 진입 경로 | (신규) | [`.claude/commands/dev-data.md`](../../.claude/commands/dev-data.md) |
 | 데이터 인프라 진입 메모리 | (신규) | `~/.claude/.../memory/reference_data_infra_entry.md` |
@@ -60,7 +60,7 @@
 
 | ID | 분류 | 처리 | 비고 |
 |----|------|------|------|
-| ISS-001 | bug | **해결 (2026-04-22)** | `docs/hellobot/tables/` 58개 파일 deprecated 배너 부착, PR #176 머지 |
+| ISS-001 | bug | **해결 (2026-04-22)** | `docs/hellobot-data/tables/` 58개 파일 deprecated 배너 부착, PR #176 머지 |
 | ISS-002 | enhancement | **SSOT 이전** | `mart_user_daily_info` 파티션 미적용 — 영속 이슈, 별도 개선 프로젝트 대상 |
 | ISS-003 | edge-case | **SSOT 이전** | `mart_skill_open_date_se` 동일 레이어 mart 참조 — 영속 이슈 |
 | ISS-004 | enhancement | **SSOT 이전** | intermediate `.sql` / inline SQL 혼재 — 영속 이슈 |
@@ -72,7 +72,7 @@
 | ISS-010 | bug | **SSOT 이전** | `staging_key_events_fb.sql` 주석 불일치 (2019→2022) — 영속 이슈 |
 | ISS-011 | enhancement | **SSOT 이전** | 이벤트 화이트리스트 관리 절차 미문서화 — 영속 이슈, 외부 확인 필요 |
 
-> ISS-002~011 (10건) 은 모두 데이터 인프라의 영속 이슈로, 본 프로젝트(문서화 전용) 범위 외 수정 대상입니다. SSOT([`common-data-airflow/docs/hellobot/catalog/issues.md`](../../common-data-airflow/docs/hellobot/catalog/issues.md))에서 추적합니다.
+> ISS-002~011 (10건) 은 모두 데이터 인프라의 영속 이슈로, 본 프로젝트(문서화 전용) 범위 외 수정 대상입니다. SSOT([`common-data-airflow/docs/hellobot-data/catalog/issues.md`](../../common-data-airflow/docs/hellobot-data/catalog/issues.md))에서 추적합니다.
 
 ### 미완 과업 (후일 결정 보류)
 
@@ -97,7 +97,7 @@
 **선택 과업**
 - `/architect` 레이어 원칙·네이밍·태그 체계 검토 및 정비 제안
 
-**외부 DB·시스템 확인 과업** — 모두 [`common-data-airflow/docs/hellobot/catalog/external-tasks.md`](../../common-data-airflow/docs/hellobot/catalog/external-tasks.md) 에 이전되어 추적 중
+**외부 DB·시스템 확인 과업** — 모두 [`common-data-airflow/docs/hellobot-data/catalog/external-tasks.md`](../../common-data-airflow/docs/hellobot-data/catalog/external-tasks.md) 에 이전되어 추적 중
 
 ### 워크트리/브랜치 정리
 

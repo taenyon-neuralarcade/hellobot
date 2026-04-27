@@ -49,8 +49,8 @@
 
 ## 산출물 위치
 
-- **메인 카탈로그**: [`common-data-airflow/docs/hellobot/catalog/`](../../common-data-airflow/docs/hellobot/catalog/) — 2026-04-22 워크스페이스 `planning/` 에서 리포로 이전 완료 (단일 진실 원천)
-  - 진입점: [`infra-map.md`](../../common-data-airflow/docs/hellobot/catalog/infra-map.md)
+- **메인 카탈로그**: [`common-data-airflow/docs/hellobot-data/catalog/`](../../common-data-airflow/docs/hellobot-data/catalog/) — 2026-04-22 워크스페이스 `planning/` 에서 리포로 이전 완료 (단일 진실 원천)
+  - 진입점: [`infra-map.md`](../../common-data-airflow/docs/hellobot-data/catalog/infra-map.md)
   - 카탈로그 동기화 규칙: `common-data-airflow/CLAUDE.md` §데이터 카탈로그 동기화
 - **프로젝트 레벨** (이 디렉토리): 진행 기록, 의사결정 근거, 이슈 레지스트리
 - **리포 레벨** (`common-data-airflow/docs/features/20260422-data-infra-documentation/`): 분석 과정, 결정 로그, 초안
@@ -61,5 +61,5 @@
 |------|------|
 | [status.md](./status.md) | 전체 진행 상태 |
 | [tasks.md](./tasks.md) | 파트별 과업 목록 |
-| [issues.md](./issues.md) | 이슈/개선사항 추적 (사본은 `common-data-airflow/docs/hellobot/catalog/issues.md` 에 존재) |
-| **카탈로그** | [`common-data-airflow/docs/hellobot/catalog/`](../../common-data-airflow/docs/hellobot/catalog/) (메인 산출물 — 리포로 이전됨) |
+| [issues.md](./issues.md) | 이슈/개선사항 추적 (사본은 `common-data-airflow/docs/hellobot-data/catalog/issues.md` 에 존재) |
+| **카탈로그** | [`common-data-airflow/docs/hellobot-data/catalog/`](../../common-data-airflow/docs/hellobot-data/catalog/) (메인 산출물 — 리포로 이전됨) |

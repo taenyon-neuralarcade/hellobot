@@ -137,7 +137,7 @@
 - [ ] `report_coop_daily`, `report_coop_monthly` SQL + DAG task
 - [ ] `hellobot_coop_coupon_issued_ingest` DAG 신규 (쿠프마케팅 발급 데이터 적재, 수령 방식 확정 후)
 - [ ] 정산 대사 로직 — 쿠프마케팅 L1 사용 내역 vs `coupc_marketing_coupon_usage` 일치 검증
-- [ ] 데이터 카탈로그 갱신 — mart-catalog.md, event-catalog.md, metric-dictionary.md (common-data-airflow/docs/hellobot/catalog/, 코드 PR 동시 반영 필수)
+- [ ] 데이터 카탈로그 갱신 — mart-catalog.md, event-catalog.md, metric-dictionary.md (common-data-airflow/docs/hellobot-data/catalog/, 코드 PR 동시 반영 필수)
 
 ### 대시보드/리포트
 설계: performance-analysis-design.md §6
