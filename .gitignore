@@ -8,9 +8,14 @@ hellobot-report-webview/
 hellobot_android/
 hellobot_iOS/
 common-data-airflow/
+common-infra-eks-deploy/
+hellobot-mwaa/
 
 # 워크트리 (원본 리포에서 관리)
 projects/*/worktrees/
+
+# Claude Code 에이전트 임시 워크트리 (자동 생성, 비영구)
+.claude/worktrees/
 
 # OS
 .DS_Store

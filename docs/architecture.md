@@ -160,6 +160,19 @@ hellobot.co (Nginx)
 
 ## 배포
 
+### 인프라 리포지토리
+
+서비스 리포와 별도로, 배포 매니페스트·환경 설정을 관리하는 인프라 전용 리포가 있습니다. 변경은 `/dev-infra` 에이전트가 담당합니다.
+
+| 리포 | 역할 | 메인 브랜치 |
+|------|------|-----------|
+| `common-infra-eks-deploy` | EKS 클러스터 kustomize 매니페스트. `base/` + `overlays/hlb/{env}/[apn1]/{service}/` (env: dev/stg/prod, apn1=도쿄, apn2(생략)=서울). ArgoCD는 `app-of-apps/` Helm chart로 관리. Secret은 secrets-store CSI + AWS Secrets Manager | `main` |
+| `hellobot-mwaa` | Airflow DAG 리포. 현재 DAG들을 K8s CronJob으로 마이그레이션 진행 중이라 역할 축소 중. `dags/` 단일 디렉토리 | `master` |
+
+- **서비스 리포 (예: hellobot-server)**: 애플리케이션 코드 + Dockerfile. 빌드 이미지를 ECR에 push하고 `common-infra-eks-deploy` 의 kustomize image tag를 자동 갱신(`kustomize edit set image`).
+- **common-infra-eks-deploy**: ArgoCD가 이 리포를 바라보며 k8s 클러스터에 적용. env/region별 overlay에서 replicas·env·리소스 스펙 관리.
+- **환경변수·시크릿 변경**: 서비스 리포가 아닌 `common-infra-eks-deploy` 에서 처리. `/dev-infra` 커맨드 참조.
+
 ### 배포 브랜치 및 파이프라인
 
 | 리포 | 피쳐 기준 브랜치 | 개발 배포 브랜치 | 운영 배포 브랜치 | 파이프라인 | 배포 대상 |

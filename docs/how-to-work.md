@@ -111,6 +111,7 @@ hellobot/                              ← 워크스페이스 루트 (여기서 
 | `/dev-web` | 웹 개발자 | 웹 프론트엔드 구현 | hellobot-web 등 |
 | `/dev-studio` | 스튜디오 개발자 | 챗봇 빌더 기능 구현 | studio-server/web |
 | `/dev-data` | 데이터 엔지니어 | ETL 파이프라인, BigQuery 마트 | common-data-airflow |
+| `/dev-infra` | 인프라 담당 | k8s 매니페스트·환경변수·시크릿·MWAA | common-infra-eks-deploy, hellobot-mwaa |
 | `/review` | 코드 리뷰어 | 코드 품질, 파트 간 정합성 검증 | 변경된 리포 전체 |
 | `/workspace` | 워크스페이스 관리자 | 문서 정합성 점검, 상태 최신화 | 워크스페이스 문서 |
 
