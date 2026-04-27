@@ -1,0 +1,7 @@
+category,period,charges,charge_krw,refunds,refund_krw,refund_rate_pct
+product,1_pre_2.29.5(3/04-3/17),5080,98663449.0,169,-2373600.0,3.33
+product,2_post_2.29.5(3/18-3/31),4811,94833866.0,36,-594200.0,0.75
+product,3_stable_post(4/01-4/14),4823,92051992.0,16,-255500.0,0.33
+subscription,1_pre_2.29.5(3/04-3/17),311,7973772.0,9,-234000.0,2.89
+subscription,2_post_2.29.5(3/18-3/31),274,7027841.0,7,-182000.0,2.55
+subscription,3_stable_post(4/01-4/14),280,7193817.0,0,,0.0

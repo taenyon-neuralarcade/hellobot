@@ -1,0 +1,17 @@
+account,src_month,tx_type,n_rows,sum_krw
+legacy,2025-02,Charge,3872,78019431.0
+legacy,2025-02,Charge refund,293,-4972764.0
+legacy,2025-02,Google fee,3872,-11702926.0
+legacy,2025-02,Google fee refund,293,745916.0
+new,2025-02,Charge,6814,134673734.0
+new,2025-02,Charge refund,390,-7333323.0
+new,2025-02,Google fee,6814,-20201075.0
+new,2025-02,Google fee refund,390,1100006.0
+new,2025-03,Charge,11657,232922851.0
+new,2025-03,Charge refund,298,-4784500.0
+new,2025-03,Google fee,11657,-34938488.0
+new,2025-03,Google fee refund,298,717675.0
+new,2025-04,Charge,9899,190952713.0
+new,2025-04,Charge refund,31,-556200.0
+new,2025-04,Google fee,9899,-28642953.0
+new,2025-04,Google fee refund,31,83430.0

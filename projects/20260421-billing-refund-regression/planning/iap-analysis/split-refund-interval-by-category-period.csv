@@ -1,0 +1,18 @@
+category,period,interval_bucket,n
+product,1_pre_2.29.5,0-3일,798
+product,1_pre_2.29.5,4-7일,35
+product,1_pre_2.29.5,8-14일,1
+product,2_post_2.29.5,0-3일,28
+product,2_post_2.29.5,4-7일,8
+product,2_post_2.29.5,8-14일,1
+product,3_later,0-3일,26
+product,3_later,31일+,2
+subscription,1_pre_2.29.5,0-3일,19
+subscription,1_pre_2.29.5,4-7일,1
+subscription,2_post_2.29.5,0-3일,2
+subscription,2_post_2.29.5,15-30일,2
+subscription,2_post_2.29.5,31일+,2
+subscription,2_post_2.29.5,4-7일,1
+subscription,3_later,0-3일,1
+subscription,3_later,31일+,1
+,1_pre_2.29.5,매칭 실패,84

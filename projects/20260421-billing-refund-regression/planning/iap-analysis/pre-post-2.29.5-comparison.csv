@@ -1,0 +1,4 @@
+period,charges,charge_krw,refunds,refund_krw,refund_rate_pct,unique_buyers_or_orders
+1_pre_2.29.5(3/04-3/17),5391,106637221.0,178,-2607600.0,3.3,5391
+2_post_2.29.5(3/18-3/31),5085,101861707.0,43,-776200.0,0.85,5085
+3_stable_post(4/01-4/14),5103,99245809.0,16,-255500.0,0.31,5103

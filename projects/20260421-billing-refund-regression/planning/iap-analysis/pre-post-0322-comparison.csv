@@ -1,0 +1,3 @@
+period,charges,charge_unique_orders,charge_krw,refunds,refund_unique_orders,refund_krw,refund_rate_pct,days_in_period,avg_daily_charges,avg_daily_refunds
+post_0322,10732,10732,211521403.0,55,55,-976500.0,0.51,30,357.73,1.83
+pre_0322,10526,10526,209687980.0,400,400,-6518800.0,3.8,28,375.93,14.29

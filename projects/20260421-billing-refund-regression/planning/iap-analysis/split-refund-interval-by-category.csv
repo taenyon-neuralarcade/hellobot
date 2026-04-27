@@ -1,0 +1,10 @@
+category,interval_bucket,n,refund_krw
+product,0-3일 (Google 72h 자동 환불 범위),852,-14833787.0
+product,4-7일,43,-488400.0
+product,8-14일,2,-29500.0
+product,31-60일,2,-23900.0
+subscription,0-3일 (Google 72h 자동 환불 범위),22,-572000.0
+subscription,4-7일,2,-52000.0
+subscription,15-30일,2,-52000.0
+subscription,31-60일,3,-78000.0
+,"매칭 실패(Charge 레코드 없음, 이전 달)",84,-1517200.0

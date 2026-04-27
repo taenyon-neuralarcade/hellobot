@@ -1,0 +1,3 @@
+category,charges,charge_unique_orders,charge_krw,refunds,refund_unique_orders,refund_krw,refund_rate_pct,net_krw
+product,30409,30409,589546245.0,982,982,-16866787.0,3.23,572679458.0
+subscription,1833,1082,47022484.0,30,30,-780000.0,1.64,46242484.0
