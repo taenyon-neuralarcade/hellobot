@@ -182,7 +182,7 @@ hellobot.co (Nginx)
 | hellobot-studio-web | `master` | `deploy-dev` | `deploy` | GitHub Actions → S3 + CloudFront | CDN |
 | hellobot-web | `main` | `deploy-dev` | `deploy-prod` | GitHub Actions → Docker(ECR) → ArgoCD | Kubernetes |
 | hellobot-webview | `main` | `deploy-dev` | `main` | ArgoCD | Kubernetes |
-| hellobot-report-webview | `main` | `dev-report-web-deploy` | `prod-report-web-deploy` | GitHub Actions → Docker | Kubernetes |
+| hellobot-report-webview | `main` | `dev-report-web-deploy` (피쳐 직접 머지) | `prod-report-web-deploy` (main 머지) | AWS Amplify (브랜치 push → 자동 빌드) | Amplify Hosting (CloudFront) |
 | hellobot_android | `develop` | 피쳐 브랜치 (GH Actions 수동 dispatch, Dev 빌드) | 피쳐 브랜치 (GH Actions 수동 dispatch, Prd 빌드) | GitHub Actions → Firebase App Distribution | Firebase App Distribution |
 | hellobot_iOS | `develop` | 피쳐 브랜치 (로컬 `testflight_beta_upload`) | 피쳐 브랜치 (로컬 `testflight_upload` / `submit`) | Fastlane → TestFlight / App Store | TestFlight / App Store |
 | common-data-airflow | `develop` | — | 수동 (`git pull`) | Kubernetes (Airflow) |
