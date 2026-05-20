@@ -138,12 +138,12 @@ ORDER BY 1, 2
 
 | # | 파일 | 라인 (현재 age_generation) |
 |---|---|---|
-| 1 | `scripts/hellobot/mart_integrated/union_mart_user_key_actions.sql` | 942 (`AS age_generation`) — **+ ALTER description 추가** |
-| 2 | `scripts/hellobot/mart_integrated/union_mart_use_skill_and_user_daily.sql` | 158 |
-| 3 | `scripts/hellobot/mart_integrated/union_mart_use_skill_from_home_banner.sql` | 238 |
-| 4 | `scripts/hellobot/mart_integrated/union_mart_use_skill_from_search_result.sql` | 226 |
-| 5 | `scripts/hellobot/mart_integrated/union_mart_use_skill_from_exhibition_page.sql` | 240 |
-| 6 | `scripts/hellobot/mart_adhoc/adhoc_mart_user_key_actions_for_targeting.sql` | 595 |
+| 1 | `dags/scripts/hellobot/mart_integrated/union_mart_user_key_actions.sql` | 942 (`AS age_generation`) — **+ ALTER description 추가** |
+| 2 | `dags/scripts/hellobot/mart_integrated/union_mart_use_skill_and_user_daily.sql` | 158 |
+| 3 | `dags/scripts/hellobot/mart_integrated/union_mart_use_skill_from_home_banner.sql` | 238 |
+| 4 | `dags/scripts/hellobot/mart_integrated/union_mart_use_skill_from_search_result.sql` | 226 |
+| 5 | `dags/scripts/hellobot/mart_integrated/union_mart_use_skill_from_exhibition_page.sql` | 240 |
+| 6 | `dags/scripts/hellobot/mart_adhoc/adhoc_mart_user_key_actions_for_targeting.sql` | 595 |
 
 각 파일에서 `age_generation` CASE 블록 **바로 아래** 동일 들여쓰기로 `age_group_5yr` CASE 추가.
 
@@ -203,6 +203,69 @@ LIMIT 100
 
 → `user_age` 가 어떤 기준으로 계산되었는지 (만 나이 / 한국 나이 / 단순 `현재년 - birth_year`) 검증. 그 결과를 `age_group_5yr` description 에도 정확히 명시.
 
+### 7-3. 검증 결과 (Phase 1 — 2026-05-16 실측)
+
+> 실행자: `/dev-data` · 실행일 KST 2026-05-16 · 누적 스캔 ~7.7 MB
+
+#### NULL 비중 (최근 7일 `hlb_mart_integrated.union_mart_user_key_actions`)
+
+| event_date | total_rows | null_birth_year | null_age | null_ratio |
+|---|---|---|---|---|
+| 2026-05-09 | 62,632 | 21,376 | 21,376 | 34.1% |
+| 2026-05-10 | 63,891 | 25,195 | 25,195 | 39.4% |
+| 2026-05-11 | 61,866 | 23,218 | 23,218 | 37.5% |
+| 2026-05-12 | 56,740 | 20,696 | 20,696 | 36.5% |
+| 2026-05-13 | 52,799 | 19,783 | 19,783 | 37.5% |
+| 2026-05-14 | 50,072 | 17,404 | 17,404 | 34.8% |
+| 2026-05-15 | 54,110 | 20,518 | 20,518 | 37.9% |
+| **평균** | **57,444** | **21,170** | **21,170** | **~36.8%** |
+
+- `null_birth_year ≡ null_age`, `age_null_but_birth_year_present = 0` → `user_age` 는 `user_birth_year` 에서 파생되며 두 컬럼은 페어. NULL 일관성 OK.
+- 사용자 사전 게이트 30% 초과 → 진행 여부 결정 요청
+
+#### `user_age` 계산 기준 — **단순 연도차** (만 나이 아님)
+
+100개 샘플 모두 다음 4개 값이 동일:
+- `user_age`
+- `EXTRACT(YEAR FROM event_date) - SAFE_CAST(user_birth_year AS INT64)` (simple_year_diff)
+- `DATE_DIFF(event_date, DATE(birth_year, 1, 1), YEAR)` (age_if_jan1)
+- `DATE_DIFF(event_date, DATE(birth_year, 12, 31), YEAR)` (age_if_dec31)
+
+→ `user_age` 는 출생년만 가지고 **`EXTRACT(YEAR FROM event_date) - user_birth_year`** (소위 "한국식 빠른 나이") 로 계산. 만 나이 X.
+
+**영향**:
+- §2 본문 "13-15만 3년 (만 13세부터 user_age 적재)" 표현 정정 필요 → "단순 연도차 13세부터" 가 정확
+- `age_group_5yr` 도 동일 기준으로 분류됨 → 컬럼 description / 카탈로그에 "기준: 출생년도 단순 연도차" 명시 필요
+
+#### 컬럼 타입 실측 (BQ `show` 기준)
+
+| 컬럼 | 타입 | 비고 |
+|---|---|---|
+| `event_date` | DATE | |
+| `user_id` | STRING | |
+| `user_birth_year` | **STRING** | INT 가정 검증 쿼리에서 타입 오류 발생 → CAST 필요 |
+| `user_age` | INTEGER | 예상 일치 |
+| `age_group` | STRING | |
+| `age_generation` | STRING | |
+
+**영향**:
+- 본 architecture.md §7-1 검증 쿼리·§4 recipe 패턴 A/B 의 `DATE(user_birth_year, 1, 1)` 표현 → `DATE(SAFE_CAST(user_birth_year AS INT64), 1, 1)` 로 수정 필요
+- 6개 SQL 의 `age_group_5yr` CASE 는 `user_age` (INT) 만 사용 → SQL 변경 자체에는 영향 없음
+- recipe 신규 작성 시 `SAFE_CAST` 적용 필수
+
+#### 이상치
+
+- `user_age = 0` 사례 존재 (`user_birth_year = '2026'`) — `ELSE '정보없음'` 으로 자동 흡수, 별도 처리 불필요
+- (참고) 음수 (`user_birth_year > 현재년`) 케이스도 동일하게 `정보없음` 으로 흘러감
+
+#### 카탈로그 갱신 후보 (사용자 승인 후 처리)
+
+| 항목 | 위치 | 현재 | 제안 |
+|---|---|---|---|
+| `user_birth_year` 타입 STRING | `catalog/tables/mart_integrated/union_mart_user_key_actions.md` §사용자 기본 컬럼 | 컬럼명만 줄글, 타입 없음 | 본 프로젝트 Phase 4 에서 새 `age_group_5yr` 추가 시 함께 컬럼표(타입 포함)로 정형화 |
+| `user_age` 가 만 나이 아닌 "단순 연도차" | 위 동일 | 정의 없음 | 컬럼 description 에 "기준: `EXTRACT(YEAR FROM event_date) - user_birth_year` (단순 연도차, 만 나이 아님)" 명시 |
+| §검증 쿼리 INT 가정 | 본 architecture.md §7-1 | INT 가정 | §7-1 쿼리도 `SAFE_CAST` 로 보정 (위 §7-3 확정 후) |
+
 ### 7-2. 변경 후 검증
 
 ```sql
@@ -243,3 +306,5 @@ ORDER BY 1, 2
 | 날짜 | 이슈 | 변경 내용 |
 |------|------|----------|
 | 2026-05-13 | 초안 | architecture.md 초안 — 버킷 정의·분류 시점 결정·6개 SQL 적용 범위·recipe 표준화 방침 |
+| 2026-05-16 | Phase 1 검증 | §7-3 검증 결과 추가 — NULL ~36.8% (사전 게이트 30% 초과), `user_age` = 단순 연도차(만나이 아님), `user_birth_year` STRING 발견, 카탈로그 갱신 후보 3건 식별 |
+| 2026-05-16 | Phase 3 경로 정정 | §5 의 SQL 파일 경로 `scripts/hellobot/...` → `dags/scripts/hellobot/...` 정정 (실 위치 기준) |
