@@ -1,0 +1,2 @@
+project_id,key_id,display_name,create_time,is_legacy,is_firebase_auto,app_restriction,api_restriction,gemini_allowed,gemini_enabled,vertex_enabled,recent_genlang_calls_7d,risk,recommended_action
+gen-lang-client-0627053898,09814bf7-676f-4bd0-8413-f3e2777c628c,"Generative Language API Key",2025-02-06T01:23:58.241117Z,no,no,NONE,"restricted:generativelanguage.googleapis.com",YES (in allowlist),1,1,skipped,HIGH,"API restrictions에서 Generative Language API 제거"

@@ -1,0 +1,75 @@
+Active account: tony@dlt-partners.com
+Listing accessible projects...
+  -> 245 project(s) found.
+
+════════════════════════════════════════════════════════
+Project: actions-codelab-957de
+════════════════════════════════════════════════════════
+  Generative Language API : disabled
+  Vertex AI API           : disabled
+  API Keys                : 2
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  78506858-6e30-4993-8446-62e114c0 2018-10-31T10:32:16    YES     no        SET          UNRESTRICTED WARN      
+    └─ 권장: Gemini API 비활성이지만 향후 활성화 시 위험 - restrictions 적용 권장
+  7613b808-0f84-468b-998f-afe4e19d 2018-10-31T10:32:15    YES     no        SET          restricted   OK        
+
+════════════════════════════════════════════════════════
+Project: ai-product-417102
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : ENABLED
+  API Keys                : 2
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  6d1f37aa-0af5-409f-81b0-56710fb1 2024-04-04T02:26:33    YES     no        NONE         UNRESTRICTED CRITICAL  
+    └─ 권장: 즉시 API restrictions 적용 (Firebase 관련 API만 허용) + 키 rotate
+  ae5a3711-4b6a-48ae-b7ad-c6e17169 2024-03-13T02:19:51    YES     no        NONE         UNRESTRICTED CRITICAL  
+    └─ 권장: 즉시 API restrictions 적용 (Firebase 관련 API만 허용) + 키 rotate
+
+════════════════════════════════════════════════════════
+Project: ai-project-454009
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : ENABLED
+  API Keys                : 1
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  23d59b64-ab7c-4fc6-b162-30e2a926 2025-04-17T01:39:06    no      no        NONE         restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+
+════════════════════════════════════════════════════════
+Project: ai-rule-auto-gen-test-hshan
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : disabled
+  API Keys                : 2
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  f6e59b43-f708-42fc-9a12-144329e1 2025-08-04T10:19:43    no      no        SET          restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+  57ea0b81-158c-4456-a753-10522bae 2025-08-04T09:59:47    no      no        SET          restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+
+════════════════════════════════════════════════════════
+Project: anonymous-logs-between
+════════════════════════════════════════════════════════
+  Generative Language API : disabled
+  Vertex AI API           : ENABLED
+  API Keys                : 1
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  116 (test key1)                  2016-11-17T06:49:07    YES     no        SET          UNRESTRICTED WARN      
+    └─ 권장: Gemini API 비활성이지만 향후 활성화 시 위험 - restrictions 적용 권장
+
+════════════════════════════════════════════════════════
+Project: anonymous-logs-between-for-dev
+════════════════════════════════════════════════════════

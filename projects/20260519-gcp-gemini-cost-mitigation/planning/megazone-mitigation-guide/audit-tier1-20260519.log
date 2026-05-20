@@ -1,0 +1,226 @@
+Active account: tony@dlt-partners.com
+
+════════════════════════════════════════════════════════
+Project: ai-product-417102
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : ENABLED
+  API Keys                : 2
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  6d1f37aa-0af5-409f-81b0-56710fb1 2024-04-04T02:26:33    YES     no        NONE         UNRESTRICTED CRITICAL  
+    └─ 권장: 즉시 API restrictions 적용 (Firebase 관련 API만 허용) + 키 rotate
+  ae5a3711-4b6a-48ae-b7ad-c6e17169 2024-03-13T02:19:51    YES     no        NONE         UNRESTRICTED CRITICAL  
+    └─ 권장: 즉시 API restrictions 적용 (Firebase 관련 API만 허용) + 키 rotate
+
+════════════════════════════════════════════════════════
+Audit Summary
+════════════════════════════════════════════════════════
+  Projects scanned : 1
+  CRITICAL findings : 2
+  HIGH     findings : 0
+  WARN     findings : 0
+  CSV report       : ../audit-tier1-20260519.csv
+
+다음 단계 (수동 조치 권장):
+  1) CRITICAL/HIGH 키 → Console > APIs & Services > Credentials
+     - API restrictions 적용 (Firebase 관련 API만 허용)
+     - Application restrictions(referrer/IP/app) 적용
+  2) Gemini API를 사용하지 않는 프로젝트:
+     gcloud services disable generativelanguage.googleapis.com --project=PROJECT_ID
+  3) 노출 이력 있는 키는 신규 발급 후 교체(rotate) 및 기존 키 삭제
+  4) Billing Console에서 SKU 'Generate content*' 비정상 과금 확인
+Active account: tony@dlt-partners.com
+
+════════════════════════════════════════════════════════
+Project: ai-project-454009
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : ENABLED
+  API Keys                : 1
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  23d59b64-ab7c-4fc6-b162-30e2a926 2025-04-17T01:39:06    no      no        NONE         restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+
+════════════════════════════════════════════════════════
+Audit Summary
+════════════════════════════════════════════════════════
+  Projects scanned : 1
+  CRITICAL findings : 0
+  HIGH     findings : 1
+  WARN     findings : 0
+  CSV report       : ../audit-tier1-20260519.csv
+
+다음 단계 (수동 조치 권장):
+  1) CRITICAL/HIGH 키 → Console > APIs & Services > Credentials
+     - API restrictions 적용 (Firebase 관련 API만 허용)
+     - Application restrictions(referrer/IP/app) 적용
+  2) Gemini API를 사용하지 않는 프로젝트:
+     gcloud services disable generativelanguage.googleapis.com --project=PROJECT_ID
+  3) 노출 이력 있는 키는 신규 발급 후 교체(rotate) 및 기존 키 삭제
+  4) Billing Console에서 SKU 'Generate content*' 비정상 과금 확인
+Active account: tony@dlt-partners.com
+
+════════════════════════════════════════════════════════
+Project: gen-lang-client-0170471706
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : disabled
+  API Keys                : 1
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  d01d65d3-87b0-4d38-9d1f-811a11f7 2026-05-06T02:37:50    no      no        NONE         restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+
+════════════════════════════════════════════════════════
+Audit Summary
+════════════════════════════════════════════════════════
+  Projects scanned : 1
+  CRITICAL findings : 0
+  HIGH     findings : 1
+  WARN     findings : 0
+  CSV report       : ../audit-tier1-20260519.csv
+
+다음 단계 (수동 조치 권장):
+  1) CRITICAL/HIGH 키 → Console > APIs & Services > Credentials
+     - API restrictions 적용 (Firebase 관련 API만 허용)
+     - Application restrictions(referrer/IP/app) 적용
+  2) Gemini API를 사용하지 않는 프로젝트:
+     gcloud services disable generativelanguage.googleapis.com --project=PROJECT_ID
+  3) 노출 이력 있는 키는 신규 발급 후 교체(rotate) 및 기존 키 삭제
+  4) Billing Console에서 SKU 'Generate content*' 비정상 과금 확인
+Active account: tony@dlt-partners.com
+
+════════════════════════════════════════════════════════
+Project: gen-lang-client-0403158203
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : disabled
+  API Keys                : 1
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  138de159-9666-4b7f-bd94-2d2dd5d3 2026-04-27T14:00:48    no      no        NONE         restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+
+════════════════════════════════════════════════════════
+Audit Summary
+════════════════════════════════════════════════════════
+  Projects scanned : 1
+  CRITICAL findings : 0
+  HIGH     findings : 1
+  WARN     findings : 0
+  CSV report       : ../audit-tier1-20260519.csv
+
+다음 단계 (수동 조치 권장):
+  1) CRITICAL/HIGH 키 → Console > APIs & Services > Credentials
+     - API restrictions 적용 (Firebase 관련 API만 허용)
+     - Application restrictions(referrer/IP/app) 적용
+  2) Gemini API를 사용하지 않는 프로젝트:
+     gcloud services disable generativelanguage.googleapis.com --project=PROJECT_ID
+  3) 노출 이력 있는 키는 신규 발급 후 교체(rotate) 및 기존 키 삭제
+  4) Billing Console에서 SKU 'Generate content*' 비정상 과금 확인
+Active account: tony@dlt-partners.com
+
+════════════════════════════════════════════════════════
+Project: gen-lang-client-0465592155
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : disabled
+  API Keys                : 1
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  49683251-4aed-463f-a8b5-da15e8ae 2026-04-08T02:21:14    no      no        NONE         restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+
+════════════════════════════════════════════════════════
+Audit Summary
+════════════════════════════════════════════════════════
+  Projects scanned : 1
+  CRITICAL findings : 0
+  HIGH     findings : 1
+  WARN     findings : 0
+  CSV report       : ../audit-tier1-20260519.csv
+
+다음 단계 (수동 조치 권장):
+  1) CRITICAL/HIGH 키 → Console > APIs & Services > Credentials
+     - API restrictions 적용 (Firebase 관련 API만 허용)
+     - Application restrictions(referrer/IP/app) 적용
+  2) Gemini API를 사용하지 않는 프로젝트:
+     gcloud services disable generativelanguage.googleapis.com --project=PROJECT_ID
+  3) 노출 이력 있는 키는 신규 발급 후 교체(rotate) 및 기존 키 삭제
+  4) Billing Console에서 SKU 'Generate content*' 비정상 과금 확인
+Active account: tony@dlt-partners.com
+
+════════════════════════════════════════════════════════
+Project: gen-lang-client-0605251657
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : disabled
+  API Keys                : 1
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  74bffccc-8358-412e-bfbc-82d43dd6 2026-04-07T11:42:49    no      no        NONE         restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+
+════════════════════════════════════════════════════════
+Audit Summary
+════════════════════════════════════════════════════════
+  Projects scanned : 1
+  CRITICAL findings : 0
+  HIGH     findings : 1
+  WARN     findings : 0
+  CSV report       : ../audit-tier1-20260519.csv
+
+다음 단계 (수동 조치 권장):
+  1) CRITICAL/HIGH 키 → Console > APIs & Services > Credentials
+     - API restrictions 적용 (Firebase 관련 API만 허용)
+     - Application restrictions(referrer/IP/app) 적용
+  2) Gemini API를 사용하지 않는 프로젝트:
+     gcloud services disable generativelanguage.googleapis.com --project=PROJECT_ID
+  3) 노출 이력 있는 키는 신규 발급 후 교체(rotate) 및 기존 키 삭제
+  4) Billing Console에서 SKU 'Generate content*' 비정상 과금 확인
+Active account: tony@dlt-partners.com
+
+════════════════════════════════════════════════════════
+Project: gen-lang-client-0627053898
+════════════════════════════════════════════════════════
+  Generative Language API : ENABLED
+  Vertex AI API           : ENABLED
+  API Keys                : 1
+  Recent 7d Gemini calls  : skipped
+
+  KEY_ID/DisplayName               CREATE_TIME            LEGACY  FB_AUTO   APP_RESTR    API_RESTR    RISK      
+    ----------------------------------------------------------------------------------------------------------
+  09814bf7-676f-4bd0-8413-f3e2777c 2025-02-06T01:23:58    no      no        NONE         restricted   HIGH      
+    └─ 권장: API restrictions에서 Generative Language API 제거
+
+════════════════════════════════════════════════════════
+Audit Summary
+════════════════════════════════════════════════════════
+  Projects scanned : 1
+  CRITICAL findings : 0
+  HIGH     findings : 1
+  WARN     findings : 0
+  CSV report       : ../audit-tier1-20260519.csv
+
+다음 단계 (수동 조치 권장):
+  1) CRITICAL/HIGH 키 → Console > APIs & Services > Credentials
+     - API restrictions 적용 (Firebase 관련 API만 허용)
+     - Application restrictions(referrer/IP/app) 적용
+  2) Gemini API를 사용하지 않는 프로젝트:
+     gcloud services disable generativelanguage.googleapis.com --project=PROJECT_ID
+  3) 노출 이력 있는 키는 신규 발급 후 교체(rotate) 및 기존 키 삭제
+  4) Billing Console에서 SKU 'Generate content*' 비정상 과금 확인
