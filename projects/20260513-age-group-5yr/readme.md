@@ -55,3 +55,6 @@
 | [status.md](./status.md) | 진행 상태 |
 | [tasks.md](./tasks.md) | 과업 목록 |
 | [architecture.md](./architecture.md) | 기술 설계 (버킷 정의·SQL 변경·recipe 설계 근거) |
+| [eda-by-age-group-5yr.md](./eda-by-age-group-5yr.md) | 컬럼 추가 후 30일 EDA (매출·이벤트·콘텐츠·유입·RFM·whale 6개 차원 + 신규/기존 + 4개년 YoY + 인사이트) |
+| [eda-by-age-group-5yr-app.md](./eda-by-age-group-5yr-app.md) | APP-only EDA — 메인 EDA와 동일 차원, `platform_appweb='APP'` 필터. APP 매출 -58% 절벽, 채널 전환(APP→WEB), 사주가 타로보다 더 큰 폭 감소 등 새로운 결론 |
+| [app-decline-decomposition.md](./app-decline-decomposition.md) | APP 매출·구매자 하락 세부 분해 — 매출 분해 방정식, 연령×플랫폼 매트릭스, 신규/기존 분리, whale 변화, iOS/Android 시점 분석. **매출 하락 80%가 사용자 유입 감소, Android 2023→2024 사용자 -42% 폭락이 핵심 사건** |
