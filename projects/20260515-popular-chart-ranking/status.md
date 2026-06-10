@@ -11,8 +11,8 @@ S1~S4 + 계약 문서 → 적대적 리뷰·메타리뷰 → 결정 라운드(14
 | 파트 | 상태 | 브랜치 | 워크트리 | 비고 |
 |------|------|--------|---------|------|
 | 기획 | 설계 완료 | - | - | S1~S5 완료(architecture·api-spec v1). 잔존: β 재확인·잔여 실험 결정·선행 운영 확인 |
-| 서버 | **구현 1차 완료** | `feat/popular-chart-ranking` (푸시됨) | `worktrees/hellobot-server` | ✅ 06-11 `7dc5b7bd` — 테이블·적재 API·게이팅·어댑터·배정 로그, tsc 통과. 잔여: PR·핵클 키 교체. 피쳐 문서 `docs/features/20260611-home-skill-ranking/` |
-| 데이터 | **구현 1차 완료** | `Feat/popular-chart-ranking` (푸시됨 — 리포 Feat/ 컨벤션) | `worktrees/common-data-airflow` | ✅ 06-11 `e5ec4a3` — 마트+체인+카탈로그 동기, dry-run·프리뷰 검증. 값 실측 해소(750원=5하트·content_type 축·eval 5종). 잔여: 칩 복합키 바인딩 4곳·PR |
+| 서버 | **구현 1차 완료** | `feat/popular-chart-ranking` (푸시됨) | `worktrees/hellobot-server` | ✅ 06-11 `7dc5b7bd` — 테이블·적재 API·게이팅·어댑터·배정 로그, tsc 통과. **PR [#2444](https://github.com/thingsflow/hellobot-server/pull/2444)**. 잔여: 리뷰·머지·핵클 키 교체. 피쳐 문서 `docs/features/20260611-home-skill-ranking/` |
+| 데이터 | **구현 1차 완료** | `Feat/popular-chart-ranking` (푸시됨 — 리포 Feat/ 컨벤션) | `worktrees/common-data-airflow` | ✅ 06-11 `e5ec4a3` — 마트+체인+카탈로그 동기, dry-run·프리뷰 검증. 값 실측 해소(750원=5하트·content_type 축·eval 5종). **PR [#188](https://github.com/thingsflow/common-data-airflow/pull/188)**. 잔여: 칩 복합키 바인딩 4곳·리뷰·머지 |
 | 인프라 | 착수 가능 | `feat/popular-chart-ranking` | `worktrees/common-infra-eks-deploy` (06-11 생성, main a31302fea) | CronJob `load-home-skill-ranking` + BQ SA 시크릿 (architecture §1.3). PR 머지=배포 — 서버 적재 API 운영 배포 후 머지 |
 | 웹 | 조건부 | - | - | 측정 이벤트 필요 시만 |
 | iOS | 조건부 | - | - | 측정 이벤트 필요 시만 |

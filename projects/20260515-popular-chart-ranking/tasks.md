@@ -28,7 +28,7 @@
 - [x] 서버 배정 로그 훅(variant·fallback 포함 — winston 1차 seam, 고도화는 측정 이원화 결정 종속) — ✅ 06-11
 - [x] config·플래그 상수 (api-spec §4) — ✅ 06-11
 - [x] 구버전 폴백(recentPurchasedSkills) 무회귀 확인 (NFR-4 — getTabData·키18 분기 무수정) — ✅ 06-11
-- [ ] PR 생성·리뷰·머지 (`feat/popular-chart-ranking` 푸시됨) + 핵클 키 발급 후 config 교체 커밋
+- [ ] PR 리뷰·머지 — [hellobot-server#2444](https://github.com/thingsflow/hellobot-server/pull/2444) (✅ 생성 06-11) + 핵클 키 발급 후 config 교체 커밋
 
 ## 데이터 (/dev-data) — [architecture §1.2·§2](architecture.md)
 
@@ -36,6 +36,7 @@
 - [x] 랭킹 마트 `mart_home_skill_ranking` SQL + 마트 체인 등록 — 시그널·norm 분해 컬럼·computed_date 파티션 (architecture §1.2·§2) — ✅ 06-11 `e5ec4a3` (dry-run+스냅샷 프리뷰 검증, 카탈로그 동기 포함)
 - [x] 섹션 바인딩 블록(5섹션 필터식) + **값 바인딩 확정** — ✅ 06-11: 사주/타로=`chatbot_content_type`(temp topic에 해당 값 부재 실측), 재회=`intents ∋ '재회'`(`|` 구분), 신규=open_date≤6개월, D-5·D-6 해소
 - [ ] **칩 복합키 바인딩 4곳 기입** — 운영 칩 구성 확인 후 (SQL `section_pool` TODO — realtime=`recentPurchasedSkills`만 바인딩 완료. ⚠️ server_rdb에 칩 테이블 미수집 → BQ로 확인 불가, 어드민/운영 DB 경로 필요)
+- [ ] PR 리뷰·머지 — [common-data-airflow#188](https://github.com/thingsflow/common-data-airflow/pull/188) (✅ 생성 06-11)
 - [ ] CronJob 추출+push 스크립트 — freshness guard 포함 (/dev-infra 협업, architecture §1.3)
 - [ ] event-spec 작성(노출 이벤트 + section/variant 차원, CL-02) — 측정 이원화 결정 후
 - [ ] 적절성 검증 쿼리 T1~T3(+T4 사전 로그) — ✅ T1 완료 06-11: base 442·사주 172·타로 182·재회 39·**신규 9⚠️**(6개월 기준 — N 조정은 기획 가변 C-2). T2·T3 후속(CL-15)
