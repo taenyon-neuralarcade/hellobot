@@ -490,7 +490,7 @@ register API → `issuedType: "skill"` 성공 시 (확인 팝업 없이 바로):
 
 #### 중복 탭 방지 (필수)
 
-- 등록 버튼: register API 호출 중 disabled + 로딩
+- 등록 버튼: register API 호출 중 **`disabled` + 회색 톤 표시**(기존 비활성 색상 토큰 `#C6C8CC` 재사용). 스피너/인디케이터/GIF/오버레이 **금지** — ISS-042 규범 (2026-04-22 확정, 상세는 design-spec.md §공통 컴포넌트 — 등록 버튼 / client-guide.md "중복 탭 방지" 참조).
 - register API는 쿠프마케팅 외부 API(L0+L1)를 내부 호출하므로 응답이 느릴 수 있음 (최대 15초). 중복 호출 방지 필수.
 
 #### 카카오 딥링크
@@ -915,6 +915,7 @@ ORDER BY occurrences DESC;
 | 2026-04-28 | 이벤트 설계 | **§11 쿠폰 등록 이벤트 스펙 신설**. Firebase 클라이언트 이벤트 3종 — `view_coupon_register` (화면 진입), `register_coupon_success` / `register_coupon_failure` (등록 결과). 서버 이벤트 미발화 (DB 진실 원천 사용). success 파라미터 9개 (coupon_number, coupon_type, issued_type, product_code, fixed_menu_seq, heart_amount, bonus_heart_amount, latency_ms), failure 파라미터 6개 (coupon_number, coupon_type, coupon_prefix, error_code, reason, latency_ms). 응답 DTO 보강 필요 항목(productCode, heartAmount/bonusHeartAmount) 명시. 화이트리스트 등록 3건. |
 | 2026-04-28 | ISS-049 (Q4 결정) | §10-7 카카오 유입자 식별 추가. 등록일 기준 시간 단위(일/주/월) 신규 사용자 분류. `coop_kakao_first_used_date` (DATE) 컬럼 1개 추가 — `mart_user_daily_info` + `union_mart_user_key_actions` 양쪽. RDS `coop_marketing_coupon_usage` 일 1회 스냅샷 인입. `status` 무관하게 모든 등록 행을 유입으로 인정 (구매자/미구매자 분류는 `pay_for_*` 으로 자연 분리). 4/30 구현 완료 목표. |
 | 2026-04-27 | ISS-049 (Q1 결정) | **§10 데이터 분석 설계 신설**. 카카오 쿠폰 사용 결제의 거래액 인식 방식을 `spent_cash_amount` 인젝션으로 확정. 서버 측에서 카카오 쿠폰임을 인지하여 `coop_marketing_product.current_price ?? price` 를 인젝션. 데이터 측 SQL 변경 0건, 카탈로그 description 4건 갱신 + 카탈로그 ISS-017 등록. 하트 충전권은 유료 하트(`expiredAt=NULL`) 적립으로 자연 매출 인식 검증 완료. `coop_marketing_product.current_price` 컬럼 신설 마이그레이션 필요(서버). |
+| 2026-04-22 | /architect | **ISS-042 문구 정합**: §6 "중복 탭 방지" 블록의 "등록 버튼: register API 호출 중 disabled + 로딩" 표현을 "disabled + 회색 톤(기존 비활성 토큰 `#C6C8CC` 재사용), 스피너/인디케이터/GIF/오버레이 금지"로 명확화. ISS-031/035는 설계 근거가 design-spec/screen-plan/client-guide에만 존재하므로 architecture.md 본문 수정 없음(본 Changelog로만 기록). |
 | 2026-04-21 | /architect | §6 "앱 WebView 임베딩 여부" 섹션 신설 — iOS `CouponListViewController`, Android `CouponListActivity`, Web `hellobot-web/app/coupon/page.tsx`의 세 플랫폼이 독립 구현이며 앱 WebView 공유 경로 없음을 확정. "모바일 웹뷰 환경 검증" 항목 해당 없음으로 종결 근거 기록. |
 | 2026-04-19 | /architect (via /workspace) | **2차 리뷰 반영**: §1 이중 경로 표 code 기반 행의 "기존 경로는 구버전 앱 전용" 문구를 "기존 `/api/coupon`의 code 경로는 구버전 앱 호환용으로만 유지"로 명확화 (셀 범위 해석 모호성 제거). |
 | 2026-04-19 | /review 반영 | **설계 보완** (리뷰 발견 사항 반영): §1에 "기존 `/api/coupon` 이중 경로(code/couponSpecSeq) 이해" 테이블 추가 — couponSpecSeq 경로 미변경 명시. §4 CouponPrefixRule "조회 전략" 확정(매 요청마다 DB 조회, 캐시 없음) + Raw SQL 시드 스키마 prefix 주의. §5-2에 DB 트랜잭션 경계 명시(two-phase commit, 보상 패턴) + Redlock 보상 완료 후 해제 규칙. §5-4 가드 발동 조건 세부 테이블 추가(6가지 입력 케이스별 동작). §6 웹뷰 영향 없음 확인 추가. §7에 신버전 클라이언트 APP_UPDATE_REQUIRED 수신 시나리오 추가. §9 "배포 순서 및 롤백" 신설(서버 선행 배포, Phase 2 정량 제거 조건). |
