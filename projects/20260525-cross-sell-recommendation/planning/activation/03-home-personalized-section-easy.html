@@ -1,0 +1,93 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>홈 개인화 추천 섹션 — 쉽게 보기 · HelloBot</title>
+<style>:root{--accent:#4F46E5;--dark:#3730A3;--wash:#EEF0FE}
+
+*{box-sizing:border-box}
+:root{--ink:#222934;--muted:#6b7280;--line:#e8eaee;--bg:#f5f6f8;--card:#fff}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:16.5px;line-height:1.85;-webkit-font-smoothing:antialiased;
+ font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif}
+a{color:var(--dark);font-weight:600;text-decoration:none}a:hover{text-decoration:underline}
+.hero{background:linear-gradient(135deg,var(--accent),var(--dark));color:#fff;padding:40px 22px 34px}
+.in{max-width:760px;margin:0 auto}
+.eyebrow{font-size:13px;opacity:.9;font-weight:600;margin-bottom:11px}
+.pill{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 13px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:13px}
+.hero h1{margin:.1em 0 .35em;font-size:28px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+.hero .one{font-size:17px;opacity:.96;line-height:1.7}
+.hero .more{display:inline-block;margin-top:16px;background:#fff;color:var(--dark);padding:8px 16px;border-radius:999px;font-size:13.5px;font-weight:700}
+.hero .more:hover{text-decoration:none;opacity:.92}
+.wrap{max-width:760px;margin:0 auto;padding:22px}
+.glance{background:var(--wash);border:1.5px solid var(--accent);border-radius:16px;padding:20px 22px;margin:6px 0 22px}
+.glance .gt{font-weight:800;font-size:16px;color:var(--dark);margin-bottom:10px}
+.glance ul{list-style:none;margin:0;padding:0}
+.glance li{position:relative;padding:6px 0 6px 30px;font-size:16px;border-top:1px dashed rgba(0,0,0,.08)}
+.glance li:first-child{border-top:none}
+.glance li::before{content:"✓";position:absolute;left:2px;top:6px;color:var(--accent);font-weight:900}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 24px 22px;margin:14px 0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.card h2{font-size:20px;font-weight:800;margin:0 0 8px;color:var(--ink);letter-spacing:-.01em}
+.card h2 .ic{margin-right:8px}
+.card p{margin:9px 0}
+.card ul,.card ol{margin:9px 0;padding-left:24px}
+.card li{margin:6px 0}
+.card li>ul{margin:4px 0}
+.card ul ul{padding-left:20px;color:var(--muted)}
+strong,b{font-weight:800;color:#111827}
+em{color:var(--muted);font-style:normal}
+blockquote.cal{margin:12px 0;padding:12px 16px;border-radius:12px;border:1px solid var(--line);border-left-width:5px;background:#f9fafb;font-size:15.5px}
+blockquote.cal p{margin:5px 0}blockquote.cal p:first-child{margin-top:0}blockquote.cal p:last-child{margin-bottom:0}
+blockquote.warn{border-left-color:#e08600;background:#fff8ec}
+blockquote.ok{border-left-color:#059669;background:#ecfdf5}
+blockquote.info{border-left-color:#2563eb;background:#eff6ff}
+.analogy{background:#fffaf0;border:1.5px dashed #eab308;border-radius:16px;padding:18px 22px;margin:16px 0;font-size:16.5px;line-height:1.8}
+.analogy .at{font-weight:800;color:#a16207;margin-bottom:6px}
+.decide{background:var(--wash);border:1.5px solid var(--accent);border-radius:16px;padding:18px 22px;margin:16px 0}
+.decide .dt{font-weight:800;font-size:17px;color:var(--dark);margin-bottom:10px}
+.decide ul{list-style:none;margin:0;padding:0}
+.decide li{position:relative;padding:7px 0 7px 30px;border-top:1px solid rgba(0,0,0,.06)}
+.decide li:first-child{border-top:none}
+.decide li::before{content:"☑";position:absolute;left:2px;top:6px;color:var(--accent);font-weight:900}
+footer{max-width:760px;margin:8px auto 70px;padding:0 22px}
+.nav{display:flex;gap:9px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;font-size:14px}
+.nav .lab{color:var(--muted);font-weight:700;margin-right:2px}
+.nav a{padding:6px 13px;border-radius:9px;border:1px solid var(--line);color:#374151}
+.nav a.cur{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:800}
+.foot-meta{color:var(--muted);font-size:13px;margin-top:13px;text-align:center;line-height:1.7}
+.print{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;border:none;padding:11px 17px;border-radius:999px;font-weight:800;font-size:13.5px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+@media (max-width:640px){.hero h1{font-size:23px}.card{padding:16px 17px}}
+@media print{body{background:#fff}.print,.nav{display:none}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .glance,.analogy,.decide,blockquote.cal,.card{-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}}
+</style></head><body>
+<div class="hero"><div class="in">
+<div class="eyebrow">HelloBot · Cross-Sell 추천 · 활성화 트랙</div>
+<div class="pill">🟢 쉬운 버전 · 비전문가용</div>
+<h1>홈 개인화 추천 섹션 — 쉽게 보기</h1>
+<div class="one">앱 홈 화면에 그 사람이 산 운세에 맞춰 "다음에 볼 만한 운세"를 늘 보여주는 추천 칸을 만드는 기획이에요.</div>
+<a class="more" href="03-home-personalized-section.html">🔍 자세한 기획서 보기 →</a>
+</div></div>
+<div class="wrap">
+<div class="glance"><div class="gt">📌 한눈에</div><ul><li><b>어디에</b> — 앱 <b>홈 화면</b>에 항상 떠 있는 추천 카드 칸</li><li><b>무엇을</b> — 그 사람이 전에 산 운세를 기준으로 “다음에 많이 보는 운세” 추천</li><li><b>특징</b> — 푸시처럼 한 번이 아니라 <b>늘</b> 보이는 자리</li></ul></div>
+<section class="card"><h2><span class="ic">🎯</span>왜 하나요?</h2><ul>
+<li>앱을 다시 열었을 때 <strong>“다음에 뭘 볼지”</strong> 자연스럽게 보여주는 자리가 지금은 없어요.</li>
+<li>홈에 추천 칸이 있으면, 다시 들어온 사람을 <strong>두 번째 구매로</strong> 부드럽게 이어줄 수 있습니다.</li>
+</ul></section><section class="card"><h2><span class="ic">💡</span>어떤 운세를 추천하나요?</h2><ul>
+<li><strong>그 운세를 산 사람들이 다음에 많이 본 운세</strong>를 보여줍니다 <em>(앱 추천 목록은 이미 준비 — 처음 산 분 10명 중 8명 이상 커버)</em>.</li>
+<li>기준이 되는 운세는 그 사람의 구매 이력에서 골라요 <em>(마지막에 산 것 / 여러 개를 섞어서 — 권장은 섞기)</em>.</li>
+</ul></section><section class="card"><h2><span class="ic">🛡️</span>꼭 지킬 안전장치 (홈은 특히 중요)</h2><blockquote class="cal warn">
+<p>⚠ <strong>이미 산 운세는 빼기</strong> — 홈은 매번 보이니까 더 중요해요.
+- 안 파는 운세 금지, <strong>같은 것만 반복</strong>해서 보여주지 않게 가끔 새로운 것도 섞기</p>
+</blockquote></section><section class="card"><h2><span class="ic">📏</span>효과는 이렇게 확인해요</h2><ul>
+<li>추천 칸을 <strong>본 사람 vs 안 본 사람</strong>(기존 홈)을 비교해서, 두 번째 구매가 늘었는지 확인합니다.</li>
+</ul></section><section class="card"><h2><span class="ic">🔗</span>다른 과제와의 관계</h2><ul>
+<li>앱 개인화(다른 과제)와 겹치지 않게, 이 칸은 <strong>‘함께 본 운세 추천’만</strong> 담당해요.</li>
+<li>나이·성별로 더 맞추는 건 효과가 작아서 <strong>하지 않습니다</strong>.</li>
+</ul></section>
+<div class="analogy"><div class="at">💡 쉽게 말하면</div>쇼핑앱 홈의 “회원님을 위한 추천” 칸과 같아요. 단 ① 이미 산 건 빼고, ② 늘 같은 것만 말고 가끔 새로운 것도 섞어 보여주는 거죠.</div>
+<div class="decide"><div class="dt">✅ 결정해 주세요</div><ul><li>어떤 운세를 기준으로 추천할까? — 마지막 구매 / 여러 개 섞기 <em>(<b>권장: 섞기</b>)</em></li><li>홈 <b>어디에, 몇 개나</b> 보여줄까?</li><li>“그 자리에서” 목록을 쓸까, <b>홈 맞춤(다시 찾는) 목록을 따로</b> 만들까?</li></ul></div>
+</div>
+<footer>
+<div class="nav"><span class="lab">쉬운 버전</span><a href="01-kakao-push-recommendation-easy.html">① 카플친 푸시</a><a href="02-web-outro-recommendation-easy.html">② 웹 아웃트로</a><a class="cur">③ 홈 개인화</a><a href="03-home-personalized-section.html">🔍 자세한 버전</a></div>
+<div class="foot-meta">생성 2026-06-09 · 더 자세한 근거·데이터는 ‘자세한 기획서’에 · 인덱스 <code>planning/activation/readme.md</code></div>
+</footer>
+<button class="print" onclick="window.print()">🖨 인쇄 / PDF</button>
+</body></html>

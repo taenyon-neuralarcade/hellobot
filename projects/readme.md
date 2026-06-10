@@ -683,6 +683,7 @@ git worktree add ../projects/YYYYMMDD-feature-name/worktrees/hellobot-server fea
 | 날짜 | 프로젝트명 | 상태 | 설명 |
 |------|-----------|------|------|
 | 2026-05-20 | [yoy-decline-segment-analysis](./20260520-yoy-decline-segment-analysis/) | 스코프 합의 대기 | YoY 구매자수·매출 하락의 (5세 연령 × 플랫폼) 세그먼트 진단. age-group-5yr (PR #180) 5세 버킷 컬럼 활용. TODO-021 동시 등록 |
+| 2026-05-15 | [popular-chart-ranking](./20260515-popular-chart-ranking/) | 설계 전 (기획 구체화 완료) | 홈탭 인기스킬 섹션 노출 자동화 = 필터링+랭킹. S1~S4 완료 + 설계 전 계약 문서(PRD·요구사항·측정계획·과업) 산출. 랭커 2종(AsIs/PopularityScore v1), 필터 3축그룹, 태그소스 하이브리드. 다음 = /architect(S5). TODO-012 |
 | 2026-05-19 | [gcp-gemini-cost-mitigation](./20260519-gcp-gemini-cost-mitigation/) | 현황 분석 완료 · 2-트랙 후속 | GCP Gemini 4/29 이상비용 audit + 대응. Tier 0·1 audit + Cloud Monitoring forensic 완료 (CRITICAL 2 + HIGH 8, 4/29 = 미국 동부 abuser). 트랙 A IP 제한 + 트랙 B 메가존 협의. TODO-017 승격 |
 | 2026-05-17 | [kakao-gift-slack-notification](./20260517-kakao-gift-slack-notification/) | 기획 완료 · 개발 대기 | 카카오 선물하기 쿠폰 등록 알림 + 일별 통계 슬랙 push. /analyze + /architect 산출물. TODO-016 승격 |
 | 2026-05-13 | [age-group-5yr](./20260513-age-group-5yr/) | ✅ 적용완료 (2026-05-16) | `union_mart_user_key_actions` 등 6개 마트 SQL 에 5세 단위 균일 연령 버킷 `age_group_5yr` (event 시점 기준) 컬럼 추가. 월간 추이·drift 분석은 카탈로그 신규 recipe `age-cohort-trend-analysis.md` 로 표준화. [PR #180](https://github.com/thingsflow/common-data-airflow/pull/180) 머지 완료 |

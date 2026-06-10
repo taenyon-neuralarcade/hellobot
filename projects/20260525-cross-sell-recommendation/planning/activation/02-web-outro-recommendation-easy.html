@@ -1,0 +1,99 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>웹 아웃트로 추천 — 쉽게 보기 · HelloBot</title>
+<style>:root{--accent:#C2410C;--dark:#9A3412;--wash:#FDEEE3}
+
+*{box-sizing:border-box}
+:root{--ink:#222934;--muted:#6b7280;--line:#e8eaee;--bg:#f5f6f8;--card:#fff}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:16.5px;line-height:1.85;-webkit-font-smoothing:antialiased;
+ font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif}
+a{color:var(--dark);font-weight:600;text-decoration:none}a:hover{text-decoration:underline}
+.hero{background:linear-gradient(135deg,var(--accent),var(--dark));color:#fff;padding:40px 22px 34px}
+.in{max-width:760px;margin:0 auto}
+.eyebrow{font-size:13px;opacity:.9;font-weight:600;margin-bottom:11px}
+.pill{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 13px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:13px}
+.hero h1{margin:.1em 0 .35em;font-size:28px;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+.hero .one{font-size:17px;opacity:.96;line-height:1.7}
+.hero .more{display:inline-block;margin-top:16px;background:#fff;color:var(--dark);padding:8px 16px;border-radius:999px;font-size:13.5px;font-weight:700}
+.hero .more:hover{text-decoration:none;opacity:.92}
+.wrap{max-width:760px;margin:0 auto;padding:22px}
+.glance{background:var(--wash);border:1.5px solid var(--accent);border-radius:16px;padding:20px 22px;margin:6px 0 22px}
+.glance .gt{font-weight:800;font-size:16px;color:var(--dark);margin-bottom:10px}
+.glance ul{list-style:none;margin:0;padding:0}
+.glance li{position:relative;padding:6px 0 6px 30px;font-size:16px;border-top:1px dashed rgba(0,0,0,.08)}
+.glance li:first-child{border-top:none}
+.glance li::before{content:"✓";position:absolute;left:2px;top:6px;color:var(--accent);font-weight:900}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 24px 22px;margin:14px 0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.card h2{font-size:20px;font-weight:800;margin:0 0 8px;color:var(--ink);letter-spacing:-.01em}
+.card h2 .ic{margin-right:8px}
+.card p{margin:9px 0}
+.card ul,.card ol{margin:9px 0;padding-left:24px}
+.card li{margin:6px 0}
+.card li>ul{margin:4px 0}
+.card ul ul{padding-left:20px;color:var(--muted)}
+strong,b{font-weight:800;color:#111827}
+em{color:var(--muted);font-style:normal}
+blockquote.cal{margin:12px 0;padding:12px 16px;border-radius:12px;border:1px solid var(--line);border-left-width:5px;background:#f9fafb;font-size:15.5px}
+blockquote.cal p{margin:5px 0}blockquote.cal p:first-child{margin-top:0}blockquote.cal p:last-child{margin-bottom:0}
+blockquote.warn{border-left-color:#e08600;background:#fff8ec}
+blockquote.ok{border-left-color:#059669;background:#ecfdf5}
+blockquote.info{border-left-color:#2563eb;background:#eff6ff}
+.analogy{background:#fffaf0;border:1.5px dashed #eab308;border-radius:16px;padding:18px 22px;margin:16px 0;font-size:16.5px;line-height:1.8}
+.analogy .at{font-weight:800;color:#a16207;margin-bottom:6px}
+.decide{background:var(--wash);border:1.5px solid var(--accent);border-radius:16px;padding:18px 22px;margin:16px 0}
+.decide .dt{font-weight:800;font-size:17px;color:var(--dark);margin-bottom:10px}
+.decide ul{list-style:none;margin:0;padding:0}
+.decide li{position:relative;padding:7px 0 7px 30px;border-top:1px solid rgba(0,0,0,.06)}
+.decide li:first-child{border-top:none}
+.decide li::before{content:"☑";position:absolute;left:2px;top:6px;color:var(--accent);font-weight:900}
+footer{max-width:760px;margin:8px auto 70px;padding:0 22px}
+.nav{display:flex;gap:9px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;font-size:14px}
+.nav .lab{color:var(--muted);font-weight:700;margin-right:2px}
+.nav a{padding:6px 13px;border-radius:9px;border:1px solid var(--line);color:#374151}
+.nav a.cur{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:800}
+.foot-meta{color:var(--muted);font-size:13px;margin-top:13px;text-align:center;line-height:1.7}
+.print{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;border:none;padding:11px 17px;border-radius:999px;font-weight:800;font-size:13.5px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+@media (max-width:640px){.hero h1{font-size:23px}.card{padding:16px 17px}}
+@media print{body{background:#fff}.print,.nav{display:none}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .glance,.analogy,.decide,blockquote.cal,.card{-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}}
+</style></head><body>
+<div class="hero"><div class="in">
+<div class="eyebrow">HelloBot · Cross-Sell 추천 · 활성화 트랙</div>
+<div class="pill">🟢 쉬운 버전 · 비전문가용</div>
+<h1>웹 아웃트로 추천 — 쉽게 보기</h1>
+<div class="one">웹에서 처음 운세를 산 분에게 결과를 본 직후 "이것도 보세요"를 띄우되, ⓐ 웹에서 바로 하나 더 사게 하거나 ⓑ "앱에서 쓰는 할인쿠폰"을 줘서 앱으로 데려오는 기획이에요.</div>
+<a class="more" href="02-web-outro-recommendation.html">🔍 자세한 기획서 보기 →</a>
+</div></div>
+<div class="wrap">
+<div class="glance"><div class="gt">📌 한눈에</div><ul><li><b>누구에게</b> — <b>웹</b>에서 처음 결제한 새 손님</li><li><b>어디서</b> — 결과 확인/결제가 끝난 직후 화면(아웃트로)</li><li><b>두 갈래</b> — ⓐ 웹에서 바로 추가 구매 · ⓑ <b>앱 전용 할인쿠폰</b>으로 앱 유도</li></ul></div>
+<section class="card"><h2><span class="ic">🎯</span>왜 하나요?</h2><ul>
+<li>웹 손님은 광고 보고 들어와 운세 하나 딱 사고 떠나는 경우가 많아요 <em>(10명 중 7~8명이 한 번뿐)</em>.</li>
+<li>이런 분들은 웹에서 계속 붙잡기보다 <strong>앱으로 옮겨오면</strong> 다시 찾을 가능성이 훨씬 큽니다.</li>
+<li>그래서 <strong>ⓑ 앱 쿠폰이 핵심 한 수</strong>예요.</li>
+</ul></section><section class="card"><h2><span class="ic">💡</span>어떤 운세를 추천하나요?</h2><ul>
+<li>웹에서 ‘함께 산 기록’은 광고·끼워팔기 영향을 받아서 진짜 관심을 잘 못 보여줘요.</li>
+<li>그래서 같은 운세를 산 <strong>앱 사용자들이 관심 가진 운세</strong>를 가져와 추천합니다 <em>(웹 인기 12개는 이미 준비됨)</em>.</li>
+<li>더 많은 운세로 넓히려면 웹 손님 데이터로 목록을 더 만드는 작업이 필요해요.</li>
+</ul></section><section class="card"><h2><span class="ic">🔀</span>ⓐ 바로 구매 vs ⓑ 앱 쿠폰</h2><ul>
+<li><strong>ⓐ 웹에서 바로 추가 구매</strong> → <b>즉시 매출</b></li>
+<li><strong>ⓑ 앱 쿠폰으로 유도</strong> → <b>앱으로 이사 + 단골화</b> <em>(길게 보면 더 큼)</em></li>
+<li>권장: 먼저 ⓐ를 권하고, 안 사면 ⓑ 쿠폰을 주는 식 — 또는 둘 다 시험해 보기</li>
+</ul></section><section class="card"><h2><span class="ic">🛡️</span>꼭 지킬 안전장치</h2><ul>
+<li>안 파는 / 품절 운세 추천 금지, 충전권 같은 건 빼기<blockquote class="cal warn">
+<p>⚠ 쿠폰은 공짜가 아니에요 → <strong>할인해 준 만큼 빼고도 이득인지</strong> 꼭 따져야 합니다. 손해면 멈춰요.</p>
+</blockquote>
+</li>
+</ul></section><section class="card"><h2><span class="ic">📏</span>효과는 이렇게 확인해요</h2><ul>
+<li>쿠폰 준 그룹 vs 안 준 그룹을 비교해서, <strong>할인 비용을 빼고도</strong> 더 벌었는지 확인합니다.</li>
+<li>추천을 잘 맞히는 것과 진짜 더 버는 것은 다르니, <strong>비교 실험으로만</strong> 판단해요.</li>
+</ul></section>
+<div class="analogy"><div class="at">💡 쉽게 말하면</div>웹은 “길거리 1회성 손님”이 많은 가게예요. 계산대에서 ⓐ “이것도 하나 더 어떠세요?” 하고 권하거나, ⓑ “우리 단골앱 깔면 이 쿠폰 드릴게요” 하며 단골로 만드는 것과 같아요.</div>
+<div class="decide"><div class="dt">✅ 결정해 주세요</div><ul><li>쿠폰 할인 얼마나? — <b>손익분기 기준</b>을 먼저 정하기</li><li>ⓐ와 ⓑ 중 뭘 먼저? — <b>권장: ⓐ 먼저, 안 사면 ⓑ</b></li><li>앱 안 깐 사람은 어떻게? — 설치를 권할지, 그냥 웹에서 사게 둘지</li></ul></div>
+</div>
+<footer>
+<div class="nav"><span class="lab">쉬운 버전</span><a href="01-kakao-push-recommendation-easy.html">① 카플친 푸시</a><a class="cur">② 웹 아웃트로</a><a href="03-home-personalized-section-easy.html">③ 홈 개인화</a><a href="02-web-outro-recommendation.html">🔍 자세한 버전</a></div>
+<div class="foot-meta">생성 2026-06-09 · 더 자세한 근거·데이터는 ‘자세한 기획서’에 · 인덱스 <code>planning/activation/readme.md</code></div>
+</footer>
+<button class="print" onclick="window.print()">🖨 인쇄 / PDF</button>
+</body></html>

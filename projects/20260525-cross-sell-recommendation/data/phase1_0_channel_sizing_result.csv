@@ -1,0 +1,6 @@
+channel_group,users,user_pct,users_2nd_any,repurchase_any_pct,users_2nd_app,repurchase_app_pct
+C_web_only,736395,59.8,108579,14.7,0,0.0
+A_app_first,430524,35.0,260663,60.5,245875,57.1
+B_web_to_app,44270,3.6,40856,92.3,26663,60.2
+X_anomaly,19789,1.6,12180,61.5,11148,56.3
+TOTAL,1230978,100.0,422278,34.3,283686,23.0

@@ -7,6 +7,44 @@
 
 ---
 
+### ISS-071: 스킬 교환권 상품 CRUD ↔ CouponSpec/CouponCondition 정합성 깨짐
+
+| 분류 | bug |
+| 발견일 | 2026-05-21 |
+| 심각도 | P0 (운영 정합성 위험) |
+| 영향 파트 | 서버 (AdminJS 훅) |
+| 상태 | 미해결 |
+
+**현상**: AdminJS `CoopMarketingProduct` 의 new/edit/delete 액션이 연동 `CouponSpec` / `CouponCondition` 과 정합성 있게 동기화되지 않음. 운영자가 상품을 등록·수정·삭제·재등록할 때 "어떻게든 잘 등록되어 있을 것이다" 신뢰가 깨짐.
+
+**원인**: 모든 동기화 로직이 `src/admin/options/CoopMarketingProduct.options.ts` 의 4 개 훅(`beforeSave`, `afterNew`, `afterEdit`, delete=hook 없음)에 몰려 있고 다수 케이스가 가드 escape / orphan / retroactive 갱신으로 빠진다. 발급된 쿠폰의 적용 대상은 `CouponCondition.skillSeqs` (`src/services/coupon.ts:161-188`, `242-260`) 가 use-time 에 결정하므로 in-place 변경이 과거 발급분에까지 영향.
+
+**결함 매트릭스** (`src/admin/options/CoopMarketingProduct.options.ts`):
+
+| # | 케이스 | 현재 동작 | 결과 | 심각도 |
+|---|--------|-----------|------|--------|
+| A | **fixedMenuSeq A→B 수정** (`afterEdit:192-203`) | `CouponCondition.skillSeqs = [B]` in-place 갱신 | 이미 발급된 미사용 쿠폰의 적용 대상까지 retroactively 변경 → CS 폭탄 | **P0** |
+| B | **동일 스킬 재등록** (옛 상품 비활성/삭제 후 새 등록) | 옛 CouponSpec/Condition cleanup 없음 + 새 항목 생성 → 동일 skillSeqs 매칭 CouponSpec 2 개 누적 | 유저가 두 개의 쿠폰을 동시에 보유·사용 가능. 동일 productName 이면 `CouponSpec.name` UNIQUE 도 충돌 | **P0** |
+| C | 상품 delete | AdminJS 기본 동작 — CoopMarketingProduct 행만 삭제 | CouponSpec/CouponCondition orphan, 이미 발급된 쿠폰은 사용 가능 | **P1** |
+| D | productType heart→skill 수정 | `afterEdit` 가 `!params.couponSpecSeq` 가드로 스킵 → CouponSpec 미생성 | 사용 시 `CM_COUPON_SPEC_NOT_FOUND` | **P1** |
+| E | productType skill→heart 수정 | `productType !== "skill"` 가드로 스킵 → CouponSpec/Condition orphan | 이미 발급된 쿠폰 사용 가능, productCode 매핑 단절 | **P1** |
+| F | productName 변경 (`afterEdit:170-175`) | `${productName} 이용권` 으로 CouponSpec.name 갱신 | `CouponSpec.name` UNIQUE (`CouponSpec.ts:39`) 충돌 시 catch → notice 만 띄우고 상품만 변경. 운영자는 success 로 착각 | **P1** |
+| G | fixedMenuSeq 누락 좀비 (afterNew 가드, afterEdit `if (params.fixedMenuSeq)` 가드) | silent skip | couponSpecSeq=null 상품 사용 시 `CM_COUPON_SPEC_NOT_FOUND` | **P1** |
+| H | afterNew/afterEdit 트랜잭션 부분 실패 | 상품 INSERT/UPDATE 와 CouponSpec 트랜잭션 분리 → 후자 실패 시 상품은 commit, notice 만 출력 | 운영자가 화면상 success 로 인지하여 못 잡음 | **P1** |
+| I | 운영자가 CouponSpec/CouponCondition 을 AdminJS 에서 직접 수정 | reverse-sync 없음 | 양방향 동기화 깨짐 | **P2** |
+
+**영향 범위**:
+- 운영 어드민에서 상품 정보 수정·삭제·재등록 시 발급 쿠폰의 적용 대상이 의도와 달라질 수 있음.
+- 동일 스킬에 두 개 활성 CouponSpec 이 매칭되는 상태로 진입 가능 (`getCouponConditionsBySkill` 양쪽 반환).
+- couponSpecSeq=null 좀비 상품 / orphan CouponSpec 누적 가능.
+
+**참고**:
+- 운영자 보고 (2026-05-21): 동일 스킬 재등록 시 쿠폰스펙 정합 의심.
+- TODO-013 (umbrella) → TODO-026 (본 핫픽스).
+- 프로젝트: [20260521-skill-coupon-product-sync-hotfix](../20260521-skill-coupon-product-sync-hotfix/).
+
+---
+
 ### ISS-070: Android — `CoopRepositoryImpl.subscribeOn` 컨벤션 문서화 부재
 
 | 분류 | enhancement |
@@ -226,7 +264,7 @@
 | 발견일 | 2026-05-06 |
 | 심각도 | P0 (운영 데이터 불일치 + 사용자 하트 중복 차감 가능) |
 | 영향 파트 | 서버 |
-| 상태 | 미해결 |
+| 상태 | 패치 완료 (2026-05-20, 브랜치 `hotfix/coop-admin-cancel-recovery`, `worktrees/hellobot-server-hotfix-admin-cancel/`) — 배포 대기. **변경 4 파일**: ① 마이그레이션 신규 `1779000000000-AddRecoveredAtToCoopMarketingCouponUsage.ts` (`recovered_at` timestamptz null 컬럼 + 기존 canceled 행 `recovered_at = canceled_at` 백필). ② `CoopMarketingCouponUsage` 엔티티 `recoveredAt` 컬럼 추가. ③ `cancelCoupon` 8005 idempotent 처리 — `0000` 또는 `8005` 모두 `COALESCE(canceled_at, NOW())` raw SQL 로 마킹, 그 외는 `new Error("쿠프마케팅 사용취소 실패 (ResultCode=..., ResultMsg=...)")` throw → 어드민 noticeMessage 에 ResultCode/ResultMsg 정보 노출 (기존 admin handler line 84 의 `throw new Error(...)` 패턴과 정합). ④ `adminCancelCoupon` 재구성 — **L2 동기화 → 회수** 순서 재배치, 회수 가드 `recovered_at IS NULL` 로 교체, `recoverProduct` private 메서드 분리. 부분/0 회수도 `recoveredAt` 마킹(회수 시도 1회로 종료). 회수 단계 예외 발생 시 마킹 안 됨 → 다음 클릭에 재시도 가능. ⑤ Admin options `listProperties`/`showProperties` 에 `recoveredAt` 노출. **redLock 미도입**: 운영 사고(919758897939)는 90초 간격 4회 클릭이라 TTL 10s 로 차단 불가 + 어드민 페이지 특성상 사람 손가락 연타가 본 케이스 아님 — 사용자 결정으로 미도입(2026-05-20 협의). 진짜 안전장치는 `recovered_at IS NULL` 가드로 충분. **자동 보상 경로 영향 검토**: line 413/484 의 자동 `cancelCoupon` 호출은 이미 `try/catch (cancelErr)` 로 감싸여 있어 새 throw 추가 영향 없음(8005 idempotent 만 자동 경로에도 동일 적용 — 이미 취소된 상태를 만나도 안전 종료). **tsc**: 본 패치 관련 파일 0 에러 (sibling node_modules symlink 환경 차이로 `src/common/hackle.ts` 2건 무관 에러는 CI `npm install` 후 해소). 배포 후 잔여 — 운영 정합화(919758897939 행 SQL + heart_log 14:18~14:24 중복 차감분 ChargeByCs 환원 + 13:02 취소 주체 추적). workspace TODO-022. |
 
 **현상**: 운영 환경 어드민(AdminJS) 에서 카카오 쿠폰 `919758897939` 의 사용 취소를 클릭했을 때 어드민에 성공 노티가 표시되고 step 1(하트 회수) 도 수행되나, `coop_marketing_coupon_usage.canceled_at` 이 NULL 로 유지되어 어드민 목록에 `status='used'` 로 남음. 운영자가 동일 증상으로 14:18~14:24 KST 사이 4회 연타 클릭 — 모두 동일 결과.
 **재현**: 운영 어드민 → 해당 usage 행 → "사용 취소" → 노티 "쿠폰 사용을 취소하고 상품을 회수하였습니다." 표시 / DB 는 `status='used', canceled_at=NULL` 그대로.
@@ -269,7 +307,7 @@
 | 발견일 | 2026-05-05 |
 | 심각도 | P1 (운영 보안/환경 분리 — env var 미설정 시 빈 CompCode 송신) |
 | 영향 파트 | 서버 + 인프라 |
-| 상태 | 미해결 |
+| 상태 | 해결 (2026-05-05) — 서버 커밋 `64ac9081` (브랜치 `hotfix/coop-marketing-comp-code-env`) + EKS 매니페스트 dev/prod env 등록 + 운영 배포 완료. `src/common/config.ts:594` `compCode: process.env.COOP_MARKETING_COMP_CODE` 단일 라인. 기본값 없음(env 누락 시 빈 송신으로 즉시 표면화). dev=A911 / prod=X259. 2026-05-20 가시화 후 사용자 확인으로 완료 처리. |
 
 **현상**: `src/common/config.ts:594` 의 `coopMarketing.compCode` 가 `"A911"` 로 하드코딩되어 모든 환경(local/development/testing/staging/production) 에서 동일 값 송신. 같은 블록의 `authKey` 는 `process.env.COOP_MARKETING_AUTH_KEY` 로 환경변수화 완료 / `url` 은 `isProduction` 분기 적용 / `compCode` 만 누락된 비대칭 상태.
 **근본 원인**: 최초 구현 시 쿠프마케팅 측 단일 브랜드코드 안내(`A911`)로 dev/prod 분리 필요성을 인지하지 못함. 이후 운영 브랜드코드(`X259`) 별도 발급이 확정되어 env 분리 필요.

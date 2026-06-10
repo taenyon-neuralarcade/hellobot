@@ -26,7 +26,13 @@ projects/20260519-gcp-gemini-cost-mitigation/
 ├── tasks.md                               ← 조치 과업 체크리스트 (가이드 기반)
 └── planning/
     └── megazone-mitigation-guide/         ← 메가존 가이드 문서 + 스크립트
-        └── (가이드 문서·스크립트 추가 예정)
+        ├── 0. 먼저 읽어 주세요.pdf
+        ├── 1. Google API key checklist.pdf
+        ├── 3. [점검이후] 보안강화를 위한 API 키 대체 인증 방식.pdf
+        ├── 4. 강제 비활성화가 필요한 API 설명.pdf
+        ├── 4. 사용하지 않는 firebase API 삭제.pdf
+        ├── firebase_gemini_key_audit.sh
+        └── 2026-05-21-api-key-security-checklist.md  ← 트랙 3 SSOT (메가존 추가 가이드)
 ```
 
 ## 미파악 항목 (가이드 수신 후 채울 것)

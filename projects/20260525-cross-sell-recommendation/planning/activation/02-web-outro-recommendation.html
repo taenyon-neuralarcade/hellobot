@@ -1,0 +1,601 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>웹 신규 1회차 구매자 → 아웃트로 추천 · HelloBot</title>
+<style>:root{--accent:#C2410C;--dark:#9A3412;--wash:#FDEEE3}
+
+*{box-sizing:border-box}
+:root{--ink:#1f2430;--muted:#6b7280;--line:#e6e8ec;--bg:#f6f7f9;--card:#fff}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.72;-webkit-font-smoothing:antialiased;
+ font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif}
+a{color:var(--dark);text-decoration:none}
+a:hover{text-decoration:underline}
+.hero{background:linear-gradient(135deg,var(--accent),var(--dark));color:#fff;padding:40px 24px 32px}
+.hero .in{max-width:1180px;margin:0 auto}
+.eyebrow{font-size:12.5px;opacity:.85;font-weight:600;letter-spacing:.02em;margin-bottom:12px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+.badge{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:600}
+.hero h1{margin:.1em 0 .3em;font-size:27px;line-height:1.26;font-weight:800;letter-spacing:-.01em}
+.hero .sub{font-size:15px;opacity:.93;max-width:780px}
+.wrap{max-width:1180px;margin:26px auto 0;padding:0 24px;display:grid;grid-template-columns:222px minmax(0,1fr);gap:36px;align-items:start}
+.toc{position:sticky;top:18px;font-size:13px;max-height:calc(100vh - 36px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.toc .t{font-weight:700;font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin:1px 0}
+.toc a{display:block;padding:4px 9px;border-radius:7px;color:#374151;border-left:2px solid transparent}
+.toc a:hover{background:var(--wash);border-left-color:var(--accent);text-decoration:none}
+.toc ul ul{margin:2px 0 4px 8px;border-left:1px solid var(--line);padding-left:5px}
+.toc ul ul a{font-size:12.2px;color:var(--muted)}
+.content{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 42px 42px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.content h2{font-size:20px;font-weight:800;margin:34px 0 12px;padding-top:20px;border-top:1px solid var(--line);letter-spacing:-.01em;scroll-margin-top:14px}
+.content h2:first-of-type{border-top:none;padding-top:8px;margin-top:8px}
+.content h3{font-size:16px;font-weight:700;color:var(--dark);margin:24px 0 8px;scroll-margin-top:14px}
+.content h4{font-size:14.5px;font-weight:700;margin:16px 0 6px}
+.content p{margin:10px 0}
+.content ul,.content ol{margin:10px 0;padding-left:22px}
+.content li{margin:5px 0}
+.content li>ul,.content li>ol{margin:4px 0}
+.content hr{border:none;border-top:1px solid var(--line);margin:0;opacity:0;height:6px}
+strong{font-weight:700;color:#111827}
+code{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:var(--wash);color:var(--dark);padding:1.5px 6px;border-radius:5px;word-break:break-word}
+pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:16px 18px;overflow:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+thead th{background:var(--accent);color:#fff;font-weight:700;text-align:left;padding:9px 12px;white-space:nowrap}
+tbody td{padding:8px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:var(--wash)}
+table strong{color:var(--dark)}
+blockquote.cal{margin:15px 0;padding:12px 16px;border-radius:10px;border:1px solid var(--line);border-left-width:4px;background:#f9fafb;font-size:14px}
+blockquote.cal p{margin:6px 0}
+blockquote.cal p:first-child{margin-top:0}
+blockquote.cal p:last-child{margin-bottom:0}
+blockquote.warn{border-left-color:#d97706;background:#fffbeb}
+blockquote.ok{border-left-color:#059669;background:#ecfdf5}
+blockquote.goal{border-left-color:var(--accent);background:var(--wash)}
+blockquote.info{border-left-color:#2563eb;background:#eff6ff}
+footer{max-width:1180px;margin:30px auto 70px;padding:0 24px}
+.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;font-size:13.5px}
+.nav .lab{color:var(--muted);font-weight:600;margin-right:2px}
+.nav a{padding:5px 12px;border-radius:8px;border:1px solid var(--line);color:#374151}
+.nav a.cur{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.foot-meta{color:var(--muted);font-size:12.5px;margin-top:13px;text-align:center}
+.print{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+@media (max-width:980px){.wrap{grid-template-columns:1fr;gap:16px}.toc{position:static;max-height:none}.content{padding:14px 18px 28px}.hero h1{font-size:23px}}
+@media print{
+ body{background:#fff;font-size:11.4px}
+ .toc,.print,.nav{display:none}
+ .wrap{display:block;margin:0;padding:0}.content{border:none;box-shadow:none;border-radius:0;padding:0}
+ .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:24px}
+ thead th,tbody tr:nth-child(even),blockquote.cal,code,pre{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .content h2{break-after:avoid}.tw,table,blockquote,pre{break-inside:avoid}
+}
+</style></head><body>
+<div class="hero"><div class="in">
+<div class="eyebrow">HelloBot · Cross-Sell 추천 · 활성화 트랙</div>
+<div class="badges"><span class="badge">웹 · 아웃트로</span><span class="badge">P3 · 웹/전환</span><span class="badge">🌐 쿠폰 마진 가드레일</span></div>
+<h1>웹 신규 1회차 구매자 → 아웃트로 추천</h1><div class="sub">웹 결제/결과 직후 아웃트로 — ⓐ 웹 인세션 추가구매 + ⓑ 앱전용 할인쿠폰 웹투앱</div>
+</div></div>
+<div class="wrap">
+<nav class="toc"><div class="t">목차</div><ul>
+<li><a href="#1">1. 한 줄 요약 — 무엇을</a></li>
+<li><a href="#2">2. 배경 &amp; 문제</a></li>
+<li><a href="#3">3. 목표 &amp; 성공지표</a></li>
+<li><a href="#4">4. 타겟 &amp; 세그먼트</a></li>
+<li><a href="#5">5. 추천 로직 연결 (확정 데이터 → 서빙)</a><ul>
+<li><a href="#51">5.1 두 소스의 역할 분담</a></li>
+<li><a href="#52-web12-9-3-csv">5.2 web12 세트 — 직접 9 + 토픽 백오프 3 (CSV 실측)</a></li>
+<li><a href="#53-c-p0-csv">5.3 C P0 세트 — 모집단 정합 강함, 위생 미적용 (CSV 실측)</a></li>
+<li><a href="#54-3">5.4 앵커 키잉 &amp; 서빙 위생 (형제 §3 처방 동일 적용)</a></li>
+</ul>
+</li>
+<li><a href="#6-ux">6. 동작 / UX</a><ul>
+<li><a href="#61">6.1 두 메커니즘의 관계 (명시 설계 — 권장안)</a></li>
+<li><a href="#62-ux-design">6.2 UX 요소 &amp; 카피 (초안 — /design 확정)</a></li>
+</ul>
+</li>
+<li><a href="#7">7. 데이터 · 이벤트 의존성</a></li>
+<li><a href="#8">8. 측정 &amp; 실험</a></li>
+<li><a href="#9-dev-">9. 리포 영향 &amp; 파트별 과업 (구현은 /dev-* 위임)</a></li>
+<li><a href="#10-p3">10. 단계적 롤아웃 (형제 P3 웹과 정합)</a></li>
+<li><a href="#11">11. 리스크 &amp; 가드레일</a></li>
+<li><a href="#12-69">12. 오픈 결정사항 (6/9 미팅)</a></li>
+<li><a href="#csv">부록 — 근거 데이터 자산 (CSV 실측 기준)</a></li>
+</ul></nav>
+<main class="content"><p><strong>작성</strong>: 2026-06-09 (코디네이터/PO) · <strong>상태</strong>: 6/9 데이터 미팅 리뷰용 기획안 (확정 추천세트 기반 · 효과는 A/B 미검증)
+<strong>SSOT 참조</strong>: 분석=<a href="../baseline.md"><code>../baseline.md</code></a> (REVISION 3 · C 섹션) · 형제(결제직후 인세션 슬롯)=<a href="../action-plan-nbo-slot.md"><code>../action-plan-nbo-slot.md</code></a> · 추천세트=<a href="../../data/nbo_web12_named.csv"><code>../../data/nbo_web12_named.csv</code></a> · <a href="../../data/web_hero_c_nbo_p0.csv"><code>../../data/web_hero_c_nbo_p0.csv</code></a>
+<strong>형제와의 경계</strong>: 롤아웃·품질게이트·실험 프레임은 형제 문서(§3)에 있다. <strong>본 문서는 "웹 표면 + 웹→앱 채널" 전용</strong> — 형제 프레임을 따르되 중복 없이 참조만 한다.</p>
+<hr />
+<h2 id="1">1. 한 줄 요약 — 무엇을</h2>
+<p>웹(hellobot-web/webview) 신규 첫 구매자가 결과/결제 직후 보는 <strong>아웃트로 화면</strong>에 추천 스킬을 노출해 두 길로 다음 행동을 유도한다:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>메커니즘</th>
+<th>무엇</th>
+<th>노리는 것</th>
+<th>정합 표면</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>(a) 웹 인세션 추가구매</strong></td>
+<td>아웃트로에 cross-sell 카드 → 웹에서 바로 2번째 구매</td>
+<td>즉시 매출 (당일 cross-sell)</td>
+<td>결제직후·당일</td>
+</tr>
+<tr>
+<td><strong>(b) 앱전용 할인쿠폰 웹→앱 유도</strong></td>
+<td>추천 스킬을 "앱에서 더 싸게" 쿠폰으로 제공 → 앱 설치·전환 후 redemption</td>
+<td>리텐션·LTV·채널이전</td>
+<td>재방문·채널이동</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="cal info">
+<p><strong>핵심 전략 가설</strong>: C(웹온리) 분석 결론은 "웹온리의 본질 = 리텐션·앱전환 문제, 인앱 추천 레버 밖 → 앱전환·재방문 유도가 핵심". 따라서 <strong>(b) 앱전용 쿠폰 웹투앱이 이 문제를 정면 공략하는 강수</strong>이고, (a)는 즉시 매출 보조다. 두 메커니즘의 관계는 §6에서 명시 설계.</p>
+</blockquote>
+<hr />
+<h2 id="2">2. 배경 &amp; 문제</h2>
+<ul>
+<li>매출의 <strong>59%가 웹</strong>, 그 웹의 <strong>88%가 사주</strong> — 광고로 유입돼 사주 한 편 사고 이탈하는 구조 (북극성 진단).</li>
+<li><strong>C(웹온리) = 289,983명</strong>(A 앱퍼스트의 3배), rev90 재구매 <strong>13.1%</strong>(A의 1/3), <strong>75.5%가 1회성</strong>. 웹 1회 구매 후 절대다수가 다시 안 온다.</li>
+<li>그런데 웹 사용자에게 <strong>앱 행동 데이터(A세트)를 그대로 추천에 쓰면 모집단 불일치</strong>가 크다 → 웹엔 웹 모집단(C) 또는 "앱 행동으로 관심사를 추정한" 정합 데이터가 필요.</li>
+<li><strong>1→2 전환이 최대 레버</strong>: 1→2 전환율 31.5%가 유일한 낭떠러지, 넘기면 2→3은 48%. 매출은 단골 2.6%가 26% 책임. 웹 1회성 이탈을 1→2로 넘기는 것이 회사 최대 기회.</li>
+<li><strong>앱전환 갭</strong>: B(웹→앱 이동자) 분석은 "채널이동 자체가 강한 리텐션 신호"라고 본다. 즉 웹 구매자를 앱으로 넘기는 것은 단순 채널 이동이 아니라 <strong>리텐션 전환의 프록시</strong>다. → 아웃트로는 이 전환을 만들 수 있는 가장 이른 접점.</li>
+</ul>
+<p><strong>문제 정의</strong>: 웹 신규 첫 구매자는 (1) 한 번 사고 즉시 이탈하고(즉시 매출 누수), (2) 앱으로 넘어오지 않아 리텐션 모수에 들어오지 못한다. 아웃트로 한 화면에서 (a)즉시 cross-sell과 (b)앱전환의 두 갈래를 동시에 시도한다.</p>
+<hr />
+<h2 id="3">3. 목표 &amp; 성공지표</h2>
+<p><strong>북극성 KPI (회사 공통)</strong>: 첫 구매자 → 2번째 구매 전환율 (1→2). 본 아이템은 <strong>웹 신규 첫구매자</strong>의 1→2를 두 경로로 끌어올린다.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>구분</th>
+<th>지표</th>
+<th>정의</th>
+<th>판정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>북극성</td>
+<td>웹 신규 첫구매자 1→2 전환율</td>
+<td>(a)+(b) 합산, 첫 구매 후 N일(30/60/90) 내 2번째 구매</td>
+<td><strong>A/B 증분으로만 확정</strong></td>
+</tr>
+<tr>
+<td>(a) 메커니즘</td>
+<td>웹 인세션 2번째 구매율</td>
+<td>아웃트로 노출자 중 같은 세션/당일 2번째 구매율</td>
+<td>노출군 vs 비노출(holdout) 증분</td>
+</tr>
+<tr>
+<td>(b) 메커니즘</td>
+<td><strong>웹→앱 전환율</strong></td>
+<td>아웃트로 쿠폰 발급자 중 앱 설치·로그인 도달율</td>
+<td>쿠폰군 vs 비쿠폰군</td>
+</tr>
+<tr>
+<td>(b) 메커니즘</td>
+<td><strong>앱 내 2번째 구매·재방문</strong></td>
+<td>쿠폰 redemption + 앱 내 2번째 구매율 + 익일+ 재방문율</td>
+<td>쿠폰군 vs 비쿠폰군 증분</td>
+</tr>
+<tr>
+<td><strong>가드레일</strong></td>
+<td><strong>쿠폰 순효과(마진 차감)</strong></td>
+<td>(쿠폰군 증분 매출) − (할인 원가·발급비용) &gt; 0</td>
+<td><strong>순증분이 음수면 중단</strong></td>
+</tr>
+<tr>
+<td>보조(강등)</td>
+<td>아웃트로 CTR·적중률</td>
+<td>추천 클릭률·co-purchase 적중률</td>
+<td>보조지표 — ROI로 오해 금지</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="cal info">
+<p><strong>효과 caveat (필수)</strong>: 추천 적중률은 "이미 살 사람을 맞힌 상관 수치"일 뿐 증분 매출이 아니다. (a)·(b) 모두 <strong>노출/쿠폰군 vs 비노출/비쿠폰군 A/B 증분 게이트</strong> 통과가 출시 조건. "쿠폰 주면 산다"가 아니라 "A/B로 검증할 가설"로 다룬다.</p>
+</blockquote>
+<hr />
+<h2 id="4">4. 타겟 &amp; 세그먼트</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>세그먼트</th>
+<th>정의</th>
+<th>본 아이템에서 역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>웹 신규 첫구매자</strong></td>
+<td>웹에서 진짜 첫 결제 (<code>user_first_paid_date</code>), 앱 구매 이력 없음</td>
+<td><strong>주 타겟</strong> — 아웃트로 노출 대상</td>
+</tr>
+<tr>
+<td><strong>C (웹온리)</strong></td>
+<td>앱 구매 없음 (289,983명)</td>
+<td><strong>모집단 정합 기준</strong> — 추천 소스·기대 전환율의 베이스라인. 본질=리텐션·앱전환 문제 → (b) 1차 대상</td>
+</tr>
+<tr>
+<td><strong>B (웹→앱 이동자)</strong></td>
+<td><code>user_first_paid_date &lt; user_first_app_paid_date</code></td>
+<td><strong>신호 기준</strong> — 채널이동=강한 리텐션 신호. (b)가 성공하면 신규 첫구매자를 B 경로로 이동시키는 셈</td>
+</tr>
+<tr>
+<td>(A 앱퍼스트)</td>
+<td>앱 첫구매자</td>
+<td><strong>직접 적용 금지</strong> — 모집단 불일치. 앱 행동은 "관심사 추정"의 재료로만 사용(web12 방식), A 추천세트를 웹에 직접 노출하지 않음</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>모집단 정합 원칙</strong>: 웹 표면에는 ① 인기 12스킬엔 <code>nbo_web12_named.csv</code>(앱 행동으로 관심사 추정), ② 더 넓은 커버리지엔 <strong>C 모집단 NBO</strong>(<code>web_hero_c_nbo_p0.csv</code>, 정제 선결)를 쓴다. <strong>앱 A세트(<code>nbo_v2_combined.csv</code>)는 웹에 직접 적용하지 않는다.</strong></p>
+<hr />
+<h2 id="5">5. 추천 로직 연결 (확정 데이터 → 서빙)</h2>
+<h3 id="51">5.1 두 소스의 역할 분담</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>소스</th>
+<th>파일</th>
+<th>앵커 수</th>
+<th>특성</th>
+<th>본 아이템 용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>web12 (인기 12)</strong></td>
+<td><code>nbo_web12_named.csv</code></td>
+<td>12</td>
+<td>앱 행동으로 관심사 추정 · <strong>위생 적용됨</strong> · Wilson 정렬</td>
+<td><strong>1차 서빙</strong> — 웹 인기 앵커</td>
+</tr>
+<tr>
+<td><strong>C P0 (웹온리 모집단)</strong></td>
+<td><code>web_hero_c_nbo_p0.csv</code></td>
+<td>8(현재)</td>
+<td>C 모집단 직접 co-purchase · anchor_n 2~3배 큼 · <strong>위생 미적용(정제 선결)</strong></td>
+<td><strong>백오프 후보</strong> — 모집단 정합 검증·롱테일 확장의 씨앗</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="cal warn">
+<p>⚠ <strong>현재 C P0의 한계 (정직하게)</strong>: P0 파일은 아직 <strong>8 앵커</strong>뿐이고, 그 8개가 전부 web12의 직접 앵커와 겹친다(43117·49816·55723·57670·21964·27376·47704·2141). 즉 <strong>지금 C P0는 web12보다 넓지 않다</strong>. C의 "더 넓은 커버리지"는 <strong>잠재력</strong>(전체 C 웹온리 모집단으로 롱테일 앵커까지 확장 가능)이지 이 P0에서 실현된 것이 아니다. → <strong>C 정제 NBO 풀빌드가 (b) 롱테일·web12 밖 커버리지의 선결 과제</strong>(/dev-data).</p>
+</blockquote>
+<h3 id="52-web12-9-3-csv">5.2 web12 세트 — 직접 9 + 토픽 백오프 3 (CSV 실측)</h3>
+<p>컬럼: <code>anchor,anchor_name,anchor_topic,anchor_n_app,rank,rec_menu,rec_name,source,score_pct,lift,co_n</code></p>
+<ul>
+<li><strong>직접 9개</strong> (<code>source=직접</code>, 앱 표본 205~6,046, lift·co_n 보유) — 관심사 클러스터가 선명:</li>
+<li><code>2141 그 사람의 속마음</code>(n=6,046) → rank1 <code>17212 그 사람이 연락을 안 하는 이유</code> (score 9.2%, lift 2.92, co_n 555) → 감정 흐름 여정.</li>
+<li><code>49816 재회 사주</code>(n=908) → rank1 <code>28894 재회 사주: 다시 만날 운명일까?</code> (10.0%, lift 2.09) → 재회→재회 클러스터.</li>
+<li><code>27376 결혼OX궁합</code>(n=1,360) → rank1 <code>2166 그 사람과 나의 사주 궁합</code> (7.8%, lift 2.36) → 궁합→궁합.</li>
+<li><strong>토픽 백오프 3개</strong> (<code>source=관심사</code>, <code>anchor_n_app</code> 극소 = 순수 웹획득형, lift 공란):</li>
+<li><code>60706 결혼OX진단</code>(앱 n=<strong>6</strong>), <code>60013 내운트이는동네</code>(n=<strong>8</strong>), <code>60244 연애상대스포</code>(n=<strong>4</strong>). 앱 organic 신호 부재 → 주제(결혼/일반운세/연애)로 백오프해 추천 생성.</li>
+</ul>
+<blockquote class="cal info">
+<p>web12는 첫 구매(아웃트로 진입) 앵커용으로 <strong>바로 서빙 가능</strong>. 단 <code>wilson_lb</code> 컬럼이 세트에 노출돼 있지 않으니 서빙 전 표본·신뢰 메타를 확정(§9 /dev-data).</p>
+</blockquote>
+<h3 id="53-c-p0-csv">5.3 C P0 세트 — 모집단 정합 강함, 위생 미적용 (CSV 실측)</h3>
+<p>컬럼: <code>anchor,anchor_name,anchor_n,rank,rec_menu,rec_name,rec_cat,pair_n,conf_pct,lift,wilson_lb_pct</code></p>
+<ul>
+<li><strong>장점</strong>: anchor_n이 web12 앱프록시보다 크다 — 예 <code>43117</code>(C anchor_n 2,431 vs web12 앱프록시 2,089), <code>47704</code>(C 3,940). <code>wilson_lb_pct</code>·<code>pair_n</code>·<code>rec_cat</code>까지 보유해 표본 게이트·신뢰필터에 바로 쓸 형태.</li>
+<li>예: <code>43117 사랑운</code> → rank1 <code>47704 삼신할매 인연</code> (pair_n 215, conf 8.8%, lift 1.91, wilson_lb 7.8).</li>
+<li><strong>위생 미적용 리스크(P0)</strong>: <code>is_open</code>/<code>is_stop_selling</code>/<code>buyers_30d</code> 게이트 미적용. 예 — <code>57670 2026 병오년 운세</code>가 rec로 노출(시즌물 → 판매중지 위험), 고-lift 일부(<code>56648</code> lift 23.13, <code>35527</code> lift 17.55)는 small pair_n에서 나온 인플레 가능 → <strong>풀빌드 시 위생 게이트·표본 게이트·lift 분모 정정 필수</strong>.</li>
+</ul>
+<h3 id="54-3">5.4 앵커 키잉 &amp; 서빙 위생 (형제 §3 처방 동일 적용)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>규칙</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>앵커 키잉</strong></td>
+<td>웹 아웃트로 진입 스킬(<code>menu_seq</code>)을 앵커로 web12 우선 매칭 → 미스 시 C(정제본) → 둘 다 미스 시 토픽 백오프 → 최후 인기 fallback</td>
+<td>web12 12 + C 정제본</td>
+</tr>
+<tr>
+<td><strong>위생 게이트</strong></td>
+<td>판매중·유료·콘텐츠만(<code>is_open &amp; !is_stop_selling &amp; buyers_30d&gt;0</code>), blocklist(질문권·충전·하트·패키지·[추가구매]·(추천할인)·프리패스) 제외</td>
+<td>형제 §3.1</td>
+</tr>
+<tr>
+<td><strong>자기·보유 제외</strong></td>
+<td>앵커 자기추천 제외 + 유저 보유 스킬 제외(<strong>서빙 시점</strong>)</td>
+<td>형제 §3.1</td>
+</tr>
+<tr>
+<td><strong>표본 게이트</strong></td>
+<td><code>pair_n≥30 · anchor_n≥50</code> + Wilson 하한 정렬, rank1-rank2 CI 분리 시만 "추천"</td>
+<td>형제 §3.2</td>
+</tr>
+<tr>
+<td><strong>방향 보존</strong></td>
+<td>정방향만(앵커→다음). 양방향 pooling 폐기</td>
+<td>형제 §3.2</td>
+</tr>
+<tr>
+<td><strong>앱 A세트 금지</strong></td>
+<td>웹 표면엔 web12/C만. <code>nbo_v2_combined.csv</code>(앱) 직접 서빙 금지</td>
+<td>모집단 정합</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="cal info">
+<p>web12는 위생 적용됨. <strong>C P0는 미적용</strong> → (b) 롱테일 서빙 전 정제 풀빌드가 선결.</p>
+</blockquote>
+<hr />
+<h2 id="6-ux">6. 동작 / UX</h2>
+<h3 id="61">6.1 두 메커니즘의 관계 (명시 설계 — 권장안)</h3>
+<p>오픈 결정이지만 <strong>권장 = 순차 분기</strong>:</p>
+<pre><code>[웹 아웃트로 트리거: 결과 확인 / 결제 완료 직후]
+        │
+        ▼
+(a) 인세션 추가구매 카드 (top-3, web12/C 정제 추천)
+        │
+   ├─ 클릭·구매 ─────────────▶ 웹 즉시 2번째 결제 (즉시 매출)   ← 측정: 웹 인세션 2구매율
+        │
+   └─ 미전환(이탈 시그널/스크롤 이탈/N초) 또는 명시 CTA
+        │
+        ▼
+(b) &quot;앱에서 이 운세 OO% 할인&quot; 앱전용 쿠폰 제안
+        │
+   ├─ 앱 설치자 ─▶ 딥링크 → 앱 쿠폰 랜딩 → redemption → 앱 내 구매   ← 측정: 웹→앱 전환·앱 2구매
+        │
+   └─ 앱 미설치자 ─▶ (오픈 결정: 설치 유도 vs 웹 즉시구매 폴백)
+</code></pre>
+<p>대안 옵션(오픈 결정):
+- <strong>세그먼트 분기</strong>: 즉시구매 의향 높은 앵커(고-conf 인기 연애)는 (a) 우선, 1회성 이탈 위험 큰 앵커/시즌물은 (b) 우선.
+- <strong>병행 노출</strong>: (a)카드 + (b)쿠폰 배지 동시 — 단 선택 피로·측정 혼선 위험.
+- <strong>순수 A/B</strong>: (a)군 vs (b)군 vs holdout 3-arm으로 어느 경로가 1→2를 더 키우는지 직접 비교(가장 깨끗하나 표본 소요 큼).</p>
+<h3 id="62-ux-design">6.2 UX 요소 &amp; 카피 (초안 — /design 확정)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>요소</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(a) 카드 헤더</td>
+<td>"이 운세 본 분들이 다음으로 많이 본 운세" (형제 인앱 슬롯과 카피 일관)</td>
+</tr>
+<tr>
+<td>(a) 카드</td>
+<td>top-3, 탭 시 웹 결제 플로우. 보유·판매중지 제외 후 노출</td>
+</tr>
+<tr>
+<td>(b) 쿠폰 배너</td>
+<td>"앱에서 보면 {할인율} 할인 — {추천스킬명}" + 앱 설치/열기 CTA</td>
+</tr>
+<tr>
+<td>(b) 딥링크</td>
+<td>쿠폰 코드 prefill 딥링크 → 앱 쿠폰 랜딩 → redemption. 미설치 시 스토어 deferred deep link</td>
+</tr>
+<tr>
+<td>가드</td>
+<td>시즌물·판매중지 추천 금지(서빙 실시간 재확인), 쿠폰 1인 1매·유효기간 표기</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="7">7. 데이터 · 이벤트 의존성</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>의존</th>
+<th>내용</th>
+<th>담당</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>C 정제 NBO 풀빌드</strong></td>
+<td>C P0(8앵커·미위생) → 전체 C 웹온리 모집단 co-purchase + 위생/표본/방향/lift 정정 → 롱테일·web12 밖 커버리지</td>
+<td><code>/dev-data</code> (선결)</td>
+</tr>
+<tr>
+<td><strong>웹→앱 전환 측정</strong></td>
+<td>웹 아웃트로 쿠폰 발급 → 앱 설치·로그인·redemption 연결 (식별자 매핑)</td>
+<td><code>/dev-data</code> + 서버</td>
+</tr>
+<tr>
+<td><strong>쿠폰 발급/사용 이벤트</strong></td>
+<td>쿠폰 발급·노출·앱 redemption·차감 원가 이벤트 스펙 신설(순효과 산출의 입력)</td>
+<td><code>/dev-data</code> event-spec</td>
+</tr>
+<tr>
+<td><strong>아웃트로 노출/클릭 이벤트</strong></td>
+<td>(a)카드 impression·click·웹 전환, (b)쿠폰 impression·발급·전환</td>
+<td><code>/dev-data</code> event-spec + 웹/앱</td>
+</tr>
+<tr>
+<td>추천세트 서빙</td>
+<td>web12(즉시) + C 정제본(풀빌드 후) Redis 캐시</td>
+<td><code>/dev-server</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="8">8. 측정 &amp; 실험</h2>
+<ul>
+<li><strong>설계</strong>: 아웃트로 노출/쿠폰을 <strong>홀드아웃(비노출·비쿠폰)과 분리한 A/B</strong>. 권장 3-arm = ①holdout ②(a)인세션만 ③(a)→(b)순차. 단순화 시 2-arm(노출 vs holdout)부터.</li>
+<li><strong>판정</strong>: </li>
+<li>(a) = 노출군 vs holdout의 <strong>웹 인세션 2구매 증분</strong>.</li>
+<li>(b) = 쿠폰군 vs 비쿠폰군의 <strong>웹→앱 전환 + 앱 2구매·재방문 증분</strong>, 여기서 <strong>쿠폰 마진(할인 원가+발급비)을 차감한 순증분</strong>으로 GO/NO-GO.</li>
+<li><strong>적중률 강등</strong>: co-purchase 적중률·CTR은 보조지표. ROI 근거로 쓰지 않는다.</li>
+<li><strong>검정력</strong>: 형제 문서 기준(재방문 +3pp ≈ 4,174/팔, 풀링+CUPED+순차검정 6~10주) 준용. C 모수가 크므로 웹 표면 표본 확보는 상대적으로 유리.</li>
+<li><strong>롤아웃 원칙</strong>: 가장 싼 채널로 증분 먼저 → 검증되면 제품화. (b) 쿠폰은 마진을 직접 태우므로 <strong>소규모 A/B로 순효과 부호부터</strong> 확인 후 확대.</li>
+</ul>
+<hr />
+<h2 id="9-dev-">9. 리포 영향 &amp; 파트별 과업 (구현은 /dev-* 위임)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>파트</th>
+<th>Phase</th>
+<th>과업</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/dev-data</code></td>
+<td>선결·전체</td>
+<td><strong>C 정제 NBO 풀빌드</strong>(위생·표본·방향·lift·모집단 정합) · 웹→앱 전환·쿠폰 발급/사용 이벤트 스펙 · web12 표본/Wilson 메타 확정</td>
+</tr>
+<tr>
+<td><code>/dev-web</code> (hellobot-web/webview)</td>
+<td>(a)·(b)</td>
+<td>아웃트로 슬롯 UI((a)카드 / (b)쿠폰 배너) · 노출/클릭 이벤트 · 딥링크 CTA</td>
+</tr>
+<tr>
+<td><code>/dev-server</code> (hellobot-server)</td>
+<td>(a)·(b)</td>
+<td>web12/C 정제본 서빙 API(캐시·실시간 판매상태·보유제외·fallback) · <strong>앱전용 쿠폰 발급</strong>·딥링크 토큰</td>
+</tr>
+<tr>
+<td><code>/dev-ios</code>·<code>/dev-android</code></td>
+<td>(b)</td>
+<td>쿠폰 랜딩·redemption 딥링크 처리 · deferred deep link(미설치) · redemption 이벤트</td>
+</tr>
+<tr>
+<td><code>/design</code></td>
+<td>(a)·(b)</td>
+<td>아웃트로 (a)카드·(b)쿠폰 디자인 스펙 + 카피</td>
+</tr>
+<tr>
+<td>CRM(Braze)</td>
+<td>후속</td>
+<td>앱 전환 후 재방문 넛지(웹→앱 넘어온 코호트) — 형제 P1과 연계</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="10-p3">10. 단계적 롤아웃 (형제 P3 웹과 정합)</h2>
+<blockquote class="cal info">
+<p>본 아이템은 형제 로드맵의 <strong>P3(재방문·웹)</strong> 구간에 해당. 형제 P0(데이터 정제)·P1(CRM A/B)에서 검증된 정제·실험 프레임을 웹 표면에 적용한다.</p>
+</blockquote>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>내용</th>
+<th>개발량</th>
+<th>게이트</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>W0. C 정제 NBO</strong></td>
+<td>C P0 → 전체 C 모집단 풀빌드 + 위생/표본/lift 정정</td>
+<td>데이터만</td>
+<td>정제 C NBO + 검증 리포트</td>
+</tr>
+<tr>
+<td><strong>W1. (a) 웹 인세션 A/B</strong></td>
+<td>web12 정제본으로 아웃트로 카드, 노출 vs holdout</td>
+<td>웹+서버</td>
+<td>웹 인세션 2구매 증분</td>
+</tr>
+<tr>
+<td><strong>W2. (b) 앱쿠폰 소규모 A/B</strong></td>
+<td>앱전용 쿠폰 웹→앱, 쿠폰군 vs 비쿠폰군 <strong>순효과(마진차감)</strong></td>
+<td>+앱 쿠폰 랜딩</td>
+<td>웹→앱 전환·앱 2구매 순증분 ≥ 0</td>
+</tr>
+<tr>
+<td><strong>W3. 통합·확대</strong></td>
+<td>(a)/(b) 분기 규칙 확정 + 롱테일(C 정제) 확장</td>
+<td>전체</td>
+<td>1→2 전환 증분</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="11">11. 리스크 &amp; 가드레일</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>리스크</th>
+<th>영향</th>
+<th>가드레일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>쿠폰 마진 잠식</strong></td>
+<td>할인 원가가 증분 매출 초과 → 순손실</td>
+<td>쿠폰 <strong>순효과(마진차감) 판정</strong> · 소규모 A/B 부호 확인 후 확대 · 1인1매·유효기간 (§8)</td>
+</tr>
+<tr>
+<td><strong>앱 미설치자 이탈</strong></td>
+<td>(b) 쿠폰 받았으나 설치 마찰로 이탈 → 즉시 매출도 놓침</td>
+<td>미설치자 폴백(웹 즉시구매 vs deferred deep link) <strong>오픈 결정</strong> · 설치 마찰 최소화</td>
+</tr>
+<tr>
+<td><strong>모집단 불일치</strong></td>
+<td>웹 사용자에 앱(A) 행동 베팅</td>
+<td>웹엔 web12/C만, <strong>A세트 직접 서빙 금지</strong> (§5)</td>
+</tr>
+<tr>
+<td><strong>web12 밖 커버리지 공백</strong></td>
+<td>인기 12 외 앵커는 추천 빈약</td>
+<td>C 정제 풀빌드 선결(W0) · 그 전까지 토픽 백오프→인기 fallback</td>
+</tr>
+<tr>
+<td><strong>C P0 위생 미적용</strong></td>
+<td>판매중지·시즌물(예 병오년)·인플레 lift 노출</td>
+<td>풀빌드 시 위생·표본·lift 게이트 + <strong>서빙 실시간 판매상태 재확인</strong></td>
+</tr>
+<tr>
+<td><strong>즉시매출 vs 리텐션 상충</strong></td>
+<td>(a)가 (b)앱전환을 잠식(웹에서 다 사버림)</td>
+<td>3-arm A/B로 경로별 1→2 기여 직접 비교 · 분기 규칙 (§6.1)</td>
+</tr>
+<tr>
+<td>증분 과대평가</td>
+<td>적중률을 ROI로 오해</td>
+<td>A/B 증분 게이트, 적중률 강등 (§8)</td>
+</tr>
+<tr>
+<td>데모그래픽 과잉투자</td>
+<td>demographic 개인화 효과 작음</td>
+<td>TODO-024 트랙으로 cross-ref만, 본 아이템 비투입</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="12-69">12. 오픈 결정사항 (6/9 미팅)</h2>
+<ol>
+<li><strong>(a)와 (b) 관계</strong> — 순차 분기(권장) vs 세그먼트 분기 vs 병행 vs 3-arm A/B? 미전환 트리거(이탈 시그널/N초/명시 CTA) 정의.</li>
+<li><strong>쿠폰 할인율·원가 정책</strong> — 할인율 폭, 마진 한도, 손익분기(순증분 부호) 기준선.</li>
+<li><strong>앱 미설치자 처리</strong> — 설치 유도(deferred deep link) vs 웹 즉시구매 폴백 vs 둘 다.</li>
+<li><strong>쿠폰 운영 룰</strong> — 유효기간·1인1매·대상 스킬 선정(관심 정합 우선 vs 마진 우선).</li>
+<li><strong>C 정제 NBO 풀빌드 착수</strong> — web12 밖 롱테일 커버리지의 선결. <code>/dev-data</code> 우선순위·범위(전체 C 모집단).</li>
+<li><strong>아웃트로 추천 개수</strong> — top-3 vs top-5, (a)카드와 (b)쿠폰의 화면 우선순위.</li>
+<li><strong>web12 표본 메타 확정</strong> — 서빙 전 Wilson 하한·표본 게이트 노출(현 세트에 미포함).</li>
+</ol>
+<hr />
+<h2 id="csv">부록 — 근거 데이터 자산 (CSV 실측 기준)</h2>
+<ul>
+<li><code>../../data/nbo_web12_named.csv</code> — 웹 인기 12 추천세트. 직접 9(<code>source=직접</code>, 앱표본 205~6,046) + 토픽 백오프 3(<code>source=관심사</code>, 앱 n 4~8). <strong>위생 적용</strong>.</li>
+<li><code>../../data/web_hero_c_nbo_p0.csv</code> — C(웹온리) 모집단 NBO <strong>P0(정제 전)</strong>. 현재 8앵커(전부 web12 직접앵커와 중복), anchor_n 767~3,940, <code>wilson_lb_pct</code>·<code>pair_n</code> 보유. <strong>위생 미적용 → 풀빌드 선결</strong>.</li>
+<li>형제 기획서: <code>../action-plan-nbo-slot.md</code> (결제직후 인세션 슬롯 · 롤아웃·품질게이트·실험 프레임).</li>
+<li>분석 SSOT: <code>../baseline.md</code> (REVISION 3 · C 섹션 — C 본질=리텐션·앱전환 문제).</li>
+<li>⚠ 추천세트는 <strong>현재 데이터 기반 실용 세트</strong>(위생·코호트 견고). <strong>효과 증분은 W1~W3 A/B로만 확정</strong> — 적중률은 보조지표.</li>
+</ul></main>
+</div>
+<footer>
+<div class="nav"><span class="lab">활성화 기획</span><a href="01-kakao-push-recommendation.html">① 카플친 푸시</a><a class="cur">② 웹 아웃트로</a><a href="03-home-personalized-section.html">③ 홈 개인화</a></div>
+<div class="foot-meta">생성 2026-06-09 · 원본 SSOT = 동명의 <code>.md</code> · 본 HTML 은 공유·리뷰용 렌더 · 인덱스 <code>planning/activation/readme.md</code></div>
+</footer>
+<button class="print" onclick="window.print()">🖨 인쇄 / PDF</button>
+</body></html>

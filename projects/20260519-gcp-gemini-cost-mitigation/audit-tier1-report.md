@@ -135,6 +135,48 @@
 | gemini-2.5-pro | 2000 | ~$1,000 |
 | gemini-2.5-pro | 4000 | ~$2,000 |
 
+### 2.4b ✅ 실측 청구 분해 (2026-05-22 Console Billing Reports 접근권 부여 후)
+
+**출처**: Cloud Console Billing Reports — billing AC `016568-056D75-165D6B` / 프로젝트 `ai-rule-auto-gen-test-hshan` / 기간 2026-04-22 ~ 2026-05-21 (30일) / Group by SKU. CSV: [billing-data/2026-04-22_to_2026-05-21_ai-rule-auto-gen-test-hshan_sku_breakdown.csv](billing-data/2026-04-22_to_2026-05-21_ai-rule-auto-gen-test-hshan_sku_breakdown.csv)
+
+**총액**:
+
+| 항목 | 값 |
+|---|---|
+| 30일 총 비용 (4/22~5/21) | **₩5,924,383** (≈ $4,455 @ ₩1,330) |
+| **4/29 단일 spike** | **약 ₩5,000,000** (≈ $3,760, 전체의 약 84%) |
+| 직전 30일 (3/24~4/21) 총액 | **₩26,592** (≈ $20) — ✅ 정상 baseline 확인 |
+| 증가 차이 | +₩5,897,791 (직전 30일 대비), 비율 +22,177.98% |
+
+**Top 10 SKU 분해** (총 ₩5.9M 중 비중):
+
+| 순위 | SKU | 사용량 | 비용 (₩) | 비중 |
+|---|---|---|---|---|
+| 1 | **Gemini 3.1 Flash Image — Image Output** | 28.7M count | 2,592,332 | 43.8% |
+| 2 | **Gemini 3 Pro Image — image output token** | 11.1M count | 2,009,328 | 33.9% |
+| 3 | Gemini 3 Flash — text output | 68.8M tokens | 311,831 | 5.3% |
+| 4 | Gemini 3 Pro Short — text output | 16.7M tokens | 301,892 | 5.1% |
+| 5 | Gemini 3 Flash — text input | 239.7M tokens | 180,946 | 3.1% |
+| 6 | Gemini 2.5 Flash Native Image Generation | 2.4M count | 108,569 | 1.8% |
+| 7 | Gemini 3 Flash — video input | 113.3M tokens | 85,561 | 1.4% |
+| 8 | Gemini 2.5 Pro Short — text output | 5.1M tokens | 76,769 | 1.3% |
+| 9 | Gemini 3 Pro Short — text input | 20.9M tokens | 63,137 | 1.1% |
+| 10 | Gemini 3.1 Flash Lite Preview — text output | 20.7M tokens | 46,865 | 0.8% |
+| **꼬리 47 SKU** | (TTS·Embedding·Cached·Audio·기타) | — | 약 ₩260K | 4.4% |
+
+**실측 기반 핵심 인사이트** (forensic 보강):
+
+1. **Image Generation 이 손실의 78%** — Gemini 3.1 Flash Image (44%) + Gemini 3 Pro Image (34%). 단순 텍스트 호출이 아닌 **이미지 생성 API 가 주 abuse 타겟**. 이미지 SKU 단가가 텍스트 토큰 대비 매우 비쌈 → abuser 가 비용 최대화 노린 패턴
+2. **모든 모달리티 sweep** — 이미지·텍스트·비디오 입력·TTS·임베딩까지 광범위 호출. ₩0 SKU 라인 (`search query gemini 3 free`) 까지 흔적 → **자동화 봇의 capability probing / fingerprinting 시도**
+3. **최신 모델 위주** — Gemini 3.1 Flash, Gemini 3 Pro 가 압도적. Gemini 2.5 Pro/Flash 는 1~5%. abuser 가 의도적으로 가장 강력한 최신 모델 선택
+4. **호출 횟수(122K) × SKU 단가** 매핑 확정 — 추정 $40~$2,000 → **실측 $3,760** (이미지 SKU 가 텍스트 추정보다 훨씬 비쌌음)
+5. ✅ **3월 baseline = ₩26,592 ($20)** — 정상 사용 수준. 4/29 가 단일 사건임 청구 데이터로 재확인 (이전 "직전 30일도 ₩5.9M" 해석은 UI 표기 오독, "over ₩X" = 차이 의미)
+6. **5/12 이후 잔여 호출** — 차트에서 5/5, 5/11~5/14 미세 spike 존재. IP 제한(5/12) 직전 abuser 재시도 가능성
+
+**구제 협상 입력 (트랙 B-3)**:
+- "abuser 가 Gemini 3.1 Flash Image / Gemini 3 Pro Image SKU 를 단일일 ₩5M (84%) 폭주" 라는 구체적 사실 제시 가능
+- SKU 단위 정량 데이터 → refund/credit dispute 협상 근거 강화
+
 ### 2.5 Forensic 미해결 — 키 유출 경로
 
 - Cloud Monitoring 데이터는 **caller IP 를 노출하지 않음** (Data Access Logs 미활성 — 4/29 당시 활성 안 되어 있었음)

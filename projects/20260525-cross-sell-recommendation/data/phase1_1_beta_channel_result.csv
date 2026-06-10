@@ -1,0 +1,6 @@
+channel,users,user_pct,users_2plus_pays,repurchase_any_pct,users_revisit,repurchase_revisit_pct,users_sameday_only,sameday_only_pct
+C_web_only,727159,59.1,169290,23.3,109962,15.1,59328,8.2
+A_app_first,458291,37.2,363529,79.3,284393,62.1,79136,17.3
+B_web_to_app,45526,3.7,45526,100.0,43082,94.6,2444,5.4
+U_unknown,2,0.0,1,50.0,1,50.0,0,0.0
+TOTAL,1230978,100.0,578346,47.0,437438,35.5,140908,11.4

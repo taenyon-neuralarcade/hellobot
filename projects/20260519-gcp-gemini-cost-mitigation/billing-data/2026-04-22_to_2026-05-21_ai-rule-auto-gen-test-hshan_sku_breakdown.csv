@@ -1,0 +1,58 @@
+Service description,Service ID,SKU description,SKU ID,Usage amount,Usage unit,Cost (₩),Savings programs (₩),Other savings (₩),Unrounded subtotal (₩),Subtotal (₩),Percent change in subtotal compared to previous period
+Gemini API,AEFD-7695-64FA,Gemini 3.1 Flash Image Image Output - Predictions,1BD4-2AB9-AEFB,"28,741,069",count,2592332,0,0,2592332.416176,2592332,New
+Gemini API,AEFD-7695-64FA,Generate_content image output token count for Gemini 3 Pro Image,096D-0370-0236,"11,109,760",count,2009328,0,0,2009328.284913,2009328,New
+Gemini API,AEFD-7695-64FA,Generate_content text output token count for gemini 3 flash,ACA6-865B-F153,"68,838,743",count,311831,0,0,311831.035437,311831,5979%
+Gemini API,AEFD-7695-64FA,Generate_content text output token count for gemini 3 pro short,530B-F4DF-9814,"16,698,499",count,301892,0,0,301892.416363,301892,3464%
+Gemini API,AEFD-7695-64FA,Generate_content text input token count for gemini 3 flash,F2C1-F842-5D84,"239,662,563",count,180946,0,0,180945.636289,180946,2222%
+Gemini API,AEFD-7695-64FA,Generate_content image output token count for Gemini 2.5 Flash Native Image Generation,2A8D-CD62-0E04,"2,419,742",count,108569,0,0,108568.593676,108569,New
+Gemini API,AEFD-7695-64FA,Generate_content video input token count for gemini 3 flash,AF84-1F75-CB01,"113,324,939",count,85561,0,0,85560.556811,85561,New
+Gemini API,AEFD-7695-64FA,Generate content output token count Gemini 2.5 Pro short output text,0F51-429B-C2DC,"5,088,609",count,76769,0,0,76769.328583,76769,New
+Gemini API,AEFD-7695-64FA,Generate_content text input token count for gemini 3 pro short,FB70-0CFB-9533,"20,925,486",count,63137,0,0,63136.958860,63137,8643%
+Gemini API,AEFD-7695-64FA,Generate content output token count gemini 3.1 flash lite preview text,5882-9C22-CC57,"20,693,643",count,46865,0,0,46865.154309,46865,11723%
+Gemini API,AEFD-7695-64FA,Gemini 3.1 Flash Image Text Output - Predictions,CE23-3061-A132,"9,838,996",count,44400,0,0,44400.178547,44400,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 3.1 flash lite preview text,54F8-C433-9340,"48,322,804",count,18240,0,0,18239.638021,18240,1053%
+Gemini API,AEFD-7695-64FA,Generate content input token count Gemini 2.5 Pro short input text,2D1C-F790-3C09,"9,358,480",count,17646,0,0,17645.715425,17646,New
+Gemini API,AEFD-7695-64FA,Generate_content image input token count for gemini 3 pro short,621F-B428-5221,"5,242,729",count,15802,0,0,15801.622142,15802,119519%
+Gemini API,AEFD-7695-64FA,Generate_content image input token count for gemini 3 flash,1918-CC56-A445,"11,320,865",count,8546,0,0,8545.792871,8546,New
+Gemini API,AEFD-7695-64FA,Generate_content text cached input token count for gemini 3 pro short,4D6D-3A29-44D7,"20,767,932",count,6272,0,0,6271.563859,6272,4139%
+Gemini API,AEFD-7695-64FA,Gemini 3.1 Flash Image Image Input - Predictions,A44E-F89C-67C0,"7,300,481",count,5487,0,0,5486.868111,5487,New
+Gemini API,AEFD-7695-64FA,Generate_content text input token count for gemini 3 pro long,39DE-E38D-5830,"766,330",count,4627,0,0,4626.660747,4627,2472%
+Gemini API,AEFD-7695-64FA,Generate_content text output token count for gemini 3 pro long,1122-2EB0-607B,"162,108",count,4399,0,0,4398.709421,4399,27705%
+Gemini API,AEFD-7695-64FA,Generate content output token count gemini 2.5 flash short input text,911A-8880-A243,"1,125,128",count,4240,0,0,4240.114502,4240,New
+Gemini API,AEFD-7695-64FA,Gemini 3.1 Flash Image Text Input - Predictions,79EE-4DC9-1607,"5,454,797",count,4102,0,0,4102.173915,4102,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 2.5 flash long input text,56F0-A86F-DC9F,"5,606,416",count,2540,0,0,2539.748496,2540,New
+Gemini API,AEFD-7695-64FA,Generate_content cached text input token count for gemini 3 flash,07D6-73CA-C859,"29,600,094",count,2234,0,0,2234.417043,2234,83%
+Gemini API,AEFD-7695-64FA,Generate_content video input token count for gemini 3 pro short,0D1F-99B5-412F,"569,481",count,1691,0,0,1690.604164,1691,3691%
+Gemini API,AEFD-7695-64FA,Generate content output token count gemini 2.5 flash lite short output text,657C-B57A-6A95,"2,429,313",count,1467,0,0,1467.329342,1467,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 2.5 flash short input text,981A-C057-0BF9,"2,084,774",count,940,0,0,939.778843,940,New
+Gemini API,AEFD-7695-64FA,Generate_content text cached input token count for gemini 3 pro long,7429-5179-B41C,"1,516,089",count,911,0,0,911.195283,911,9%
+Gemini API,AEFD-7695-64FA,Generate content input token count Gemini 2.5 Pro input image,1FD9-C71B-4D32,"429,134",count,804,0,0,803.670212,804,New
+Gemini API,AEFD-7695-64FA,Generate content output token count gemini 2.5 flash long input text,E29F-D73B-E460,"152,650",count,576,0,0,576.263290,576,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 3.1 flash lite preview video,29D0-0E40-3CCC,"1,446,742",count,546,0,0,545.808085,546,New
+Gemini API,AEFD-7695-64FA,Generate_content image input token count for Gemini 2.5 Flash Native Image Generation,74A0-9E74-BEDC,"900,421",count,404,0,0,404.131447,404,New
+Gemini API,AEFD-7695-64FA,Generate content cached input token count gemini 2.5 pro short input,9465-C223-0CE9,"1,674,710",count,316,0,0,316.106734,316,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 2.5 flash lite short input text,399C-32AD-1412,"1,631,686",count,246,0,0,246.388340,246,New
+Gemini API,AEFD-7695-64FA,GenerateContent audio output token count for Gemini 2.0 Flash TTS,6D92-ABB7-8F5A,"15,930",count,236,0,0,236.323691,236,713%
+Gemini API,AEFD-7695-64FA,Generate content output token count gemini 2.5 flash short output text non-thinking,6EDB-2409-6348,"29,270",count,108,0,0,108.000626,108,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 2.5 flash input image,68D6-42D9-37E1,"163,634",count,74,0,0,73.935060,74,New
+Gemini API,AEFD-7695-64FA,Generate_content cached video input token count for gemini 3 flash,AE13-E0B0-8069,"614,978",count,46,0,0,46.431598,46,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 3.1 flash lite preview audio,4732-0BB1-B548,"54,416",count,41,0,0,41.084757,41,New
+Gemini API,AEFD-7695-64FA,GenerateContent audio output token count for Gemini 2.5 Pro TTS,3595-202B-833A,"1,263",count,38,0,0,38.143231,38,New
+Gemini API,AEFD-7695-64FA,Generate_content_cached_input_token_count_gemini_3_pro_short_image,AEF7-CFC8-1D9E,"108,466",count,33,0,0,32.705253,33,New
+Gemini API,AEFD-7695-64FA,Generate_content cached image input token count for gemini 3 flash,A78C-B91C-FD61,"429,510",count,32,0,0,32.415994,32,New
+Gemini API,AEFD-7695-64FA,Generate content input token count Gemini 2.5 Pro input audio,9B07-44AD-2984,"16,049",count,30,0,0,29.600574,30,New
+Gemini API,AEFD-7695-64FA,Generate content output token count gemini 2.5 flash lite short output text non-thinking,7133-23F2-04B7,"37,065",count,22,0,0,22.383788,22,New
+Gemini API,AEFD-7695-64FA,Generate content cached input token count gemini 3.1 flash lite preview text,33AF-C20B-C0DB,"441,305",count,17,0,0,16.638385,17,52%
+Gemini API,AEFD-7695-64FA,Generate_content cached video input token count for gemini 3 pro short,6554-3A5E-D9D3,"47,926",count,14,0,0,14.260315,14,New
+Gemini API,AEFD-7695-64FA,Generate_content audio input token count for gemini 3 pro short,5A81-3FA7-8399,"4,649",count,14,0,0,13.959164,14,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 3.1 flash lite preview image,62F0-842F-0B46,"17,111",count,6,0,0,6.406492,6,New
+Gemini API,AEFD-7695-64FA,GenerateContent text input token count for Gemini 2.0 Flash TTS,F4E4-40E9-745E,"3,270",count,2,0,0,2.425530,2,710%
+Gemini API,AEFD-7695-64FA,Generate content cached input token count gemini 2.5 flash input short text,5CDC-4C82-2AEC,"27,640",count,1,0,0,1.245757,1,New
+Gemini API,AEFD-7695-64FA,GenerateContent text input token count for Gemini 2.5 Pro TTS,FD50-4B4A-8DF9,641,count,1,0,0,0.967925,1,New
+Gemini API,AEFD-7695-64FA,Generate_content text cached input token count for gemini 2.5 Flash Lite,EBC7-B1E9-1DA3,"44,434",count,1,0,0,0.670961,1,New
+Gemini API,AEFD-7695-64FA,Generate content input token count gemini 2.5 flash lite input image,261A-5650-31B1,"2,064",count,0,0,0,0.308996,0,New
+Gemini API,AEFD-7695-64FA,Generate content cached input token count gemini 3.1 flash lite preview video,3733-5996-C863,"6,644",count,0,0,0,0.245082,0,New
+Gemini API,AEFD-7695-64FA,Generate_content cached audio input token count for gemini 3 pro short,D2A3-F75E-8166,686,count,0,0,0,0.207173,0,New
+Gemini API,AEFD-7695-64FA,Generate content cached input token count gemini 2.5 flash input image,1C33-4690-9D67,"1,744",count,0,0,0,0.079001,0,New
+Gemini API,AEFD-7695-64FA,EmbedContent input token count for gemini-embedding-2 text,13B8-087F-4762,7,count,0,0,0,0.002114,0,New
+Gemini API,AEFD-7695-64FA,Generate content search query gemini 3 free,7166-DCCD-7D46,601,count,0,0,0,0.000000,0,New

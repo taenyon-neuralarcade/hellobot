@@ -1,0 +1,697 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>홈화면 개인화 추천 스킬 섹션 · HelloBot</title>
+<style>:root{--accent:#4F46E5;--dark:#3730A3;--wash:#EEF0FE}
+
+*{box-sizing:border-box}
+:root{--ink:#1f2430;--muted:#6b7280;--line:#e6e8ec;--bg:#f6f7f9;--card:#fff}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.72;-webkit-font-smoothing:antialiased;
+ font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Pretendard','Malgun Gothic','Noto Sans KR',sans-serif}
+a{color:var(--dark);text-decoration:none}
+a:hover{text-decoration:underline}
+.hero{background:linear-gradient(135deg,var(--accent),var(--dark));color:#fff;padding:40px 24px 32px}
+.hero .in{max-width:1180px;margin:0 auto}
+.eyebrow{font-size:12.5px;opacity:.85;font-weight:600;letter-spacing:.02em;margin-bottom:12px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+.badge{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:4px 12px;border-radius:999px;font-size:12.5px;font-weight:600}
+.hero h1{margin:.1em 0 .3em;font-size:27px;line-height:1.26;font-weight:800;letter-spacing:-.01em}
+.hero .sub{font-size:15px;opacity:.93;max-width:780px}
+.wrap{max-width:1180px;margin:26px auto 0;padding:0 24px;display:grid;grid-template-columns:222px minmax(0,1fr);gap:36px;align-items:start}
+.toc{position:sticky;top:18px;font-size:13px;max-height:calc(100vh - 36px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.toc .t{font-weight:700;font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin:1px 0}
+.toc a{display:block;padding:4px 9px;border-radius:7px;color:#374151;border-left:2px solid transparent}
+.toc a:hover{background:var(--wash);border-left-color:var(--accent);text-decoration:none}
+.toc ul ul{margin:2px 0 4px 8px;border-left:1px solid var(--line);padding-left:5px}
+.toc ul ul a{font-size:12.2px;color:var(--muted)}
+.content{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 42px 42px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.content h2{font-size:20px;font-weight:800;margin:34px 0 12px;padding-top:20px;border-top:1px solid var(--line);letter-spacing:-.01em;scroll-margin-top:14px}
+.content h2:first-of-type{border-top:none;padding-top:8px;margin-top:8px}
+.content h3{font-size:16px;font-weight:700;color:var(--dark);margin:24px 0 8px;scroll-margin-top:14px}
+.content h4{font-size:14.5px;font-weight:700;margin:16px 0 6px}
+.content p{margin:10px 0}
+.content ul,.content ol{margin:10px 0;padding-left:22px}
+.content li{margin:5px 0}
+.content li>ul,.content li>ol{margin:4px 0}
+.content hr{border:none;border-top:1px solid var(--line);margin:0;opacity:0;height:6px}
+strong{font-weight:700;color:#111827}
+code{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:var(--wash);color:var(--dark);padding:1.5px 6px;border-radius:5px;word-break:break-word}
+pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:16px 18px;overflow:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+thead th{background:var(--accent);color:#fff;font-weight:700;text-align:left;padding:9px 12px;white-space:nowrap}
+tbody td{padding:8px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:var(--wash)}
+table strong{color:var(--dark)}
+blockquote.cal{margin:15px 0;padding:12px 16px;border-radius:10px;border:1px solid var(--line);border-left-width:4px;background:#f9fafb;font-size:14px}
+blockquote.cal p{margin:6px 0}
+blockquote.cal p:first-child{margin-top:0}
+blockquote.cal p:last-child{margin-bottom:0}
+blockquote.warn{border-left-color:#d97706;background:#fffbeb}
+blockquote.ok{border-left-color:#059669;background:#ecfdf5}
+blockquote.goal{border-left-color:var(--accent);background:var(--wash)}
+blockquote.info{border-left-color:#2563eb;background:#eff6ff}
+footer{max-width:1180px;margin:30px auto 70px;padding:0 24px}
+.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;font-size:13.5px}
+.nav .lab{color:var(--muted);font-weight:600;margin-right:2px}
+.nav a{padding:5px 12px;border-radius:8px;border:1px solid var(--line);color:#374151}
+.nav a.cur{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.foot-meta{color:var(--muted);font-size:12.5px;margin-top:13px;text-align:center}
+.print{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+@media (max-width:980px){.wrap{grid-template-columns:1fr;gap:16px}.toc{position:static;max-height:none}.content{padding:14px 18px 28px}.hero h1{font-size:23px}}
+@media print{
+ body{background:#fff;font-size:11.4px}
+ .toc,.print,.nav{display:none}
+ .wrap{display:block;margin:0;padding:0}.content{border:none;box-shadow:none;border-radius:0;padding:0}
+ .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:24px}
+ thead th,tbody tr:nth-child(even),blockquote.cal,code,pre{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .content h2{break-after:avoid}.tw,table,blockquote,pre{break-inside:avoid}
+}
+</style></head><body>
+<div class="hero"><div class="in">
+<div class="eyebrow">HelloBot · Cross-Sell 추천 · 활성화 트랙</div>
+<div class="badges"><span class="badge">앱 · 홈 상시</span><span class="badge">P2 · 인앱</span><span class="badge">🏠 다중앵커 블렌드</span></div>
+<h1>홈화면 개인화 추천 스킬 섹션</h1><div class="sub">앱 홈 상시 개인화 추천 카드 — 구매 이력 기반 NBO, 인세션 슬롯과 서빙 API 공유</div>
+</div></div>
+<div class="wrap">
+<nav class="toc"><div class="t">목차</div><ul>
+<li><a href="#1">① 한 줄 요약 — 무엇을</a></li>
+<li><a href="#2">② 배경 &amp; 문제</a></li>
+<li><a href="#3">③ 목표 &amp; 성공지표</a><ul>
+<li><a href="#_1">가드레일 (악화 시 롤백)</a></li>
+</ul>
+</li>
+<li><a href="#4">④ 타겟 &amp; 세그먼트</a></li>
+<li><a href="#5">⑤ 추천 로직 연결 (핵심)</a><ul>
+<li><a href="#51-nbo-v2">5.1 사용하는 NBO 세트 — 인세션 v2 (확정본), 재방문은 오픈</a></li>
+<li><a href="#52">5.2 ⚠ 표면 정합 주의 — 홈은 재방문 의미에 더 가깝다</a></li>
+<li><a href="#53-anchor-keying">5.3 anchor keying 정책 — 핵심 설계 결정</a></li>
+<li><a href="#54">5.4 서빙 시점 위생 (홈 특화 — 반복 노출이라 특히 중요)</a></li>
+<li><a href="#55-fallback-thin-signal">5.5 fallback 분기 (thin-signal / 전량 보유)</a></li>
+</ul>
+</li>
+<li><a href="#6-ux">⑥ 동작 / UX</a></li>
+<li><a href="#7">⑦ 데이터·이벤트 의존성</a></li>
+<li><a href="#8">⑧ 측정 &amp; 실험</a></li>
+<li><a href="#9">⑨ 리포 영향 &amp; 파트별 과업</a></li>
+<li><a href="#10-p2-api">⑩ 단계적 롤아웃 (형제 인앱슬롯 P2 와 API 공유·정합)</a></li>
+<li><a href="#11">⑪ 리스크 &amp; 가드레일</a><ul>
+<li><a href="#todo-024-cross-ref">TODO-024 cross-ref 경계 (명시)</a></li>
+</ul>
+</li>
+<li><a href="#12">⑫ 오픈 결정사항</a></li>
+</ul></nav>
+<main class="content"><p><strong>작성</strong>: 2026-06-09 (PO/기획) · <strong>상태</strong>: 기획안 (착수 전, 형제 인앱슬롯 P2와 API 공유 전제)
+<strong>SSOT 참조</strong>: 분석=<a href="../baseline.md"><code>../baseline.md</code></a> (REVISION 3) · <strong>형제 기획서</strong>=<a href="../action-plan-nbo-slot.md"><code>../action-plan-nbo-slot.md</code></a> (결제직후 인세션 슬롯 — 품질게이트 §3·서빙 §4.3 여기 위치) · 추천세트=<code>../../data/nbo_v2_combined.csv</code>(인세션)·<code>../../data/nbo_table_a_revisit_p0.csv</code>(재방문 P0)
+<strong>관계</strong>: [[TODO-024]] (앱 개인화 전반) 의 <strong>co-purchase 추천 모듈만</strong> 담당. demographic 개인화로 확장 금지 — §11 참조.</p>
+<hr />
+<h2 id="1">① 한 줄 요약 — 무엇을</h2>
+<blockquote class="cal info">
+<p>앱 <strong>홈화면에 사용자 구매 이력 기반 개인화 추천 스킬 섹션</strong>(top-N 카드)을 상시 노출한다. 카피 = "○○ 보신 분들이 다음으로 많이 본 운세". 추천 = 정제 NBO 세트(co-purchase), anchor = 사용자 과거 구매 스킬. <strong>단일 북극성 KPI = 첫 구매자 → 2번째 구매 전환율.</strong> 출시 게이트 = 섹션 노출군 vs 비노출(기존 홈) <strong>A/B 증분</strong> — 적중률은 보조지표.</p>
+</blockquote>
+<p>형제 결제직후 인세션 슬롯이 "<strong>막 산 직후</strong>" 표면이라면, 이 홈 섹션은 "<strong>다른 날 다시 와서 둘러보는</strong>" 상시 표면이다. 둘은 서빙 API(<code>GET /reco/next</code>)를 공유하되 <strong>표면(surface) 파라미터로 추천 세트를 분리</strong>한다.</p>
+<hr />
+<h2 id="2">② 배경 &amp; 문제</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>문제</th>
+<th>근거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1</td>
+<td><strong>상시 발견 표면 부재</strong></td>
+<td>현재 앱 홈은 사용자가 "다음에 뭘 볼지" 개인화 추천으로 안내받는 상설 자리가 없다. 1회 구매자가 다른 날 앱을 다시 열어도 다음 구매로 이어줄 표면이 없음</td>
+</tr>
+<tr>
+<td>B2</td>
+<td><strong>1→2 전환이 최대 레버</strong></td>
+<td>재구매 낭떠러지는 1→2 단 한 곳(전환 31.5%). 넘기면 2→3이 48%. 매출은 단골 2.6%가 26% 책임 → 신규를 단골로 키우는 게 최대 기회 (baseline.md)</td>
+</tr>
+<tr>
+<td>B3</td>
+<td><strong>재방문 리텐션은 인세션과 다른 표면</strong></td>
+<td>1회 구매자의 2번째 결제 중 상당수가 다른 날 재방문 경로. 결제직후(인세션) 슬롯만으로는 이 재방문 경로를 못 잡는다</td>
+</tr>
+<tr>
+<td>B4</td>
+<td><strong>반복 노출 표면의 위생 부담</strong></td>
+<td>홈은 매 진입 시 반복 노출 → 보유 스킬 추천·판매중지 상품·소표본 노이즈가 인세션보다 신뢰를 더 빠르게 갉아먹는다</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>가설 (A/B로 검증)</strong>: 홈에 개인화 추천 섹션을 얹으면 재방문 사용자의 홈경유 2번째 구매가 증가하고, 1→2 전환율이 비노출 대비 증분으로 오른다. — <strong>검증된 사실이 아니라 실험 가설.</strong> 적중률(co-purchase backtest 36.6%)은 "이미 살 사람을 맞힌 상관 수치"일 뿐 증분 매출이 아니다.</p>
+<hr />
+<h2 id="3">③ 목표 &amp; 성공지표</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>층</th>
+<th>지표</th>
+<th>정의</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>북극성</strong></td>
+<td><strong>1→2 전환율</strong></td>
+<td>첫 구매자의 2번째 구매 발생률 (당일/재방문 분리)</td>
+<td>출시 판정 기준 (A/B 증분)</td>
+</tr>
+<tr>
+<td>섹션</td>
+<td>섹션 노출수 / 도달률</td>
+<td>홈 진입 중 섹션이 실제 노출된 비율</td>
+<td>노출이 모든 실험의 출발점</td>
+</tr>
+<tr>
+<td>섹션</td>
+<td>섹션 CTR</td>
+<td>노출 대비 카드 클릭률</td>
+<td>추천 적합도 보조</td>
+</tr>
+<tr>
+<td>섹션</td>
+<td><strong>홈경유 2번째 구매 전환</strong></td>
+<td>섹션 클릭 → 결제 완료</td>
+<td>섹션 기여 핵심</td>
+</tr>
+<tr>
+<td>보조(강등)</td>
+<td>추천 적중률</td>
+<td>co-purchase backtest hit-rate</td>
+<td><strong>보조지표로 강등</strong> (상관 수치, ROI 아님)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="_1">가드레일 (악화 시 롤백)</h3>
+<ul>
+<li>홈 전체 전환·세션당 구매가 비노출 대비 <strong>하락하지 않을 것</strong> (기존 모듈 잠식 방지)</li>
+<li>섹션 내 <strong>보유 스킬 추천 = 0</strong> (이미 산 스킬 추천 금지 — 신뢰 직결)</li>
+<li>섹션 내 <strong>판매중지·비콘텐츠(충전/질문권/하트/패키지) 노출 = 0</strong></li>
+<li>반복 노출 피로: 동일 카드 반복 노출률 상한 (다양성캡·ε-greedy로 관리)</li>
+</ul>
+<hr />
+<h2 id="4">④ 타겟 &amp; 세그먼트</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>세그먼트</th>
+<th>정의</th>
+<th>본 섹션 처리</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A. 앱-퍼스트 (모집단)</strong></td>
+<td><code>user_first_paid_date == user_first_app_paid_date</code>. 가장 깨끗한 인앱 cross-sell 타깃</td>
+<td><strong>1차 노출 모집단</strong> — v2 직접 추천 우선</td>
+</tr>
+<tr>
+<td>B. 웹→앱 이동자</td>
+<td>웹 먼저 → 앱 이동</td>
+<td>2차 (앱 구매 이력 있으면 동일 로직 적용 가능, A/B는 A 우선)</td>
+</tr>
+<tr>
+<td>C. 웹온리</td>
+<td>앱 구매 없음</td>
+<td>본 섹션 밖 (앱 미진입 → 인앱 추천 레버 밖. 앱전환은 별도 트랙)</td>
+</tr>
+<tr>
+<td><strong>thin-signal 분기</strong></td>
+<td>1구매·추천 신호 약한 사용자</td>
+<td><strong>fallback 분기</strong> (§5) — 인기순/관심사 백오프</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>모집단 정합</strong>: 이 섹션은 <strong>앱 구매 이력자</strong>가 대상. anchor 자체가 "과거 구매 스킬"이므로 0구매 신규는 대상 아님(별도 온보딩 영역). 1구매자는 anchor 1개뿐이라 신호가 얇음 → fallback 비중 큼.</p>
+<hr />
+<h2 id="5">⑤ 추천 로직 연결 (핵심)</h2>
+<h3 id="51-nbo-v2">5.1 사용하는 NBO 세트 — 인세션 v2 (확정본), 재방문은 오픈</h3>
+<p>확정된 추천세트는 <strong>인세션 v2</strong>(<code>nbo_v2_combined.csv</code>)다. 실측:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값 (CSV 실측)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>앵커(첫 스킬) 수</td>
+<td><strong>1,045개</strong></td>
+</tr>
+<tr>
+<td>추천 행</td>
+<td>5,168행 (앵커당 top5)</td>
+</tr>
+<tr>
+<td><code>source=직접</code> (실제 1→2 co-purchase)</td>
+<td>397행 / <strong>127개 앵커</strong></td>
+</tr>
+<tr>
+<td><code>source=관심사</code> (롱테일 백오프)</td>
+<td>4,771행</td>
+</tr>
+<tr>
+<td><strong>사용자 가중 직접 커버리지</strong></td>
+<td><strong>83.2%</strong> (81,656 / 98,088)</td>
+</tr>
+<tr>
+<td>직접 추천 score_pct</td>
+<td>median 5.1%, max 50.3% (pair_n 10~523)</td>
+</tr>
+<tr>
+<td>관심사 백오프 score_pct</td>
+<td>median 3.0%</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ 사용자의 83%는 실제 함께구매 데이터로 직접 추천, 나머지 17% 롱테일은 관심사(주제+의도) 그룹 백오프. <strong>방법=2층</strong>: 1층 직접(s_menu, 인세션 포함, Wilson, anchor≥50·pair≥10) → 2층 관심사그룹 백오프.</p>
+<h3 id="52">5.2 ⚠ 표면 정합 주의 — 홈은 재방문 의미에 더 가깝다</h3>
+<p>홈은 사용자가 <strong>다른 날 앱을 다시 열어</strong> 둘러보는 상시 표면이므로, 의미상 <strong>결제직후 인세션보다 재방문(r_menu) 에 가깝다.</strong> 그러나 확정된 건 인세션 v2 세트뿐이다(재방문 P0 = <code>nbo_table_a_revisit_p0.csv</code> 는 <strong>위생 정제 미반영·74앵커만</strong>). 두 세트는 실제로 추천이 다르다 — CSV 실측 비교:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>anchor</th>
+<th>인세션 v2 (s_menu) rank-1</th>
+<th>재방문 P0 (r_menu) rank-1</th>
+<th>rank-1 일치?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400 "다시 만날 수 있을까"</td>
+<td>전연인 어떻게 지낼까 (16.8%)</td>
+<td><strong>재회확률 높이는 법</strong> (8.0%, lift3.91)</td>
+<td>✗ <strong>flip</strong></td>
+</tr>
+<tr>
+<td>42952 "내 사주에 쓰인 운명의 배우자"</td>
+<td>내 사주에 연애 상대 몇 명? (3.5%)</td>
+<td><strong>내 사주의 사랑운</strong> (3.4%, lift2.42)</td>
+<td>✗ <strong>flip</strong></td>
+</tr>
+<tr>
+<td>2141 "그 사람의 속마음"</td>
+<td>그 사람이 연락 안 하는 이유 (12.9%)</td>
+<td>동일 (5.4%, lift2.62)</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table></div>
+<p>관찰: ① <strong>인세션 score 가 체계적으로 높다</strong>(같은 앵커 16.8% vs 8.0%) — 같은 세션 노출로 함께 산 인세션 편향. ② 재방문은 <strong>lift 기준 재정렬</strong>로 다른 순위가 뜬다(예: 2141 의 "내가 관심 있는 거 눈치챘을까?" insession rank-5 → revisit rank-4 lift4.69). 형제 task2 검증과 정합: 두 표면 top5 가 <strong>48%만 겹치고 앵커 32%가 1순위가 바뀜</strong> → <strong>단일 엔진 금지.</strong></p>
+<p><strong>→ 결정 필요 (§12 오픈)</strong>: 홈에 (a) 인세션 v2 그대로 쓰되 표면 의미 차이를 감수, (b) 재방문 P0 를 <strong>v2급으로 정제 후</strong> 병용/대체, (c) v2 를 기본으로 깔고 재방문 정제세트 준비되면 교체. <strong>권장 = (c)</strong> — 확정본(v2)으로 빠르게 출시·A/B 증분 먼저, 재방문 정제세트(P0→v2급 위생 게이트)는 <code>/dev-data</code> 후속으로 준비해 홈 표면만 교체. 출시 지연 없이 표면 정합을 점진 개선.</p>
+<h3 id="53-anchor-keying">5.3 anchor keying 정책 — 핵심 설계 결정</h3>
+<p>사용자는 보유 스킬이 여럿일 수 있으므로 "어느 anchor 로 추천할지"가 설계의 핵심.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>옵션</th>
+<th>정의</th>
+<th>장점</th>
+<th>단점</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>O1. 마지막 구매 1개</strong></td>
+<td>가장 최근 구매 스킬을 anchor</td>
+<td>단순·"방금 관심사" 반영, 인세션 슬롯과 동형</td>
+<td>1개 의존 → 직접커버 못 받으면 바로 fallback</td>
+</tr>
+<tr>
+<td><strong>O2. 최다 관여 1개</strong></td>
+<td>구매·조회 최다 스킬을 anchor</td>
+<td>안정적 대표 관심사</td>
+<td>오래된 관심사 고착, 최근성 약함</td>
+</tr>
+<tr>
+<td><strong>O3. 다중 앵커 블렌드</strong></td>
+<td>보유 스킬 N개 각각의 top5 추천을 점수 병합(보유제외 후 상위)</td>
+<td>신호 최대 활용·직접커버↑·다양성↑</td>
+<td>구현 복잡·중복 추천 dedup·가중치 설계 필요</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>권장 = O3(다중 앵커 블렌드) 를 기본, 단 단순 가중</strong>:
+- 보유 스킬별 v2 top5 를 모아 <code>rec_menu</code> 단위로 score 합산(최근 구매에 가중 ↑), 보유·중복 제외 후 상위 top-N.
+- 1구매자(anchor 1개)는 자동으로 O1 과 동일하게 동작 → 별도 분기 불필요.
+- <strong>이유</strong>: 직접커버 83% 는 "앵커 1개" 기준 수치인데, 보유 스킬이 여럿이면 그중 하나라도 127개 직접앵커에 들 확률이 올라 <strong>fallback 비중을 낮춘다</strong>(thin-signal 완화). 홈은 반복 노출이라 다양성도 유리.
+- <strong>단순 시작 옵션</strong>: 1차 PoC 는 O1(마지막 구매)로 시작해 블렌드는 2차 — 구현 리스크를 낮추고 싶으면. (§12 오픈)</p>
+<h3 id="54">5.4 서빙 시점 위생 (홈 특화 — 반복 노출이라 특히 중요)</h3>
+<p>§3(형제 기획서)의 품질 게이트를 <strong>그대로 상속</strong>하되, 홈은 아래가 특히 critical:</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>게이트</th>
+<th>내용</th>
+<th>홈에서 왜 더 중요한가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>보유·자기 스킬 제외</strong></td>
+<td>서빙 시점 실시간으로 유저 보유 스킬 + anchor 자기 제외</td>
+<td><strong>반복 노출</strong> — 이미 산 스킬을 홈에서 계속 보면 신뢰 즉시 붕괴</td>
+</tr>
+<tr>
+<td>판매상태 하드게이트</td>
+<td><code>is_open &amp; !is_stop_selling &amp; buyers_30d&gt;0</code>, 서빙 시점 재확인</td>
+<td>매 진입 노출 → 죽은 상품 반복 노출 위험</td>
+</tr>
+<tr>
+<td>blocklist</td>
+<td>질문권·충전·하트·패키지·[추가구매]·(추천할인)·프리패스 제외</td>
+<td>동일</td>
+</tr>
+<tr>
+<td>표본 게이트</td>
+<td><code>pair_n≥30·anchor_n≥50</code> + Wilson 하한</td>
+<td>소표본 추천을 매번 강신호처럼 노출 방지</td>
+</tr>
+<tr>
+<td><strong>다양성캡 + ε-greedy</strong></td>
+<td>per-skill 노출캡 + 탐색으로 롱테일 노출</td>
+<td>반복 노출 피로 완화 + 롱테일 82% 노출 0 방지</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="55-fallback-thin-signal">5.5 fallback 분기 (thin-signal / 전량 보유)</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>상황</th>
+<th>분기</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>직접커버 있음 (블렌드 후 top-N 충족)</td>
+<td>정제 NBO 직접 추천</td>
+</tr>
+<tr>
+<td>thin-signal (직접 부족)</td>
+<td><strong>관심사(주제+의도) 백오프</strong> → 그래도 부족하면 <strong>판매중 인기순</strong></td>
+</tr>
+<tr>
+<td>1구매·신호 약함</td>
+<td>위와 동일 분기 (anchor 1개 → 직접커버 못 받으면 관심사/인기순)</td>
+</tr>
+<tr>
+<td><strong>전량 보유</strong> (추천 후보가 보유로 다 빠짐)</td>
+<td>관심사 백오프 → 인기순으로 채움. 그래도 0이면 <strong>섹션 미노출</strong>(빈 섹션 금지)</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="6-ux">⑥ 동작 / UX</h2>
+<pre><code>홈 진입
+  → [서버] 유저 보유 스킬 조회 → anchor keying(블렌드/마지막)
+  → GET /reco/next?surface=home&amp;anchors={보유}&amp;exclude={owned}
+  → [서버] 정제 NBO 룩업 + 표면세트 + 서빙위생(보유/판매상태/blocklist/표본) + 다양성·탐색 + fallback
+  → top-N 카드 반환
+  → [앱] 홈 섹션 렌더 + impression 이벤트
+  → 카드 탭 → 스킬 상세/결제 플로우 + click 이벤트
+</code></pre>
+<ul>
+<li><strong>섹션 헤더 카피</strong>: "○○ 보신 분들이 다음으로 많이 본 운세" (anchor 스킬명 치환). 블렌드 시 = "회원님께 어울리는 다음 운세" 등 anchor 비노출 카피 (오픈 — §12).</li>
+<li><strong>카드</strong>: 스킬 썸네일 + 제목 + (옵션) 짧은 사회적 증거. top-N = 3~6 (오픈 — §12).</li>
+<li><strong>빈 섹션 금지</strong>: fallback 으로도 카드가 안 차면 섹션 자체를 숨김.</li>
+</ul>
+<hr />
+<h2 id="7">⑦ 데이터·이벤트 의존성</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>의존</th>
+<th>내용</th>
+<th>담당</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>서빙 API</td>
+<td><code>GET /reco/next</code> (인세션 슬롯과 <strong>공유</strong>, surface 파라미터로 분리)</td>
+<td><code>/dev-server</code></td>
+</tr>
+<tr>
+<td>정제 NBO 세트</td>
+<td>v2 인세션(확정) + 재방문 정제세트(후속, §5.2 권장 (c))</td>
+<td><code>/dev-data</code></td>
+</tr>
+<tr>
+<td>보유 스킬 조회</td>
+<td>서빙 시점 실시간 유저 보유 목록</td>
+<td><code>/dev-server</code></td>
+</tr>
+<tr>
+<td>노출/클릭 이벤트</td>
+<td>섹션 impression·card click·card→purchase. <strong>이벤트 스펙 신설</strong></td>
+<td><code>/dev-data</code> event-spec + 앱</td>
+</tr>
+<tr>
+<td>갱신주기</td>
+<td>rolling window 월 1회(시즌기 주 1회) 재집계</td>
+<td><code>/dev-data</code></td>
+</tr>
+<tr>
+<td>anchor keying 로직</td>
+<td>블렌드 가중·최근성 정의</td>
+<td><code>/dev-data</code> (정책) + <code>/dev-server</code> (서빙)</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="cal info">
+<p>노출 이벤트는 §3.5(형제) <strong>노출로그 기반 근본개선</strong>의 입력도 된다 — 홈 섹션 노출 로그가 쌓이면 "노출됐는데 안 산 것" 대비 lift 정의에 기여.</p>
+</blockquote>
+<hr />
+<h2 id="8">⑧ 측정 &amp; 실험</h2>
+<ul>
+<li><strong>실험 = 섹션 노출군 vs 비노출(기존 홈) A/B.</strong> 측정 = 1→2 전환·홈경유 2번째 구매의 <strong>증분</strong>.</li>
+<li><strong>적중률 강등</strong>: co-purchase backtest 적중률은 보조지표. "추천 섹션 = 매출 증가"로 단정 금지 — A/B 로만 증분 확정.</li>
+<li>분할·기간·최소표본: 형제 기획서 실험 프레임 상속(재방문 +3pp 검정에 ~4,174/팔, 풀링+CUPED+순차검정 6~10주 — baseline redesign 근거). 구체 수치는 출시 결정 시 확정.</li>
+<li><strong>롤아웃 원칙</strong>: 가장 싼 채널로 증분 먼저 → 검증되면 제품화. 홈 섹션은 인앱 개발이 드는 표면이므로 <strong>형제 P1(CRM A/B)·P2(인앱 인세션 슬롯)로 co-purchase 증분이 1차 검증된 뒤</strong> 본격화(§10).</li>
+</ul>
+<hr />
+<h2 id="9">⑨ 리포 영향 &amp; 파트별 과업</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>파트</th>
+<th>과업</th>
+<th>공유/주의</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/dev-server</code> (hellobot-server)</td>
+<td><code>GET /reco/next</code> 에 <code>surface=home</code> 분기·Redis 캐시·서빙 시점 판매상태 재확인·보유제외·fallback·anchor 블렌드 서빙</td>
+<td><strong>인세션 슬롯과 API 공유</strong> — 중복 구현 금지, surface 파라미터로 분기</td>
+</tr>
+<tr>
+<td><code>/dev-data</code> (common-data-airflow)</td>
+<td>재방문 정제세트(v2급 위생) 산출·anchor keying 정책·갱신 배치·노출/클릭 event-spec</td>
+<td>표면 분리 유지 (인세션 v2 ↔ 재방문)</td>
+</tr>
+<tr>
+<td><code>/dev-ios</code> (hellobot_iOS)</td>
+<td>홈 섹션 UI·impression/click 이벤트</td>
+<td>빈 섹션 숨김·다양성캡 노출</td>
+</tr>
+<tr>
+<td><code>/dev-android</code> (hellobot_android)</td>
+<td>홈 섹션 UI·impression/click 이벤트</td>
+<td>동일</td>
+</tr>
+<tr>
+<td><code>/design</code></td>
+<td>홈 섹션 카드 스펙·헤더 카피·기존 모듈과의 배치/우선순위</td>
+<td>기존 홈 모듈 경합 조율</td>
+</tr>
+<tr>
+<td><code>/dev-web</code></td>
+<td>(후속) 웹 적용 — 본 섹션 범위 밖, 모집단=C 별도</td>
+<td>앱↔웹 모집단 불일치 주의</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="10-p2-api">⑩ 단계적 롤아웃 (형제 인앱슬롯 P2 와 API 공유·정합)</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>내용</th>
+<th>게이트</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>선행: 형제 P0~P2</td>
+<td>정제 NBO + CRM A/B + 인세션 슬롯으로 <strong>co-purchase 증분 1차 검증</strong></td>
+<td>증분 양성 시 홈 진행</td>
+</tr>
+<tr>
+<td><strong>H1. 서빙 공유</strong></td>
+<td><code>GET /reco/next</code> 에 <code>surface=home</code> 추가 (인세션 슬롯 API 재사용)</td>
+<td>API 분기 동작</td>
+</tr>
+<tr>
+<td><strong>H2. 홈 섹션 PoC</strong></td>
+<td>anchor=마지막구매(O1) 단순 버전 + 보유제외·판매게이트, <strong>노출군 vs 비노출 A/B</strong></td>
+<td>홈경유 전환·증분</td>
+</tr>
+<tr>
+<td><strong>H3. 블렌드·재방문세트</strong></td>
+<td>anchor 블렌드(O3) + 재방문 정제세트로 교체, 다양성캡·ε-greedy</td>
+<td>증분 개선</td>
+</tr>
+<tr>
+<td><strong>H4. 제품화</strong></td>
+<td>갱신 배치 정례화·롱테일 탐색 상시화</td>
+<td>가드레일 안정</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="cal info">
+<p><strong>정합 원칙</strong>: 홈 섹션은 인앱 인세션 슬롯과 <strong>서빙 API·정제 파이프라인·이벤트 스펙을 공유</strong>한다. 형제 기획서의 품질게이트(§3)·서빙(§4.3)·실험 프레임을 <strong>상속</strong>하고 중복 작성하지 않는다. 차이는 <strong>표면 세트(재방문)·anchor keying(블렌드)·서빙 위생(보유제외·반복노출 관리)</strong> 뿐.</p>
+</blockquote>
+<hr />
+<h2 id="11">⑪ 리스크 &amp; 가드레일</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>리스크</th>
+<th>영향</th>
+<th>가드레일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>보유 스킬 추천</strong></td>
+<td>이미 산 걸 반복 노출 → 신뢰 붕괴</td>
+<td>서빙 시점 실시간 보유제외 (§5.4) — 홈 최우선</td>
+</tr>
+<tr>
+<td>판매불가·죽은 시즌상품</td>
+<td>UX 신뢰</td>
+<td>판매상태 하드게이트 + 서빙 재확인</td>
+</tr>
+<tr>
+<td><strong>반복 노출 피로</strong></td>
+<td>같은 카드 매번 → 무시·피로</td>
+<td>다양성캡 + ε-greedy 탐색 + 동일카드 노출 상한</td>
+</tr>
+<tr>
+<td><strong>표면 미스매치</strong></td>
+<td>인세션 세트를 재방문 표면에 써서 부적합</td>
+<td>재방문 정제세트 준비·교체(§5.2 권장 c), A/B 로 검증</td>
+</tr>
+<tr>
+<td>기존 홈 모듈 잠식</td>
+<td>홈 전체 전환 하락</td>
+<td>가드레일(§3) — 비노출 대비 하락 시 롤백, 배치 우선순위 디자인 조율</td>
+</tr>
+<tr>
+<td>소표본 노이즈</td>
+<td>무작위를 강신호로 오인</td>
+<td>표본 게이트 + Wilson</td>
+</tr>
+<tr>
+<td><strong>TODO-024 중복</strong></td>
+<td>앱 개인화 트랙과 작업·산출 중복</td>
+<td>이 섹션 = <strong>co-purchase 모듈만</strong>. demographic·복잡모델 확장 금지(아래)</td>
+</tr>
+<tr>
+<td>증분 과대평가</td>
+<td>적중률을 ROI 로 오해</td>
+<td>A/B 증분 게이트, 적중률 강등 (§8)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="todo-024-cross-ref">TODO-024 cross-ref 경계 (명시)</h3>
+<ul>
+<li>앱 개인화 <strong>전반</strong>(시그널 인벤토리·demographic·세그먼트)은 <strong>[[TODO-024]] 별도 병렬 트랙</strong>. 이 홈 섹션은 그중 <strong>co-purchase 추천 모듈만</strong> 담당 — cross-ref 하되 <strong>병합 금지</strong>.</li>
+<li>demographic 개인화 효과는 작다(연령 표준화 변화 5.1%) → <strong>demographic·복잡모델로 확장 금지.</strong> co-purchase NBO 가 레버.</li>
+</ul>
+<hr />
+<h2 id="12">⑫ 오픈 결정사항</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>결정</th>
+<th>옵션</th>
+<th>PO 권장</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O-1</td>
+<td><strong>인세션 vs 재방문 세트</strong></td>
+<td>(a) 인세션 v2 그대로 (b) 재방문 정제 후 대체 (c) v2 기본+재방문 준비되면 교체</td>
+<td><strong>(c)</strong> — v2 로 빠르게 A/B, 재방문 정제 후속</td>
+</tr>
+<tr>
+<td>O-2</td>
+<td><strong>anchor keying 정책</strong></td>
+<td>O1 마지막구매 / O2 최다관여 / O3 다중블렌드</td>
+<td><strong>O3 블렌드</strong> (단순 시작은 O1)</td>
+</tr>
+<tr>
+<td>O-3</td>
+<td><strong>섹션 크기 (top-N)</strong></td>
+<td>3 / 4 / 6</td>
+<td>데이터·디자인 협의 (반복노출 피로 vs 발견성)</td>
+</tr>
+<tr>
+<td>O-4</td>
+<td><strong>홈 내 배치·우선순위</strong></td>
+<td>상단 고정 / 중단 / 기존 모듈과 경합 위치</td>
+<td><code>/design</code> + A/B (배치별 증분)</td>
+</tr>
+<tr>
+<td>O-5</td>
+<td><strong>갱신 주기</strong></td>
+<td>월 1회 / 시즌기 주 1회</td>
+<td>형제 정합 (rolling window)</td>
+</tr>
+<tr>
+<td>O-6</td>
+<td><strong>헤더 카피</strong></td>
+<td>anchor 노출("○○ 본 분들이…") / 비노출("회원님 다음 운세")</td>
+<td>블렌드면 비노출, 단일앵커면 노출</td>
+</tr>
+<tr>
+<td>O-7</td>
+<td><strong>전량 보유 시 처리</strong></td>
+<td>관심사→인기순 채움 / 섹션 숨김</td>
+<td>채우되 0 이면 숨김 (빈 섹션 금지)</td>
+</tr>
+<tr>
+<td>O-8</td>
+<td><strong>1구매·thin-signal fallback</strong></td>
+<td>관심사 백오프 / 인기순 / 혼합</td>
+<td>관심사 → 인기순 단계 분기</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<blockquote class="cal info">
+<p><strong>출처 주의</strong>: 위 추천 로직 주장은 <code>nbo_v2_combined.csv</code>(1,045앵커·직접 83.2% 커버) 및 <code>nbo_table_a_revisit_p0.csv</code>(74앵커·정제 전 P0) 실측 인용. 인세션↔재방문 rank-1 flip 예시(앵커 400·42952)는 두 CSV 직접 비교 결과. 적중률·증분 caveat·표면분리 48%·연령 5.1% 는 baseline.md REVISION 3 및 형제 기획서 근거.</p>
+</blockquote></main>
+</div>
+<footer>
+<div class="nav"><span class="lab">활성화 기획</span><a href="01-kakao-push-recommendation.html">① 카플친 푸시</a><a href="02-web-outro-recommendation.html">② 웹 아웃트로</a><a class="cur">③ 홈 개인화</a></div>
+<div class="foot-meta">생성 2026-06-09 · 원본 SSOT = 동명의 <code>.md</code> · 본 HTML 은 공유·리뷰용 렌더 · 인덱스 <code>planning/activation/readme.md</code></div>
+</footer>
+<button class="print" onclick="window.print()">🖨 인쇄 / PDF</button>
+</body></html>
