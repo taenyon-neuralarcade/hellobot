@@ -6,8 +6,25 @@
       "Bash(bq show:*)",
       "Bash(bq head:*)",
       "Bash(bq extract:*)",
+      "Bash(bq --project_id=hellobot-f445c query:*)",
+      "Bash(bq --project_id=hellobot-f445c ls:*)",
+      "Bash(bq --project_id=hellobot-f445c show:*)",
+      "Bash(bq --project_id=hellobot-f445c head:*)",
       "Bash(gcloud config get-value:*)",
-      "Bash(gcloud config set project:*)"
+      "Bash(gcloud config set project:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(mkdir:*)",
+      "Bash(command -v:*)",
+      "Bash(jq:*)",
+      "WebSearch",
+      "mcp__plugin_figma_figma__get_design_context",
+      "mcp__plugin_figma_figma__get_metadata",
+      "mcp__plugin_figma_figma__get_screenshot"
     ]
   },
   "env": {
