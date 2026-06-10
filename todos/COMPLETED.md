@@ -17,6 +17,24 @@
 
 ---
 
-## (이관된 항목 없음)
+## 2026-05
 
-> 첫 이관은 2026-05-25 주(월요일) 또는 5/3 이전 완료 항목 발생 시 시작 예정.
+> 2026-06-04 (목) 1차 이관 — 2026-05-24 이전 완료 항목 / 2026-06-08 (월) 2차 이관 — 2026-05-25~31 완료 항목 (주간 정리, 완료일 역순).
+
+| ID | 제목 | 등록일 | 시작일 | 완료일 | 상세 |
+|----|------|--------|--------|--------|------|
+| TODO-010 | AI 계정 이전 (공지 발송 + 본인 계정 변경 + 5/27 팀계정 생성·이전) | 2026-05-13 | 2026-05-21 | 2026-05-29 | [상세](TODO-010-ai-account-migration.md) |
+| TODO-036 | IT 솔루션 결제 수단 카드 변경 (6/1 마감 조기 완료) | 2026-05-27 | 2026-05-29 | 2026-05-29 | [상세](TODO-036-it-solution-payment-card-change.md) |
+| TODO-020 | [비트윈 분리] 헬로우봇 Duo 계정 분리 (bastion 2대 + OpenVPN + 멤버 접속 + 구 Duo 정리) | 2026-05-19 | 2026-05-22 | 2026-05-28 | [상세](TODO-020-hellobot-duo-account-separation.md) |
+| TODO-030 | AWS 5·6번 계정 dlt-partners 인계 (담당자 MFA 인계 — 잔여 보안격리는 PMI 종료 후 별도 추적) | 2026-05-22 | 2026-05-28 | 2026-05-28 | [상세](TODO-030-aws-account-5-6-handover-dlt.md) |
+| TODO-031 | AWS 1~4번 계정 neuralarcade.ai 이전 (root 이메일 전환 + 부가 정보·리소스 갱신) | 2026-05-22 | 2026-05-24 | 2026-05-28 | [상세](TODO-031-aws-account-1-4-migration-neuralarcade.md) |
+| TODO-018 | GCP AI 프로젝트 마이그레이션 (dlt-partners.com → thingsflow.kr, 8개 프로젝트 완료) | 2026-05-18 | 2026-05-18 | 2026-05-27 | [상세](TODO-018-gcp-ai-project-migration.md) |
+| TODO-004 | 카카오 선물하기 1차 출시 (하트 충전권 + 스킬 교환권) | 2026-05-13 | 2026-05-13 | 2026-05-26 | [상세](TODO-004-kakao-gift-launch.md) |
+| TODO-023 | [coop 핫픽스] 쿠프마케팅 compCode env 분리 (ISS-055, P1) — 코드(5/5 `64ac9081`) + 운영 매니페스트·배포 완료 | 2026-05-20 | 2026-05-05 | 2026-05-20 | [상세](TODO-023-coop-compcode-env-split.md) |
+| TODO-015 | 디엘티파트너스 인프라 PMI 답변 (5/15 마감 내 회신 완료) | 2026-05-14 | 2026-05-15 | 2026-05-15 | [상세](TODO-015-dlt-infra-pmi-response.md) |
+| TODO-009 | 개인정보처리방침·이용약관 개정 퍼블리싱 (5/15 마감 내 완료) | 2026-05-13 | 2026-05-15 | 2026-05-15 | [상세](TODO-009-policy-publish.md) |
+| TODO-014 | 데이터 세션 일정 조율 완료 (5/14 마감 → 5/15 재설정 후 완료) | 2026-05-14 | 2026-05-15 | 2026-05-15 | [상세](TODO-014-data-session-scheduling.md) |
+| TODO-003 | Android 하트 구매 OR-FGEMF-20 해결 (Google Payments 직접 채널, 영덕님 처리) | 2026-05-13 | 2026-05-13 | 2026-05-14 | [상세](TODO-003-android-heart-purchase-or-fgemf-20.md) |
+| TODO-008 | AX 자료 zip → 수지님 메일 전달 (5/13 마감 1일 초과) | 2026-05-13 | 2026-05-14 | 2026-05-14 | [상세](TODO-008-ax-docs-handover.md) |
+| TODO-002 | cmux 새 워크스페이스 spawn 동작 검증 | 2026-05-13 | 2026-05-13 | 2026-05-13 | [상세](TODO-002-cmux-spawn-verification.md) |
+| TODO-001 | cmux PATH 심링크 + hooks 점검 | 2026-05-13 | 2026-05-13 | 2026-05-13 | [상세](TODO-001-cmux-path-and-hooks.md) |
