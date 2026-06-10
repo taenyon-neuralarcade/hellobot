@@ -62,7 +62,7 @@
 | 발견일 | 2026-04-22 |
 | 심각도 | P3 |
 | 영향 파트 | 웹, iOS, Android |
-| 상태 | Android 해결 (2026-04-22) — `CouponListViewModel._isRegistering: MutableStateFlow<Boolean>` 신설, register 진입 시 true, `doFinally`로 종료 시 false 보장. `CouponListActivity` `collectAsState`로 구독 후 `CouponInputSection(isRegistering)` 전달. 버튼 `enabled = !isInputEmpty && !isRegistering`, 배경색도 동일 조건으로 토글, 내부에 라벨 대신 `CircularProgressIndicator(16dp, Gray900, 2dp strokeWidth)` 렌더. 등록 중 TextField `enabled=false` + clear 아이콘 숨김. 웹/iOS는 미해결. |
+| 상태 | Android 해결 (2026-04-22) — `CouponListViewModel._isRegistering: MutableStateFlow<Boolean>` 신설, register 진입 시 true, `doFinally`로 종료 시 false 보장. `CouponListActivity` `collectAsState`로 구독 후 `CouponInputSection(isRegistering)` 전달. 버튼 `enabled = !isInputEmpty && !isRegistering`, 배경색도 동일 조건으로 토글, 내부에 라벨 대신 `CircularProgressIndicator(16dp, Gray900, 2dp strokeWidth)` 렌더. 등록 중 TextField `enabled=false` + clear 아이콘 숨김. 웹/iOS는 미해결. · **문서 정합 완료 (2026-04-22)** — 사용자 최종 결정(스피너 금지, disable + 회색 `#C6C8CC` 재사용)을 design-spec.md §공통 컴포넌트 — 등록 버튼 / client-guide.md "중복 탭 방지" / screen-plan.md §5-1·§5-2·§7·§4 플로우 / architecture.md §6에 반영. Web/Android 레거시 스피너 구현은 회귀 리스크로 rollback하지 않음을 모든 문서에 예외 각주 처리. |
 
 **현상**: 스킬 교환권 쿠폰 등록 시 응답 대기 로딩이 길어 사용자가 버튼이 안 눌린 것으로 착각하고 중복 클릭할 가능성이 있음. 버튼 비활성화 + 스피너 표기로 진행 상태를 명확히 인지시킬 필요.
 **출처**: Notion DLT-HLB-1060.
@@ -375,7 +375,7 @@
 | 발견일 | 2026-04-22 |
 | 심각도 | P3 |
 | 영향 파트 | iOS, 웹 (Android는 GIF 재생 확인됨) |
-| 상태 | iOS 해결 (2026-04-22) — `CoopHeartCompletePopupView.illustrationImageView`를 `UIImageView` + 정적 PNG(`_Coop/img_heart_complete`) → `ImageContentView` + 기존 하트충전 Lottie(`imgHeartchargeComplete`.asLocalAnimation, loopMode=.loop)로 교체. Lottie 원본 1184×576(≈2.055:1)이 design-spec 240×117(≈2.05:1)와 비율 일치 → 기존 제약 그대로 `.scaleAspectFit`로 꼭 맞음. 웹은 미해결(design-spec GIF/Lottie 자산 확정 대기). |
+| 상태 | iOS 해결 (2026-04-22) — `CoopHeartCompletePopupView.illustrationImageView`를 `UIImageView` + 정적 PNG(`_Coop/img_heart_complete`) → `ImageContentView` + 기존 하트충전 Lottie(`imgHeartchargeComplete`.asLocalAnimation, loopMode=.loop)로 교체. Lottie 원본 1184×576(≈2.055:1)이 design-spec 240×117(≈2.05:1)와 비율 일치 → 기존 제약 그대로 `.scaleAspectFit`로 꼭 맞음. 웹은 미해결. · **문서 정합 완료 (2026-04-22)** — 사용자 최종 결정("플랫폼별 기존 하트 충전 애니메이션 자산 재사용, 신규 발급 없음, 자산명·경로 강제 금지, 재생되는 애니메이션·240×117 비율 유지만 규범화")을 design-spec.md §S3 + §에셋 목록(S3 일러스트 자산 블록) / client-guide.md S3 / screen-plan.md §3 S3 구성 요소에 반영. 웹 구현 자산 확정은 별도 과업(tasks.md ISS-035 웹 항목)에서 "디자인 스펙 자산 확정 대기" 차단이 해제됨 — 기존 헬로우봇 하트 충전 관련 GIF/Lottie 탐색하여 적용 가능. |
 
 **현상**: 하트 충전 쿠폰 등록 완료 팝업 내 이미지가 정적 이미지로 표시됨. 기존 하트충전 팝업(쿠폰 외 경로)은 GIF로 재생되므로 쿠폰 등록 완료 팝업도 동일하게 GIF 재생되어야 함. Android 앱에서는 이미 GIF 재생 확인됨(화란 테스트). iOS/웹 확인 필요.
 **재현**: A-002 케이스.
@@ -527,8 +527,8 @@
 | 분류 | bug |
 | 발견일 | 2026-04-22 |
 | 심각도 | P3 |
-| 영향 파트 | 웹 |
-| 상태 | 미해결 |
+| 영향 파트 | 웹, iOS(규범 정합 후속) |
+| 상태 | 미해결 (구현). · **문서 정합 완료 (2026-04-22)** — 사용자 최종 결정("일반 쿠폰 카드 실측 기준으로 동일 박스 높이·점선 여백 유지, 누락 요소는 레이아웃 공간 reserve + 내용 미노출(invisible), 신규 측정값/행 collapse 금지")을 design-spec.md §S4 "레이아웃 일관성 규범" / client-guide.md S4 / screen-plan.md §3 S4 구성표·§7 고려사항에 반영. iOS는 ISS-041에서 collapse(`isIncludedInLayout = false`) 방식으로 이미 구현되어 있어 reserve 규범과 상충 — 별도 "iOS reserve 정합" 후속 과업으로 추적(본 이슈 범위 내 구현은 웹 미해결 유지). |
 
 **현상**: 웹 스킬 이용권 쿠폰 카드의 여백이 기존 쿠폰 카드와 맞지 않음. 다음 3가지 조정 필요:
 1. 서브 텍스트("30,000원 이상 결제 시") 영역 — 스킬 이용권은 해당 텍스트가 없으므로 **그 영역만큼의 빈 공간**이 유지되어야 함 (기존 쿠폰과 수직 정렬 맞추기 위함).

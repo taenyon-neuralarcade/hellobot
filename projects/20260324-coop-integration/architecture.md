@@ -477,7 +477,7 @@ register API → `issuedType: "skill"` 성공 시 (확인 팝업 없이 바로):
 
 #### 중복 탭 방지 (필수)
 
-- 등록 버튼: register API 호출 중 disabled + 로딩
+- 등록 버튼: register API 호출 중 **`disabled` + 회색 톤 표시**(기존 비활성 색상 토큰 `#C6C8CC` 재사용). 스피너/인디케이터/GIF/오버레이 **금지** — ISS-042 규범 (2026-04-22 확정, 상세는 design-spec.md §공통 컴포넌트 — 등록 버튼 / client-guide.md "중복 탭 방지" 참조).
 - register API는 쿠프마케팅 외부 API(L0+L1)를 내부 호출하므로 응답이 느릴 수 있음 (최대 15초). 중복 호출 방지 필수.
 
 #### 카카오 딥링크
@@ -590,6 +590,7 @@ register API → `issuedType: "skill"` 성공 시 (확인 팝업 없이 바로):
 
 | 날짜 | 이슈 | 변경 내용 |
 |------|------|----------|
+| 2026-04-22 | /architect | **ISS-042 문구 정합**: §6 "중복 탭 방지" 블록의 "등록 버튼: register API 호출 중 disabled + 로딩" 표현을 "disabled + 회색 톤(기존 비활성 토큰 `#C6C8CC` 재사용), 스피너/인디케이터/GIF/오버레이 금지"로 명확화. ISS-031/035는 설계 근거가 design-spec/screen-plan/client-guide에만 존재하므로 architecture.md 본문 수정 없음(본 Changelog로만 기록). |
 | 2026-04-19 | /architect (via /workspace) | **2차 리뷰 반영**: §1 이중 경로 표 code 기반 행의 "기존 경로는 구버전 앱 전용" 문구를 "기존 `/api/coupon`의 code 경로는 구버전 앱 호환용으로만 유지"로 명확화 (셀 범위 해석 모호성 제거). |
 | 2026-04-19 | /review 반영 | **설계 보완** (리뷰 발견 사항 반영): §1에 "기존 `/api/coupon` 이중 경로(code/couponSpecSeq) 이해" 테이블 추가 — couponSpecSeq 경로 미변경 명시. §4 CouponPrefixRule "조회 전략" 확정(매 요청마다 DB 조회, 캐시 없음) + Raw SQL 시드 스키마 prefix 주의. §5-2에 DB 트랜잭션 경계 명시(two-phase commit, 보상 패턴) + Redlock 보상 완료 후 해제 규칙. §5-4 가드 발동 조건 세부 테이블 추가(6가지 입력 케이스별 동작). §6 웹뷰 영향 없음 확인 추가. §7에 신버전 클라이언트 APP_UPDATE_REQUIRED 수신 시나리오 추가. §9 "배포 순서 및 롤백" 신설(서버 선행 배포, Phase 2 정량 제거 조건). |
 | 2026-04-19 | ISS-011, ISS-009 | **아키텍처 전면 개편**: §1 개요에 설계 원칙 추가. §2 시퀀스 다이어그램을 신버전(coop/일반)+구버전 3종으로 재구성. §3 API 계약을 `/api/coupon/register`(신규 통합 단일 진입점) + `/api/coupon`(가드 추가)로 변경, `/api/coop/check`/`/api/coop/use`는 deprecated. §4에 `coupon_prefix_rule` 테이블 추가(동적 프리픽스 관리). §5 처리 로직을 1단계 원샷 플로우로 재작성(check+use 통합, S2 확인 팝업 제거). §5-4 `/api/coupon` 진입 가드 추가. §6 파트별 구현 포인트에 Phase 1 삭제/수정 대상 명시. §7 확정사항에 서버 단일 진입점/1단계/구버전 가드 추가. |
