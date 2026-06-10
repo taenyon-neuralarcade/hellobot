@@ -61,21 +61,29 @@ hellobot/                              ← 워크스페이스 루트
 ├── CLAUDE.md                          ← 이 파일 (전체 규칙)
 ├── docs/                              ← 프로젝트와 무관한 상시 문서
 │   ├── architecture.md
+│   ├── deployment.md                  ← 리포별 배포 브랜치·절차
 │   ├── how-to-work.md
-│   └── web-page-map.md
+│   ├── web-page-map.md
+│   ├── erd-overview.md / erd-user-payment.md
+│   └── operations/                    ← 운영 가이드 (프로젝트 산출물의 영속 승격본)
 ├── projects/                          ← 프로젝트별 디렉토리
 │   ├── readme.md                      ← 프로젝트 문서 가이드 및 템플릿
 │   └── YYYYMMDD-feature-name/         ← 프로젝트
+│       ├── 1pager.md                  ← 프로젝트 1-pager (사용자 작성 — /analyze 진입 관문)
 │       ├── readme.md                  ← 요구사항, 배경, 목표
 │       ├── status.md                  ← 진행 상태, 브랜치/워크트리 현황
 │       ├── tasks.md                   ← 파트별 과업
+│       ├── issues.md                  ← 이슈 레지스트리 (ISS-NNN, 모든 에이전트 작성)
+│       ├── requirements.md / user-stories.md / screen-plan.md ← 기획 문서 (필요 시)
 │       ├── design-spec.md              ← 디자인 스펙 (/design 작성, 계약 문서)
 │       ├── architecture.md             ← 기술 아키텍처
 │       ├── api-spec.md                ← API 명세
+│       ├── client-guide.md            ← 클라이언트 공통 구현 가이드 (클라이언트 다파트 프로젝트만)
 │       ├── data-measurement-plan.md   ← 데이터 측정 계획 (/dev-data, 데이터 측정 필요 시)
 │       ├── event-spec.md              ← 이벤트 발화 스펙 (/dev-data, 신규 이벤트 도입 시)
 │       ├── qa-test-cases.md           ← QA 테스트 케이스
 │       ├── designs/                   ← 디자인 원본 자료 (Figma 링크, 스크린샷, 와이어프레임)
+│       ├── references/                ← 외부 참조 자료 (API 문서, 제안서 등)
 │       ├── planning/                  ← 기획 과업 산출물 (필요시 생성)
 │       └── worktrees/                 ← 개발용 워크트리 (필요시 생성)
 │           ├── hellobot-server/       ← git worktree (feat/feature-name)
@@ -172,7 +180,7 @@ hellobot/                              ← 워크스페이스 루트
 | 데이터 코드 (DAG·SQL·script) — 다른 마트 | 低 | 동시 진행 OK |
 | **데이터 카탈로그** (`common-data-airflow/docs/hellobot-data/catalog/`) — 진입 표·이벤트 카탈로그·이슈 레지스트리 | **高** | 직렬화에 가깝게 |
 | 워크스페이스 문서 (`CLAUDE.md`, `TODO.md`, `projects/readme.md`) | 中 | 한 세션이 한 묶음으로 갱신 |
-| 번호 카운터 (ISS-NNN, REQ-NNN, TODO-NNN, ISS-NNN) | 中 | 발급 즉시 인덱스 갱신·푸시 |
+| 번호 카운터 (ISS-NNN, REQ-NNN, TODO-NNN) | 中 | 발급 즉시 인덱스 갱신·푸시 |
 
 #### 충돌 비용 큰 영역의 운영 패턴
 
@@ -271,6 +279,7 @@ TODO 관리는 **두 층**으로 나뉩니다:
 
 - 진행/결정/대기 사항이 발생할 때마다 상세 파일의 `진행 로그`에 시간순 추가 (append-only, 과거 항목 수정 금지)
 - **세션 종료 전** `현재 상태`와 `다음 단계` 섹션을 갱신 — 다음 세션의 자기 자신이 이걸 가장 먼저 읽음
+- **세션 종료 전 워크스페이스 문서 변경분 커밋** — TODO.md·todos/·projects/ 누적 변경은 논리 단위로 커밋 (+가능하면 푸시). 번호 카운터 충돌 방지의 전제이므로 수 주치 미커밋 누적 금지
 - 사용자에게 무엇을 물었고 무엇을 답받았는지 진행 로그에 남길 것 (같은 질문 반복 방지)
 
 #### 작업 재개 시 (필수 절차)

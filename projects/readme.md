@@ -35,6 +35,7 @@ projects/
     ├── design-spec.md                     # 디자인 스펙 (/design 작성, 계약 문서)
     ├── architecture.md                     # 기술 아키텍처 (/architect 작성)
     ├── api-spec.md                        # 파트 간 API 명세
+    ├── client-guide.md                    # 클라이언트 공통 구현 가이드 (클라이언트 다파트 프로젝트만)
     ├── data-measurement-plan.md           # 데이터 측정 계획 (/dev-data 작성, 데이터 측정 필요 시)
     ├── event-spec.md                      # 이벤트 발화 스펙 (/dev-data 작성, 신규 이벤트 도입 시)
     ├── qa-test-cases.md                   # QA 테스트 케이스 (/qa 작성)
@@ -136,6 +137,7 @@ projects/
 | `design-spec.md` | /design | 디자인 스펙 (계약 문서 — 화면 스펙, 에셋, 파트별 가이드) |
 | `architecture.md` | /architect | 기술 아키텍처 (데이터 모델, 처리 로직) |
 | `api-spec.md` | /architect | 서버↔클라이언트 API 계약 |
+| `client-guide.md` | /architect (또는 /analyze) | 클라이언트 공통 구현 가이드 — UI 플로우·화면별 동작·응답 분기. iOS/Android/웹이 동일 동작을 구현하는 다파트 프로젝트만 (예: coop-integration) |
 | `data-measurement-plan.md` | /dev-data | 데이터 측정 계획 (KPI·정의·정책·소스 매핑) — 데이터 측정 필요 프로젝트만 |
 | `event-spec.md` | /dev-data | 이벤트 발화 스펙 (이벤트 명·파라미터·발화 시점·검증) — 신규 이벤트 도입 프로젝트만 |
 | `qa-test-cases.md` | /qa | QA 테스트 케이스 및 검수 결과 |
@@ -682,6 +684,9 @@ git worktree add ../projects/YYYYMMDD-feature-name/worktrees/hellobot-server fea
 
 | 날짜 | 프로젝트명 | 상태 | 설명 |
 |------|-----------|------|------|
+| 2026-05-25 | [cross-sell-recommendation](./20260525-cross-sell-recommendation/) | ✅ 분석 완료 (2026-06-10) | 앱 1회 구매자 cross-sell 분석 → 2층 co-purchase 추천세트 v2 확정 (앱 1,045 앵커 · 직접 83% / 웹12 관심사 추정). 6/9 데이터 미팅 공유. 후속 = TODO-044 (액션 아이템 기획·리뷰) + holdout 실험. TODO-028 승격 |
+| 2026-05-21 | [skill-coupon-product-sync-hotfix](./20260521-skill-coupon-product-sync-hotfix/) | 분석완료 · 설계·일정 결정 대기 | coop-integration 자식 핫픽스 — 스킬 교환권 상품 CRUD ↔ CouponSpec/CouponCondition 정합성 결함 9건 (ISS-071 P0). 처리 방향 결정 대기. TODO-026 |
+| 2026-05-18 | [gcp-ai-project-migration](./20260518-gcp-ai-project-migration/) | ✅ 완료 (2026-05 말) | dlt-partners.com 조직 AI 프로젝트 → thingsflow.kr 조직 이전 — 현황 감사표(migration-audit.md, 기준일 5/27) 기반 이관 완료. TODO-018 |
 | 2026-05-20 | [yoy-decline-segment-analysis](./20260520-yoy-decline-segment-analysis/) | 스코프 합의 대기 | YoY 구매자수·매출 하락의 (5세 연령 × 플랫폼) 세그먼트 진단. age-group-5yr (PR #180) 5세 버킷 컬럼 활용. TODO-021 동시 등록 |
 | 2026-05-15 | [popular-chart-ranking](./20260515-popular-chart-ranking/) | 설계 전 (기획 구체화 완료) | 홈탭 인기스킬 섹션 노출 자동화 = 필터링+랭킹. S1~S4 완료 + 설계 전 계약 문서(PRD·요구사항·측정계획·과업) 산출. 랭커 2종(AsIs/PopularityScore v1), 필터 3축그룹, 태그소스 하이브리드. 다음 = /architect(S5). TODO-012 |
 | 2026-05-19 | [gcp-gemini-cost-mitigation](./20260519-gcp-gemini-cost-mitigation/) | 현황 분석 완료 · 2-트랙 후속 | GCP Gemini 4/29 이상비용 audit + 대응. Tier 0·1 audit + Cloud Monitoring forensic 완료 (CRITICAL 2 + HIGH 8, 4/29 = 미국 동부 abuser). 트랙 A IP 제한 + 트랙 B 메가존 협의. TODO-017 승격 |
