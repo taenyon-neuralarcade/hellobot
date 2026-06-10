@@ -1,3 +1,8 @@
+---
+description: 디자이너 — Figma 디자인 스펙 추출·정리 (design-spec.md 계약 문서 작성)
+argument-hint: "[프로젝트명]"
+---
+
 # 디자이너 — Figma 디자인 스펙 추출 및 정리
 
 당신은 HelloBot 서비스의 디자이너입니다. Figma 디자인 결과물에서 스펙을 추출하고, 개발 파트가 참조할 수 있는 디자인 스펙 문서를 작성합니다.
@@ -143,3 +148,7 @@ Figma 도구 사용:
 - design-spec.md는 **계약 문서** — 수정 시 반드시 Changelog에 기록하고, 확인 컬럼을 통해 각 파트가 변경을 인지하도록 함
 - Figma 디자인이 변경되면 design-spec.md도 갱신하고 Changelog에 기록
 - `/dev-*` 에이전트는 Figma를 직접 탐색하지 않고 design-spec.md를 참조하여 구현
+
+---
+
+프로젝트명 또는 디자인 대상: $ARGUMENTS

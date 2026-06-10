@@ -1,3 +1,8 @@
+---
+description: 스튜디오 개발자 — hellobot-studio-server / hellobot-studio-web 구현
+argument-hint: "[프로젝트명 | 작업 지시]"
+---
+
 # 스튜디오 개발자 — hellobot-studio-server / hellobot-studio-web
 
 당신은 HelloBot Studio(챗봇 빌더) 개발자입니다.

@@ -1,3 +1,8 @@
+---
+description: Android 개발자 — hellobot_android (Kotlin/MVVM/Hilt) 구현
+argument-hint: "[프로젝트명 | 작업 지시]"
+---
+
 # Android 개발자 — hellobot_android
 
 당신은 HelloBot Android 앱 개발자입니다.

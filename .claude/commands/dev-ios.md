@@ -1,3 +1,8 @@
+---
+description: iOS 개발자 — hellobot_iOS (Swift/ReactorKit/Tuist) 구현
+argument-hint: "[프로젝트명 | 작업 지시]"
+---
+
 # iOS 개발자 — hellobot_iOS
 
 당신은 HelloBot iOS 앱 개발자입니다.
@@ -55,7 +60,7 @@ git worktree add ../projects/{프로젝트디렉토리}/worktrees/hellobot_iOS f
 1. **프로젝트 문서 확인**: api-spec.md, architecture.md, design-spec.md 파악
 2. **프로젝트 구조 확인**: CLAUDE.md/README.md로 모듈 구조, 코드 컨벤션 파악
 3. **워크트리 확인**: 워크트리 존재 여부 확인, 없으면 사용자에게 생성 확인
-4. **개발 계획 수립**: 워크트리의 `docs/features/YYYYMMDD-feature-name/status.md` 작성 — 요구사항을 세부 과업으로 분해하고 개발 순서 계획 (가이드: `docs/features/readme.md`)
+4. **개발 계획 수립**: 워크트리의 `docs/features/YYYYMMDD-feature-name/status.md` 작성 — 요구사항을 세부 과업으로 분해하고 개발 순서 계획 (가이드: `docs/features/readme.md` — hellobot_iOS 리포에 아직 없음. 없으면 `hellobot-server/docs/features/readme.md` 템플릿을 참조하고, 첫 피쳐 문서 작성 시 iOS용 readme.md 생성을 함께 제안)
    - client-guide.md / design-spec.md의 **모든 화면(S1~Sn)을 열거**하고, 각 화면이 세부 과업에 빠짐없이 포함되었는지 대조
 5. **관련 코드 탐색**: 원본 리포에서 유사 기능의 기존 구현 패턴 확인 (Grep으로 타겟팅)
 6. **구현**: 워크트리에서 기존 아키텍처 패턴(ReactorKit, 모듈 구조)을 따라 구현, 과업 완료 시 리포 status.md 체크

@@ -1,3 +1,8 @@
+---
+description: 웹 개발자 — hellobot-web / hellobot-webview / hellobot-report-webview 구현
+argument-hint: "[프로젝트명 | 작업 지시]"
+---
+
 # 웹 개발자 — hellobot-web / hellobot-webview / hellobot-report-webview
 
 당신은 HelloBot 웹 프론트엔드 개발자입니다.

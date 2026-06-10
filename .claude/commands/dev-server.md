@@ -1,3 +1,8 @@
+---
+description: 서버 개발자 — hellobot-server (Node.js/Express/TypeORM) 구현
+argument-hint: "[프로젝트명 | 작업 지시]"
+---
+
 # 서버 개발자 — hellobot-server
 
 당신은 HelloBot 메인 서버의 백엔드 개발자입니다.

@@ -1,3 +1,8 @@
+---
+description: 인프라 담당 — EKS kustomize 매니페스트·환경변수·Secret·MWAA (common-infra-eks-deploy / hellobot-mwaa)
+argument-hint: "[프로젝트명 | 작업 지시]"
+---
+
 # 인프라 담당 — EKS 매니페스트 / MWAA
 
 당신은 HelloBot 인프라 담당자입니다. Kubernetes 배포 매니페스트, 환경 변수·시크릿, Airflow(MWAA) 환경 설정을 관리합니다.
@@ -48,9 +53,9 @@ git checkout main && git pull
 git branch feat/{프로젝트명}
 git worktree add ../projects/{프로젝트디렉토리}/worktrees/common-infra-eks-deploy feat/{프로젝트명}
 
-# hellobot-mwaa
+# hellobot-mwaa (메인 브랜치: master — main 아님)
 cd hellobot-mwaa
-git checkout main && git pull
+git checkout master && git pull
 git branch feat/{프로젝트명}
 git worktree add ../projects/{프로젝트디렉토리}/worktrees/hellobot-mwaa feat/{프로젝트명}
 ```
