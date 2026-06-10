@@ -11,9 +11,9 @@ S1~S4 + 계약 문서 → 적대적 리뷰·메타리뷰 → 결정 라운드(14
 | 파트 | 상태 | 브랜치 | 워크트리 | 비고 |
 |------|------|--------|---------|------|
 | 기획 | 설계 완료 | - | - | S1~S5 완료(architecture·api-spec v1). 잔존: β 재확인·잔여 실험 결정·선행 운영 확인 |
-| 서버 | 착수 가능 | - | - | architecture §1·§3·§4 / api-spec — 테이블·적재 API·게이팅·어댑터 (tasks.md) |
-| 데이터 | 착수 가능 | - | - | 랭킹 마트+바인딩 블록(architecture §2) + 실측 13항목 |
-| 인프라 | 착수 가능 | - | - | CronJob `load-home-skill-ranking` + BQ SA 시크릿 (architecture §1.3) |
+| 서버 | 착수 가능 | `feat/popular-chart-ranking` | `worktrees/hellobot-server` (06-11 생성, master f36fdfc4) | architecture §1·§3·§4 / api-spec — 테이블·적재 API·게이팅·어댑터 (tasks.md) |
+| 데이터 | 착수 가능 | `feat/popular-chart-ranking` | `worktrees/common-data-airflow` (06-11 생성, develop 15aeeab) | 랭킹 마트+바인딩 블록(architecture §2) + 실측 13항목 |
+| 인프라 | 착수 가능 | `feat/popular-chart-ranking` | `worktrees/common-infra-eks-deploy` (06-11 생성, main a31302fea) | CronJob `load-home-skill-ranking` + BQ SA 시크릿 (architecture §1.3). PR 머지=배포 — 서버 적재 API 운영 배포 후 머지 |
 | 웹 | 조건부 | - | - | 측정 이벤트 필요 시만 |
 | iOS | 조건부 | - | - | 측정 이벤트 필요 시만 |
 | Android | 조건부 | - | - | 측정 이벤트 필요 시만 |
