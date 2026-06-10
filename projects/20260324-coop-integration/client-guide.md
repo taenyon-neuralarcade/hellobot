@@ -122,11 +122,19 @@ Content-Type: application/json
 
 | 요소 | 데이터 소스 |
 |------|-----------|
-| 일러스트 | 캐릭터+하트 이미지 (design-spec S3 참조) |
+| 일러스트 | 하트 충전 **애니메이션** (플랫폼별 기존 자산 재사용, design-spec §S3 참조) |
 | 캡션 | 이벤트/상품명 (Red400) |
 | 제목 | "하트가 {heartQuantity}개 충전되었어요!" |
 | 본문 | "하트는 \<프로필\>탭에서 확인 가능해요" |
 | 확인 버튼 | 프로필 탭으로 이동 |
+
+**일러스트 자산 정책** (2026-04-22 ISS-035 확정):
+- 정적 이미지 금지. **재생되는 애니메이션**이어야 합니다.
+- 본 피쳐용 신규 자산 발급 없음. 각 플랫폼은 **기존 하트 충전 관련 애니메이션 자산을 재사용**합니다.
+  - iOS — `imgHeartchargeComplete` Lottie (`Resources/Gif/imgHeartchargeComplete.json`, loopMode=.loop)
+  - Android — `img_heartcharge_completed.gif` (기 반영됨)
+  - Web — 기존 애니메이션 자산 탐색 후 결정. Next.js `<Image>`는 GIF 애니메이션 미지원 → `<img>` 또는 `<Image unoptimized>` 사용
+- 자산 이름/경로/포맷의 플랫폼 간 통일을 강제하지 않음.
 
 ### S4. 스킬 이용권 등록 완료
 
@@ -143,6 +151,21 @@ Content-Type: application/json
 - 챗봇명: 미노출
 - 링크: "스킬 보러가기 >" (보라색)
 - 카드 탭 또는 링크 탭 → 스킬 상세 페이지 이동 (`fixedMenuSeq` 사용)
+
+**카드 크기/여백 원칙** (2026-04-22 ISS-031 확정 — design-spec §S4 참조):
+
+> **"같은 모양·같은 크기 — 빠진 요소는 빈 공간으로 유지"**
+
+스킬 이용권 카드는 일반 쿠폰 카드와 **동일한 박스 높이** 및 **동일한 점선 하단 여백**을 유지합니다. 스킬 이용권에 없는 요소(서브텍스트 "N원 이상 결제 시", 만료일 등)는 **레이아웃 공간을 reserve하고 내용만 미노출**로 처리합니다.
+
+- 허용: invisible placeholder (`visibility: hidden` / `opacity: 0` / 동일 높이 spacer)
+- 금지: 행 collapse — `display: none`, 높이 0, iOS `flex.isIncludedInLayout = false`, Android 조건부 remove 등
+- 신규 px 값을 지정하지 않습니다. 기존 일반 쿠폰 카드의 실제 렌더 결과 높이와 일치시키면 충분합니다.
+
+**플랫폼 정합 작업**:
+- iOS — ISS-041 해결본의 `descriptionLabel.flex.isIncludedInLayout = false`는 본 원칙과 어긋남. **reserve 방식으로 전환** 필요 (isHidden만 유지, 레이아웃 공간은 보존).
+- Android — `CouponItem.kt` 태그 Row 및 서브텍스트 영역 분기가 공간 reserve 원칙을 준수하는지 점검. 조건부 행 제거가 있으면 invisible placeholder로 전환.
+- Web — `CoopSkillVoucherItem.tsx`에 `CouponItem`과 동일한 수직 리듬(서브텍스트 reserve + 점선 상하 `my-[12px]` 마진) 적용.
 
 ### 일반 쿠폰 발급 완료
 
@@ -217,11 +240,20 @@ Content-Type: application/json
 
 ## 주의사항
 
-### 중복 탭 방지 (필수)
+### 중복 탭 방지 / 등록 버튼 로딩 상태 (필수)
 
-- **등록 버튼**: 탭 즉시 로딩 상태 + 비활성화 (API 응답 대기 중 중복 탭 차단)
-- register API는 쿠프마케팅 외부 API(L0+L1)를 내부 호출하므로 응답이 느릴 수 있음 (최대 15초)
-- 중복 호출 시 과금/중복 발급 위험 → 반드시 클라이언트에서 차단
+(2026-04-22 ISS-042 확정 — design-spec §"쿠폰 등록 버튼 로딩 상태" 참조)
+
+- **등록 버튼**: 탭 즉시 **비활성화 + 회색 톤**으로 전환해 응답 수신(성공/실패)까지 유지.
+  - 회색 톤은 기존 input empty 상태의 disabled 색상(`#C6C8CC` 배경 / `#EDEDEE` 텍스트)을 재사용 — 신규 색상 토큰 불필요.
+  - **스피너/로딩 인디케이터 노출 금지** — 회색 비활성 톤 자체가 진행 상태 피드백.
+- **레거시 예외 (후속 정합)**:
+  - Web `couponCodeRegister.tsx`의 풀스크린 `<Loading />` 오버레이 → 제거 예정.
+  - Android `CircularProgressIndicator(16dp)` (ISS-042 Android 해결본) → 제거하고 회색 비활성 톤만 유지로 정합.
+  - iOS (ISS-042 미해결) → 본 확정대로 **스피너 미도입**, 비활성 + 회색 톤만 적용.
+- register API는 쿠프마케팅 외부 API(L0+L1)를 내부 호출하므로 응답이 느릴 수 있음 (최대 15초).
+- 중복 호출 시 과금/중복 발급 위험 → 반드시 클라이언트 상태 플래그(예: `isRegistering`)로 차단. throttle/debounce만으로는 부족.
+- 응답 수신 후: 성공 → 입력 초기화 → empty 비활성으로 복귀 / 실패 → 입력 유지 → 활성 복귀.
 
 ### 쿠폰번호 형식
 
@@ -284,6 +316,7 @@ POST /api/coupon/register (단일 호출, 서버가 종류 분류)
 
 | 날짜 | 변경자 | 변경 내용 | 확인 |
 |------|--------|----------|------|
+| 2026-04-22 | /design | **2026-04-22 사용자 결정 3건 반영** (design-spec.md와 동일 변경을 클라이언트 가이드에도 정합): (1) **ISS-031** S4 스킬 이용권 카드에 "카드 크기/여백 원칙" 추가 — 일반 쿠폰 카드와 동일 박스 높이·점선 하단 여백, 빈 요소는 공간 reserve(행 collapse 금지). iOS `flex.isIncludedInLayout = false` 전환 / Android `CouponItem.kt` 점검 / Web `CoopSkillVoucherItem.tsx` 수직 리듬 정합 지시. (2) **ISS-035** S3 일러스트 자산 정책 추가 — 재생되는 애니메이션 요건, 플랫폼별 기존 자산 재사용(iOS `imgHeartchargeComplete` Lottie, Android `img_heartcharge_completed.gif`, Web 탐색 예정), 신규 자산 발급 없음, 통일 강제 없음. (3) **ISS-042** "중복 탭 방지" 섹션을 "중복 탭 방지 / 등록 버튼 로딩 상태"로 확장 — 버튼 비활성 + 회색 톤만 허용, 스피너 금지(Web/Android 레거시 예외는 후속 정합), 기존 input disabled 색상 토큰 재사용. | 전파트 구현 반영 필요 / `/architect` 조율(architecture.md 영향 없음, 본 가이드·design-spec 동시 갱신으로 충분) |
 | 2026-04-19 | /review 반영 | **설계 보완**: "`POST /api/coupon` 기존 경로 중 계속 사용하는 것" 섹션 추가 — couponSpecSeq 기반 배너 클레임은 신버전 클라이언트도 변경 없이 유지. code 경로만 `/register`로 이전. | 전파트 구현 예정 |
 | 2026-04-19 | /architect | **전면 개편** (ISS-011, ISS-009 해결): 서버 단일 진입점 `POST /api/coupon/register` + 1단계 원샷 + `issuedType` 기반 UI 분기로 재작성. S2 확인 팝업 섹션 제거. 에러는 HTTP 표준 포맷(`{ error: { code, message } }`) 사용으로 통일. `CO_APP_UPDATE_REQUIRED`(HTTP 406) 구버전 앱 전용 에러 추가. `CM_010` 에러 매핑 추가 (ISS-012 동시 해소). CM_005 메시지를 api-spec과 동기화 "일시적인 서비스 오류가 발생했어요"로 통일 (ISS-013 동시 해소). `/api/coop/*` Deprecated 명시. | 전파트 구현 예정 |
 | 2026-04-16 | /dev-android | design-spec과 불일치 항목 4건 수정: S3 이동 대상(내 하트→프로필 탭), S3 버튼(충전 확인하기→확인), S5 에러 팝업→에러 토스트, 힌트 텍스트(변경→기존 유지) | 사용자 확인 완료 |
