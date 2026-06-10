@@ -1,7 +1,7 @@
 # TODO-012 홈탭 Phase #2 — 노출 스킬 랭킹 자동화 + 사전 스킬 태깅
 
 **유형**: 액션 (명세화 시점에 프로젝트화 예정)
-**상태**: 진행 중 — 기획 피드백 반영 완료(2026-06-06), **MWAA 파악(TODO-042) → S5(/architect)**
+**상태**: 진행 중 — S5 윤곽(06-08) + 현행 구현 감사(06-10) + A/B 실험 설계 검토(06-10) 완료, **다음 = S5 세부(/architect) + A/B 구조 사용자 결정**
 **등록**: 2026-05-13
 **시작**: 2026-06-02
 **완료**: -
@@ -26,11 +26,12 @@
 
 ## 현재 상태
 
-기획 단계 — **S1~S4 + 계약 문서 + 결정 라운드(14건) + 기획 피드백 반영(2026-06-06) 완료**. C-1(A=현행 산출 전체)·C-2(신규=출시일 `open_date`)·D-1~D-7 반영, **1차 5섹션 확정**(커플/솔로 등 7섹션 최종단계). 계약 문서 v2/v3 갱신(결정로그 = reviews/00 §A-6). **다음 = MWAA 현황 파악([TODO-042](TODO-042-mwaa-current-workload.md)) → 배치 위치(D-7)·공통필터 현행조건(D-5) → S5(/architect)**.
+설계 단계 — **S1~S4 + 계약 문서 + 결정 라운드(14건) + 기획 피드백 반영(06-06) + S5 윤곽(06-08) + 현행 재분석·구현 감사(06-08/06-10) 완료**. 1차 5섹션 확정(C-1·C-2·D-1~D-7 반영), 배치 토폴로지 제안 완료(D-7: 컴퓨트=airflow / write=서버+K8s CronJob, TODO-042 조사 종료). **`featuredSkillsTabs` 칩 컨테이너는 이미 LIVE**(서버 05-21 / iOS·Android 모두 05-26 머지) — CL-03(A 캡처) 해소, **B = `fetchSkillListBySectionType`(home.ts L540) 후보 fetch 교체**(lazy 경로 limit+1 선컷 때문에 "재정렬"은 불충분 — 동일 shape 반환, 앱 무변경). 피쳐 문서(`hellobot-server/docs/features/20260511-home-rank-skill-section/` 8종)↔코드 전수 대조 **전 항목 일치**. **다음 = S5 세부 패스(/architect): architecture.md·api-spec.md 작성(②→①③④→⑤), 잔여 위임 CL-04(norm)·CL-08(cold-start)**.
 - 설계 전 계약 문서: [readme.md(PRD)](../projects/20260515-popular-chart-ranking/readme.md) · [requirements.md](../projects/20260515-popular-chart-ranking/requirements.md) · [data-measurement-plan.md](../projects/20260515-popular-chart-ranking/data-measurement-plan.md) · [tasks.md](../projects/20260515-popular-chart-ranking/tasks.md) · [status.md](../projects/20260515-popular-chart-ranking/status.md)
 - S2 결과: 개념모델=섹션(필터+랭커). A/B=랭커선택(AsIs/v1), 유저버킷·일괄, 키18과 별도·순차. → [s2-concept-model.md](../projects/20260515-popular-chart-ranking/planning/s2-concept-model.md)
 - S3 결과: 공식 확정(구매0.35/조회0.1/전환0.2/**평점=긍정비율0.15**/매출0.15/신규부스트0.05), A=서버 입력순서. 계산 common-data-airflow/적재 서버위임. 기획자 확인 잔존(가중치 6항목·조회 분모 정의·Phase A). → [s3-ranking-definition.md](../projects/20260515-popular-chart-ranking/planning/s3-ranking-definition.md)
 - S4 결과: 필터=3축그룹(시간성/주제/의도+대상), 섹션 7/12=의도(+대상) 본체. 섹션→필터 규칙 **신규 설계**(12섹션 1차 필터식 가설, 값 바인딩은 /dev-data 실측). 적절성=사전3종(커버리지·정합·태그품질)+행동/AB. **DF-S4-1(임시태그 `taenyon_temp_skill_tag_info_v2` 승격 vs 공식 카테고리 `chatbot_content_type` 흡수) = S5 선결 결정.** → [s4-filtering-tagging.md](../projects/20260515-popular-chart-ranking/planning/s4-filtering-tagging.md)
+- S5 진행: 윤곽(5레이어) → [s5-architecture-outline.md](../projects/20260515-popular-chart-ranking/planning/s5-architecture-outline.md) · 현행 서빙 분석(06-08 정정) → [s5-asis-serving-analysis.md](../projects/20260515-popular-chart-ranking/planning/s5-asis-serving-analysis.md) · **현행 구현 감사(06-10, A/B 설계 기준선)** → [s5-asis-implementation-audit.md](../projects/20260515-popular-chart-ranking/planning/s5-asis-implementation-audit.md)
 
 S1 핵심 발견:
 - PR #2414는 **랭킹 자동화가 아님** — `featuredSkillsTabs`(칩/탭 노출 컨테이너) + 점진공개(FeatureFlag·핵클 키18 A/B)를 만든 것. = 사용자가 말한 "선행 A/B UI 작업". Phase #2는 이 그릇 뒤에 필터링+랭킹 실체를 채우는 일.
@@ -40,20 +41,12 @@ S1 핵심 발견:
 
 ## 다음 단계
 
-### Phase 1 — 상세 분석 + 기획 + 일정 추정 (~5/20 수)
+> 5월의 Phase 1(상세 분석~일정 추정) 체크리스트는 S1~S4 + 계약 문서로 모두 소화됨 — 이력은 진행 로그 참조. 현재 기준:
 
-- [ ] 상세 분석 (현 홈탭 동작·데이터·시그널 파악)
-- [ ] **선 진행 UI 작업(A/B 테스트) 영향 점검** — Notion `A/B 364eb34d` 의 작업과 Phase #2 의 중복·통합·충돌 여부 확인
-- [ ] 스킬 태깅 분류 체계 정의 (어떤 태그? 누가 태깅?)
-- [ ] 기존 스킬 태깅 진행 방안 (운영팀 협업 가능성)
-- [ ] 노출 스킬 랭킹 스코어 정의 (어떤 시그널 가중? 신규/기존 비중? 시간 가중?)
-- [ ] 자동화 로직 1차 명세
-- [ ] **개발 일정 추정 완료** → 5/20 픽스
-
-### Phase 2 — 개발 (5/20 픽스 이후 착수)
-
-- [ ] **이 시점에 프로젝트화 결정** (`projects/YYYYMMDD-home-tab-skill-ranking/`)
-- [ ] /architect → /dev-* 위임으로 구현 진행
+1. **S5 세부 패스(/architect)** — [architecture.md]·[api-spec.md] 작성, 순서 ②→①③④→⑤: 랭킹 테이블 형상 + 리버스-ETL 토폴로지(D-7 제안 확정) → B 후보 fetch 교체 seam + ②랭킹 variant 신호(키 18과 별도) → CL-04(norm)·CL-08(cold-start) → 서빙·측정(event-spec은 CL-02로 별도 트랙)
+2. **A/B 실험 구조 결정(사용자)** — 검토 산출물 2종([ab-test-po-review.md](../projects/20260515-popular-chart-ranking/planning/ab-test-po-review.md) §6 · [ab-test-analysis-design.md](../projects/20260515-popular-chart-ranking/planning/ab-test-analysis-design.md) §14) 기반: 구조(3군 중첩 권장 vs 순차 vs 2군 원안)·키18 처리·1차 지표(유저 레벨 net) 승인·dmp 정의 2건 → 결정 후 dmp·requirements(FR-AB)·event-spec 반영. **선행: 키18 현 운영 단계 확인**
+3. 비블로킹 병행: base 단위 바인딩(D-5, /dev-data) · 운영 DB `home_section_featured_skills_tab` 칩 구성 조회(1차 5섹션 매핑 확정) · ①컨테이너 실험(키 18) 현 단계 확인 · β Phase A 기획 원문 재확인
+4. S5 세부 완료 → /dev-* 착수 + **프로젝트화 결정** — 마감 **6/12 (금) 개발 완료** (A/B 실험 실행은 6/12 개발 마감과 별개 게이트 — 키18 정리·CL-02 이벤트 검증·앱 보급 충족 후)
 
 ## 진행 로그
 
@@ -79,3 +72,6 @@ S1 핵심 발견:
 - 2026-06-05 — **설계 전 계약 문서 산출**(사용자 요청: S5 전에 architect 참조 문서를 먼저 정의). S1~S4 결정을 프로젝트 루트 5문서로 종합: **readme.md(PRD)** — 배경·목표·KPI요약·핵심개념·섹션12·범위·영향범위·의존·일정·오픈결정 / **requirements.md** — FR(필터F·랭킹R·A/B·배치B·API·검증V)+NFR+제약+수용기준 / **data-measurement-plan.md** — 랭킹 스코어 canonical·시그널 소스·KPI·적절성 T1~T4·태그소스(하이브리드)·실측갭7 / **tasks.md** — 파트별 과업 / **status.md** — 대시보드. BQ 인증 만료로 라이브 실측은 /dev-data 후속. **다음 = S5(/architect) — 사용자 진행 지시 대기.**
 - 2026-06-08 — **마감 갱신 6/5 → 6/12 (금) 개발 완료** (사용자). 기획·설계 단계(6/5)에서 **개발 완료(6/12)** 까지로 일정 연장·구체화. S5(/architect) → /dev-* 구현을 6/12 안에 마무리 목표. 개발 착수 시점에 프로젝트화 검토.
 - 2026-06-06 — **기획 피드백 반영(계약 문서 6종)**. 사용자 피드백 → 충돌 2건·결정 명확 7건·결정필요 7건 분석 후 반영. **C-1**: A `AsIsRanker`=현행 산출 방식 전체 보존(정렬만 아님), B 후보풀과 비공유 → FR-R2/R6/R9·AB1 개정(동일 후보풀 제약 제거). **C-2**: 신규 기준=출시일 `open_date`(`hlb_mart.mart_skill_open_date_se.event_date`), 서버 등록일 폐기(CL-25 반전) — 신규 인기 섹션 ≤6개월(가변)·신규부스트 30일(D-4/D-6). **D-1·D-2·D-3**: 커플/솔로·1:1 상담 등 **7섹션 최종단계 보류**(적합 태깅 부재) → **1차 5섹션**(실시간·신규·사주·타로·재회) 확정. **공통 base 필터**(오리지널∧750↑·FR-F0 신설, 현행조건 D-5 확인). **성공지표**: 1차 전환율·최종 총 매출 가드레일. **D-7**: 배치 위치 airflow vs MWAA = MWAA 현황 파악 후 결정 → **TODO-042 신설**. 반영=readme/requirements/dmp(v3)/tasks/status + reviews/00 결정로그. **다음 = TODO-042(MWAA 파악) → S5(/architect).**
+- 2026-06-08 — **S5 윤곽 + 현행 재분석(정정)**: S5를 "윤곽 먼저" 방식으로 진입 — 5레이어(①계산 ②적재 ③랭커추상화 ④서빙 ⑤측정) 구분 → [s5-architecture-outline.md](../projects/20260515-popular-chart-ranking/planning/s5-architecture-outline.md). dev-server 현행 분석 중 **로컬 stale 체크아웃(04-30) 오결론 발견** → master pull 후 재분석: **`featuredSkillsTabs` 칩 컨테이너 서버·앱 모두 이미 LIVE**(서버 05-21 / Android #1128·iOS #1418 모두 05-26 머지). CL-03(A 캡처) 해소 — A=매 요청 live라 캡처 불요. 두 A/B 축 정립: ①컨테이너(Hackle 키18, LIVE) / ②랭킹(이 프로젝트, 미착수). dev-android PR #1128 분석 포함 → [s5-asis-serving-analysis.md](../projects/20260515-popular-chart-ranking/planning/s5-asis-serving-analysis.md). reviews/00 CL-03 해소 행 추가, S5 위임 3건→2건(CL-04·08).
+- 2026-06-10 — **A/B 실험 설계 검토(PO·데이터분석가 병렬 에이전트)**: 사용자 제안(phase1 UI 포함 — A=무칩 기존 상태 vs B=칩+자동랭킹, 목표①섹션 경유 진입·구매자 증가 ②자동랭킹>수동 큐레이션)을 양 관점에서 검토·설계. 핵심 판정 = **2군은 UI 효과·랭킹 효과 혼재로 목표② 식별 불가**, "기존 상태"도 빈 홈이 아니라 분 단위 갱신 legacy `recentPurchasedSkills`(약하지 않은 대조군). 구조 옵션 3종 비교(순차/3군 중첩/2군) → PO 권장=**3군 중첩**(키18 게이트 흡수+②랭킹 키 중첩, L/C-M/C-A — 2단 롤백 안전판). 1차 지표 재정의=**유저 레벨 net**(구매자 전환율 superiority + ARPU 비열위 5%), 섹션 CTR·경유 구매는 B군 내 진단 강등, 총매출 가드레일 유지. ✅BQ 실측 성공: 4주(5/11~6/7) KR 홈 90k 유저·p≈0.30·구매자당 ₩19,063·CV 2.49 → **4주 고정 권장**(전환율 MDE 2군 3.2%/3군 4.3%, CUPED ρ=0.5 시 ARPU 4.5%). 선결 = 키18 단계 확인·CL-02 이벤트 배포+검증·②variant 키+배정 로그 BQ 적재·M↔R 목록 중복도 측정·AA 드라이런. 산출물 → [ab-test-po-review.md](../projects/20260515-popular-chart-ranking/planning/ab-test-po-review.md) · [ab-test-analysis-design.md](../projects/20260515-popular-chart-ranking/planning/ab-test-analysis-design.md). **결정 대기 항목 = 각 문서 §6/§14** (구조·키18·지표 승인·dmp 정의 2건·기간·모집단 세부).
+- 2026-06-10 — **현행 구현 감사 완료 (A/B 설계 기준선)**: 사용자 지정 소스 `hellobot-server/docs/features/20260511-home-rank-skill-section/`(8종)+iOS 피쳐 기록을 실코드와 전수 대조 — **기능 명세 전 항목 일치**(stale 3건뿐: 마이그레이션 파일명 표기·backend-guide 엔티티 골격·iOS 문서의 `?limit=7` — 전부 코드가 정답, iOS 실코드는 `?layout=vertical`+hasMore로 이미 정렬). ⭐ **seam 정밀화**: lazy 경로가 소스 fetch에 limit+1 선컷(vertical=8개/horizontal=9개만) → B는 "fetch 후 재정렬"이 아니라 **후보 fetch 교체**(랭킹 테이블 기반, 기존 섹션과 동일 shape 반환) — 하류(visibility 정형화·cap·hasMore·앱 계약) 전부 무변경 재사용. 신규 결정 항목 5건 도출(②variant 신호·shape 어댑터·visibility 여유분·빈 랭킹 fallback·실험 모집단) → [s5-asis-implementation-audit.md](../projects/20260515-popular-chart-ranking/planning/s5-asis-implementation-audit.md). 윤곽·현행분석·status·execution-steps에 정밀화 동기 반영. **다음 = /architect 세부 패스.**

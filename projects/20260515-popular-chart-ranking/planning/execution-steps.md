@@ -4,7 +4,7 @@
 > 마감: **6/5 (금)** — 기획 구체화 + 개발 설계 단계까지
 > 작성: 2026-06-03 · 갱신: 2026-06-04 (S1 완료 반영)
 > TODO 추적: [TODO-012](../../../todos/TODO-012-home-tab-phase2.md)
-> 기획 도출(planning): [overview-notes.md](overview-notes.md) · [s1](s1-current-state.md) · [s2](s2-concept-model.md) · [s3](s3-ranking-definition.md) · [s4](s4-filtering-tagging.md) · [s5(윤곽)](s5-architecture-outline.md)
+> 기획 도출(planning): [overview-notes.md](overview-notes.md) · [s1](s1-current-state.md) · [s2](s2-concept-model.md) · [s3](s3-ranking-definition.md) · [s4](s4-filtering-tagging.md) · [s5(윤곽)](s5-architecture-outline.md) · [s5 현행분석](s5-asis-serving-analysis.md) · [s5 구현감사](s5-asis-implementation-audit.md)
 > **설계 전 계약 문서(S4 후 종합, 프로젝트 루트)**: [readme.md(PRD)](../readme.md) · [requirements.md](../requirements.md) · [data-measurement-plan.md](../data-measurement-plan.md) · [tasks.md](../tasks.md) · [status.md](../status.md)
 > 진행 방식: **전체 스텝을 먼저 잡고, 한 스텝씩 구체화**
 
@@ -29,7 +29,7 @@
 | **S2** | 개념 구조 확정 | ✅ 완료 ([s2-concept-model.md](s2-concept-model.md)) | "랭킹 1종 + 섹션별 필터링" 모델이 맞는가 | (완료) 섹션=필터+랭커(교체전략). A/B=랭커 선택(AsIs/v1), 유저버킷·일괄, 키18과 별도·순차(A/B 구현은 후속). 다중랭커 비파괴 추상화 |
 | **S3** | 랭킹 정의 | ✅ 완료 ([s3-ranking-definition.md](s3-ranking-definition.md)) | 스킬 점수화·순서 로직 | (완료) 공식 확정(평점=긍정비율 재정의), A=서버순서, 계산 common-data-airflow/적재 서버위임. 기획자 확인 잔존(가중치·조회정의·PhaseA) |
 | **S4** | 필터링/태깅 정의 | ✅ 1차 설계 ([s4-filtering-tagging.md](s4-filtering-tagging.md)) | 섹션을 채우는 메타 체계 | (1차) 필터=3축그룹(시간성/주제/의도+대상), 섹션 7/12=의도(+대상)가 본체. 섹션→필터 규칙 신규설계(값 바인딩은 /dev-data 실측). 적절성=사전3종(커버리지·정합·태그품질)+행동/AB. **DF-S4-1(임시태그 승격 vs 공식카테고리 흡수) 결정대기** |
-| **S5** | 아키텍처 설계 | 🔄 진행중 — 윤곽 ([s5](s5-architecture-outline.md)) | 위 3가지를 어떻게 구현·관리 | 5레이어(계산·적재·랭커추상화·서빙·측정). 윤곽 합의 후 세부(architecture.md·api-spec.md). 핵심 갈림길=A 비교군 전략(CL-03), DF-S4-1 반영 |
+| **S5** | 아키텍처 설계 | 🔄 진행중 — 윤곽+현행감사 ([s5](s5-architecture-outline.md)·[감사](s5-asis-implementation-audit.md)) | 위 3가지를 어떻게 구현·관리 | 5레이어(계산·적재·랭커추상화·서빙·측정). CL-03 해소(06-08 featuredSkillsTabs LIVE)·seam=후보 fetch 교체(06-10 감사). 잔여 위임 CL-04·08 → /architect 세부(architecture.md·api-spec.md) |
 | **S6** | 범위·일정·프로젝트화 | ⬜ | 이번 스펙 범위 확정 + 착수 준비 | 영향 리포·일정, 프로젝트 승격(이 폴더) |
 
 > 흐름: S1 → S2 위에서 **S3(랭킹)·S4(필터)** 병렬 → S5가 통합 → S6.
