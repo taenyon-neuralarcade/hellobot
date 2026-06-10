@@ -46,7 +46,7 @@ PUT /api/home/skill-rankings
 ### 1.2 시맨틱 (architecture §1.3~1.4)
 
 1. **그룹화**: rows를 `(targetSection, targetSectionTag)` 복합키로 그룹.
-2. **검증·필터**: menuSeq를 유효·노출 가능(visible) 스킬과 INNER JOIN — 탈락 행은 drop 후 응답 보고. 그룹 내 rank 중복 시 그룹 전체 거절(보고).
+2. **검증·필터**: menuSeq를 유효·노출 가능(visible) 스킬과 INNER JOIN — 탈락 행은 drop 후 응답 보고. 그룹 내 rank 중복 시 그룹 전체 거절(`DUPLICATE_RANK`). **어댑터 미지원 targetSection 그룹 거절(`UNSUPPORTED_SECTION`)** — 허용 = tagSkills 3종(R/F/P)+`recentPurchasedSkills` (v1.1).
 3. **교체**: 유효 행 ≥1인 그룹만 `DELETE(rankerId+복합키) → INSERT` — **전 그룹 단일 트랜잭션**. 유효 행 0 그룹은 **skip(전일 유지) + 보고**.
 4. **멱등**: 동일 페이로드 재호출 = 동일 최종 상태 (재시도 안전).
 5. 페이로드에 없는 복합키의 기존 행은 **건드리지 않음** (전일 유지 시맨틱).
@@ -110,15 +110,15 @@ GET /api/home/featured-skills-tab/:tabSeq?layout={vertical|horizontal}
 | seq | int PK | auto |
 | ranker_id | varchar | NOT NULL default `'popularity_v1'` |
 | target_section | varchar | NOT NULL |
-| target_section_tag | varchar | NULL |
+| target_section_tag | varchar | NOT NULL default `''` (v1.1 — `''`=태그 없음 정규화) |
 | menu_seq | int | NOT NULL |
 | score | double precision | NOT NULL |
 | rank | int | NOT NULL |
 | computed_date | date | NOT NULL |
 | created_at / updated_at | timestamptz | 리포 BaseEntity 컨벤션 |
 
-- **유니크**: `(ranker_id, target_section, target_section_tag, rank)` · `(ranker_id, target_section, target_section_tag, menu_seq)` — `target_section_tag` NULL 동일성 처리(표현식 인덱스 `COALESCE(tag,'')` 또는 PG15 `NULLS NOT DISTINCT`)는 /dev-server가 리포 PG 버전에 맞춰 선택.
-- 조회 패턴: `WHERE ranker_id=? AND target_section=? AND target_section_tag IS NOT DISTINCT FROM ? ORDER BY rank LIMIT ?` — 유니크 인덱스로 커버.
+- **유니크**: `(ranker_id, target_section, target_section_tag, rank)` · `(ranker_id, target_section, target_section_tag, menu_seq)` — NULL 동일성 처리는 **`''` 정규화로 확정(v1.1, /dev-server)**: 외부 계약(요청/응답)은 null 유지, service 경계에서 `null ↔ ''` 변환. 표현식 인덱스 불요(typeorm:generate 드리프트 회피).
+- 조회 패턴: `WHERE ranker_id=? AND target_section=? AND target_section_tag=? ORDER BY rank LIMIT ?` — 유니크 인덱스로 커버.
 - 이력 없음(최신 1세대) — 이력은 BQ `mart_home_skill_ranking`(architecture §1.2).
 
 ## 4. 플래그 · 실험 키 · config (신규 상수)
@@ -128,7 +128,7 @@ GET /api/home/featured-skills-tab/:tabSeq?layout={vertical|horizontal}
 | FeatureFlag 마스터 | `featured-skills-ranking` | `services/feature-flag.ts` (키18 선례 동형) |
 | FeatureFlag 단계 | `featured-skills-ranking-public-enabled` | 〃 |
 | Hackle 실험 키 | **발급 대기** (architecture §9-2) — treatment `"B"`=C-A | `services/home.ts` 상수 (키18 패턴) |
-| config | `featuredSkillsRanking: { rankerId: 'popularity_v1', overfetchMultiplier: 2, loadTopK: 30, loadMaxRows: 1000 }` | `common/config.ts` |
+| config | `featuredSkillsRanking: { rankerId: 'popularity_v1', overfetchMultiplier: 2, loadTopK: 30, hackleExperimentKey: 0(placeholder) }` — rows 상한 1000은 DTO 검증(v1.1) | `common/config.ts` |
 
 ---
 
@@ -137,3 +137,4 @@ GET /api/home/featured-skills-tab/:tabSeq?layout={vertical|horizontal}
 | 날짜 | 변경자 | 내용 | 확인 |
 |---|---|---|---|
 | 2026-06-10 | 코디네이터(/architect 패스) | v1 신설 — 적재 PUT API·lazy 내부 분기·`home_skill_ranking` DDL·플래그/키/config. §2.3 variant 필드는 측정 이원화 결정 보류 | 사용자 검토 대기 |
+| 2026-06-11 | /dev-server | v1.1 구현 확정 반영 — ①tag `''` 정규화(NOT NULL, 외부 계약 null 유지) ②`UNSUPPORTED_SECTION` 그룹 거절 신설 ③config 항목 확정(rows 상한은 DTO). 구현 커밋 `7dc5b7bd` (feat/popular-chart-ranking) | 사용자 검토 대기 |
