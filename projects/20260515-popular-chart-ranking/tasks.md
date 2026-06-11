@@ -17,6 +17,8 @@
 - [ ] 기획 확인: Phase A(β 원문 재확인)
 - [ ] 잔여 실험 결정 확정 — 1차 지표 승인·dmp 2건·무유의 정책·비열등 마진·C-M 큐레이션 정책·셀 배분·측정 이원화·기간 ([po §6](planning/ab-test-po-review.md)·[analysis §14](planning/ab-test-analysis-design.md))
 - [ ] 선행 운영 확인 — 운영 칩 구성 실값·키18 현 단계·신규 Hackle 키 발급 (architecture §9-1·2)
+- [ ] **리뷰 후속 결정(06-11)** — ISS-002 computed_date 기준(권고: 문서 개정+guard=어제)·ISS-006 웹 C-A visibility 정책·ISS-011 질의 7건 ([issues.md](issues.md)·[리뷰](reviews/code-review-5lens-20260611.md))
+- [ ] 계약 문서 일괄 개정(ISS-002 정의·ISS-008 CronJob 추출 계약·ISS-009 드리프트 9건) — architecture·api-spec Changelog 필수
 - [ ] 범위·일정 확정 + 착수 지시 (S6)
 
 ## 서버 (/dev-server) — [architecture §1·§3·§4](architecture.md) / [api-spec](api-spec.md)
@@ -28,7 +30,8 @@
 - [x] 서버 배정 로그 훅(variant·fallback 포함 — winston 1차 seam, 고도화는 측정 이원화 결정 종속) — ✅ 06-11
 - [x] config·플래그 상수 (api-spec §4) — ✅ 06-11
 - [x] 구버전 폴백(recentPurchasedSkills) 무회귀 확인 (NFR-4 — getTabData·키18 분기 무수정) — ✅ 06-11
-- [ ] PR 리뷰·머지 — [hellobot-server#2444](https://github.com/thingsflow/hellobot-server/pull/2444) (✅ 생성 06-11) + 핵클 키 발급 후 config 교체 커밋
+- [ ] **코드 리뷰 수정 라운드(머지 전)** — ISS-001(chatbotSeq 변환, 블로커)·ISS-003(그룹 키)·ISS-004(menuSeq 중복 skip)·ISS-005(400 계약) + ISS-006(정책 확정 후) — [리뷰](reviews/code-review-5lens-20260611.md)
+- [ ] PR 리뷰·머지 — [hellobot-server#2444](https://github.com/thingsflow/hellobot-server/pull/2444) (✅ 생성 06-11, **5렌즈 리뷰 06-11 — 수정 라운드 후 머지**) + 핵클 키 발급 후 config 교체 커밋
 
 ## 데이터 (/dev-data) — [architecture §1.2·§2](architecture.md)
 
@@ -36,7 +39,8 @@
 - [x] 랭킹 마트 `mart_home_skill_ranking` SQL + 마트 체인 등록 — 시그널·norm 분해 컬럼·computed_date 파티션 (architecture §1.2·§2) — ✅ 06-11 `e5ec4a3` (dry-run+스냅샷 프리뷰 검증, 카탈로그 동기 포함)
 - [x] 섹션 바인딩 블록(5섹션 필터식) + **값 바인딩 확정** — ✅ 06-11: 사주/타로=`chatbot_content_type`(temp topic에 해당 값 부재 실측), 재회=`intents ∋ '재회'`(`|` 구분), 신규=open_date≤6개월, D-5·D-6 해소
 - [ ] **칩 복합키 바인딩 4곳 기입** — 운영 칩 구성 확인 후 (SQL `section_pool` TODO — realtime=`recentPurchasedSkills`만 바인딩 완료. ⚠️ server_rdb에 칩 테이블 미수집 → BQ로 확인 불가, 어드민/운영 DB 경로 필요)
-- [ ] PR 리뷰·머지 — [common-data-airflow#188](https://github.com/thingsflow/common-data-airflow/pull/188) (✅ 생성 06-11)
+- [ ] **코드 리뷰 수정 라운드(머지 전)** — ISS-007(menu_seq dedup 방어)·ISS-002(computed_date 결정 반영)·rejoin TRIM(ISS-010) — [리뷰](reviews/code-review-5lens-20260611.md)
+- [ ] PR 리뷰·머지 — [common-data-airflow#188](https://github.com/thingsflow/common-data-airflow/pull/188) (✅ 생성 06-11, **5렌즈 리뷰 06-11 — 수정 라운드 후 머지**)
 - [ ] CronJob 추출+push 스크립트 — freshness guard 포함 (/dev-infra 협업, architecture §1.3)
 - [ ] event-spec 작성(노출 이벤트 + section/variant 차원, CL-02) — 측정 이원화 결정 후
 - [ ] 적절성 검증 쿼리 T1~T3(+T4 사전 로그) — ✅ T1 완료 06-11: base 442·사주 172·타로 182·재회 39·**신규 9⚠️**(6개월 기준 — N 조정은 기획 가변 C-2). T2·T3 후속(CL-15)
