@@ -1,6 +1,6 @@
 # 데이터 측정 계획 (Data Measurement Plan) — 인기스킬 섹션 노출 자동화
 
-> 작성: 2026-06-05 (코디네이터, /dev-data 검증 전 1차) · 상태: **v3 (기획 피드백 반영, 라이브 실측 대기)**
+> 작성: 2026-06-05 (코디네이터, /dev-data 검증 전 1차) · 상태: **v4 (5렌즈 리뷰 결정 반영)**
 > 역할: 본 프로젝트의 **데이터 측정 SSOT** — 랭킹 스코어·시그널·KPI·적절성 지표
 > 상위: [readme.md](readme.md) · [requirements.md](requirements.md) · 도출: [s3 랭킹](planning/s3-ranking-definition.md) · [s4 필터](planning/s4-filtering-tagging.md)
 > ⚠️ BQ 라이브 인증 만료로 컬럼 실재·freshness·distinct 값은 **미검증** — §8 실측 항목은 /dev-data 인증 복구 후 확정
@@ -52,7 +52,7 @@
 
 | 시그널 | BQ 원천 | 입도 | 판정 |
 |--------|---------|------|------|
-| 구매수 | `hlb_mart.mart_use_skill_se` (`pay_for_%`, `pay_under_750`) | **이벤트 단위**(user×ts×menu_seq) — 일집계는 파이프라인 수행(CL-17) | 🔶 SQL 대조 |
+| 구매수 | `hlb_mart.mart_use_skill_se` (`pay_for_%`, `pay_under_750`) | **이벤트 단위**(user×ts×menu_seq) — 일집계는 파이프라인 수행(CL-17) | ✅ **L4-06 확정(2026-06-11 사용자)**: 웹 구매·패키지/컬렉션/구독 귀속 **포함 = 의도된 설계** — 기존 '지금 인기'(앱 한정)와 집계 범위 상이 |
 | 조회수 | `hlb_mart.mart_v2_skill_funnel_fb` (`open_skill_description`/`enter_skill`) | menu_seq×일 | 🔶 (조회정의 CL-21) |
 | 전환율 | 위 둘 조합 (구매÷조회) | menu_seq | 🔶 (조회정의 종속) |
 | 긍정평가비율 | `hlb_mart.mart_fixed_menu_evaluation_server` ← `server_rdb.fixed_menu_evaluation` | menu_seq×user | 🔶 **CL-06**: `eval_emoji` distinct 실측·`1−💩비율` 식 적용 |
@@ -60,6 +60,8 @@
 | 신규부스트 | **`hlb_mart.mart_skill_open_date_se.event_date`(출시일)** | menu_seq | 🟣 신규 — 커버리지(전 스킬 산출 여부)·grain 실측. 서버 등록일 폐기(CL-25 반전) |
 
 > 재사용 reference: `report_kpi_total_skill_weekly.sql`. ⚠️ 단 line 216 평점 산식은 **1~5 평균**(0~1 비율 아님) — 긍정평가비율 식으로 직접 인용 불가(CL-06).
+
+> ⚠️ **조회 시그널 캐비엇(L4-07, 수용 확정 2026-06-11)**: 조회(`open_skill_description`)는 Firebase 클라이언트 경로라 **7일 윈도우 마지막 날은 부분 집계**(지연 도착분 미재계산). 윈도우가 매일 슬라이드해 비누적이고 PERCENT_RANK가 균등 편향을 상쇄하므로 랭킹 영향은 수용 — 단 분석 시 마트 저장값과 원본 재집계가 **마지막 날에 한해** 다를 수 있음.
 
 ## 5. 랭킹 스코어 정의 (도메인 정책 — canonical)
 
@@ -111,7 +113,7 @@ popularity_score =
 10. **menu_seq SAFE_CAST 실패율** — 비숫자/NULL 행 비율(CL-22).
 11. **운영 DB 덤프**(서비스 PG, BQ 무관): `HomeSectionFeaturedSkillsTab`·`TodayTagSkillsTag` row → 실제 등록 태그명(섹션 값 바인딩)·popular 섹션 운영현황(CL-01).
 12. **출시일 `mart_skill_open_date_se` 커버리지·grain**(D-6) — `event_date`가 전 스킬 산출됐는지, menu_seq grain·중복 여부.
-13. ✅ **현행 '지금 인기 스킬' 필터 조건**(D-5, 코드 확인 2026-06-06) — `recentPurchasedSkills`(`user-purchased-skill.ts`) = **오리지널(`chatbot.original_type='original'`) ∧ effective price ≥ minPrice(현행 60, 단위 하트 추정) ∧ 앱구매(os∈android/ios)**, pinned 선두·visibility 후필터, ORDER BY 최근구매. ✅ **base 결정 = 오리지널 ∧ 750원↑**(현행 60하트와 다른 임계) → 750원을 BQ 마트 가격 필드 단위로 바인딩(/dev-data). ※ **앱구매 한정**은 *구매수 신호*(웹 포함 여부)에도 영향 — /dev-data 확인.
+13. ✅ **현행 '지금 인기 스킬' 필터 조건**(D-5, 코드 확인 2026-06-06) — `recentPurchasedSkills`(`user-purchased-skill.ts`) = **오리지널(`chatbot.original_type='original'`) ∧ effective price ≥ minPrice(현행 60, 단위 하트 추정) ∧ 앱구매(os∈android/ios)**, pinned 선두·visibility 후필터, ORDER BY 최근구매. ✅ **base 결정 = 오리지널 ∧ 750원↑**(현행 60하트와 다른 임계) → 750원을 BQ 마트 가격 필드 단위로 바인딩(/dev-data). ※ ✅ **해소(L4-06, 2026-06-11 사용자)**: 구매수·매출 시그널의 **웹 구매·패키지/컬렉션/구독 귀속 포함은 의도된 설계로 확정** — 기존 '지금 인기'(앱구매 한정)와 집계 범위가 다름을 인지하고 수용.
 
 ## 9. 분석 쿼리 템플릿 (대표 — 실측 후 검증)
 
@@ -152,3 +154,4 @@ WHERE '재회' IN UNNEST(t.intents);
 | 2026-06-05 | v1 | 코디네이터 | S3·S4 결정 종합 초안. 랭킹 스코어 6항목·시그널 소스·KPI·적절성 T1~T4·태그 소스(하이브리드)·실측 갭 7항목 |
 | 2026-06-05 | v2 | 코디네이터 | **적대적 리뷰 교정**: 긍정평가비율 식 교정(line216 폐기, `1−💩비율`)·`mart_use_skill_se` 이벤트 그레인·§9 SQL 2단/7일·시그널 ✅→🔶(카탈로그 DEPRECATED)·매출 외부채널(CL-07 결정 종속)·노출슬롯 N=7/8 확정·KPI 산식 검토표기·norm 비결정 명시(CL-04)·산출물 2테이블(CL-01 복합키)·실측 항목 8~11 추가·T2/T3 골든셋·매핑표 의존·CTR 노출이벤트 부재(CL-02) |
 | 2026-06-06 | v3 | 코디네이터 | **기획 피드백 반영**: 범위 12→1차 5섹션+최종단계 7·신규부스트 소스 `open_date`(`mart_skill_open_date_se.event_date`)로 교체·서버등록일 폐기(CL-25 반전)·신규 인기 섹션=open_date≤6개월·공통 base 필터(오리지널∧750↑) 추가·총 매출 가드레일 KPI·targets/temporal 1차 미사용·실측 12·13 추가·배치 위치 MWAA 파악 후 결정(D-7) |
+| 2026-06-11 | v4 | 코디네이터 | **5렌즈 리뷰 결정 반영(사용자 확정 2026-06-11)**: ①L4-06 확정 — 구매수·매출 시그널의 웹 구매·패키지/컬렉션/구독 귀속 포함은 **의도된 설계**(§4 판정·§8-13 미결 마커 해소, 기존 '지금 인기' 앱 한정과 집계 범위 상이 명시) ②L4-07 수용 — 조회 시그널 7일 윈도우 마지막 날 부분 집계(FB 지연 도착분 미재계산) 캐비엇 추가(§4) |
