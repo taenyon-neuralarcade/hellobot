@@ -40,37 +40,37 @@
 | 10 | TODO-033 | ⭐⭐⭐ | 비트윈 인프라 의존성 인벤토리·정리 | 📅 **6월 중순** — Phase A 콘솔 인벤토리 + Phase B 딜라이트룸 1차 메일 |
 | 11 | TODO-007 | ⭐⭐⭐ | 비트윈 인프라 분리 (DLT) — umbrella | sub 019 ✅(6/5) — **033만 남음 → 클로즈 임박** |
 
-### 4순위 — 분석·기획·핫픽스 잔여 (상태 확인 필요)
+### 4순위 — 개인화 기획·핫픽스 잔여
 
 | # | ID | 중요 | 제목 | 액션 |
 |---|----|------|------|------|
-| 12 | TODO-024 | ⭐⭐ | 헬로우봇 앱 개인화 분석 + 방안 도출 | ⚠ **6/2 마감 지남 (D+8)** — 상태/스코프 확인 필요. TODO-044(개인화 추천 액션 아이템 기획)와 스코프 관계 정리 (병합? 분리?) |
-| 13 | TODO-044 | ⭐⭐ | 개인화 추천 액션 아이템 기획 및 리뷰 (cross-sell 후속) | 🆕 TODO-028 추천세트 v2 → 적용 액션 아이템화. 트랙 A 리뷰 미팅 일정 수립 + 트랙 B 기획 구체화 |
-| 14 | TODO-013 | ⭐⭐⭐ | 카카오 핫픽스 잔여 (umbrella) | ⚠ 5/22 결정 마감 지남 — 1차 출시(5/26) 완료 → 잔여 정합화 일정 결정 |
-| 15 | TODO-026 | ⭐⭐⭐ | 스킬 교환권 상품↔쿠폰 정합성 (ISS-071 P0) | ⚠ 5/22 결정 마감 지남 — 결함 9건 처리 방향 결정 |
-| 16 | TODO-022 | ⭐⭐ | 운영 어드민 사용취소 (ISS-056 P0) | ✅ 5/21 배포 — 정합화 일정 TODO-013 내 |
+| 12 | TODO-044 | ⭐⭐ | 개인화 추천 액션 아이템 기획 및 리뷰 (cross-sell 후속) | 🟢 트랙 B 여정 프레임(3그룹 상세, journey-action-map + 덱 14장) → 트랙 A 미팅 일정 |
+| 13 | TODO-013 | ⭐⭐⭐ | 카카오 핫픽스 잔여 (umbrella) | ⚠ 5/22 결정 마감 지남 — 1차 출시(5/26) 완료 → 잔여 정합화 일정 결정 |
+| 14 | TODO-026 | ⭐⭐⭐ | 스킬 교환권 상품↔쿠폰 정합성 (ISS-071 P0) | ⚠ 5/22 결정 마감 지남 — 결함 9건 처리 방향 결정 |
+| 15 | TODO-022 | ⭐⭐ | 운영 어드민 사용취소 (ISS-056 P0) | ✅ 5/21 배포 — 정합화 일정 TODO-013 내 |
 
 ### 5순위 — 분석 · 장기 누적
 
 | # | ID | 중요 | 제목 | 액션 |
 |---|----|------|------|------|
-| 17 | TODO-021 | ⭐⭐ | 구매자수·매출 YoY 하락 원인 분석 | Phase 6(A) Activation Funnel (다음 /dev-data) |
-| 18 | TODO-016 | ⭐⭐ | 카카오 선물하기 슬랙 알림 | ⚠ 5/20 초과 — workspace:8 cmux 세션 상태 확인 |
-| 19 | TODO-032 | ⭐⭐ | accadmin 2중인증 채널·번호 변경 | 사용자 확인 5건 → 트랙1(채널)·트랙2(번호) |
-| 20 | TODO-038 | ⭐⭐ | Google AI API 키 보안 점검 | T-1 레퍼러 제한 / T-2 llm-prod / T-3 나머지 |
-| 21 | TODO-025 | ⭐ | 데이터 백로그 (umbrella) | 현재 3건: 리뷰 수집·분석 / 스킬별 특성 구분 / 첫 구매 스킬별 리텐션·LTV |
+| 16 | TODO-021 | ⭐⭐ | 구매자수·매출 YoY 하락 원인 분석 | Phase 6(A) Activation Funnel (다음 /dev-data) |
+| 17 | TODO-016 | ⭐⭐ | 카카오 선물하기 슬랙 알림 | ⚠ 5/20 초과 — workspace:8 cmux 세션 상태 확인 |
+| 18 | TODO-032 | ⭐⭐ | accadmin 2중인증 채널·번호 변경 | 사용자 확인 5건 → 트랙1(채널)·트랙2(번호) |
+| 19 | TODO-038 | ⭐⭐ | Google AI API 키 보안 점검 | T-1 레퍼러 제한 / T-2 llm-prod / T-3 나머지 |
+| 20 | TODO-025 | ⭐ | 데이터 백로그 (umbrella) | 현재 3건: 리뷰 수집·분석 / 스킬별 특성 구분 / 첫 구매 스킬별 리텐션·LTV |
 
 ### 모니터링·보류
 
 | # | ID | 중요 | 제목 | 메모 |
 |---|----|------|------|------|
-| 22 | TODO-043 | ⭐⭐ | 카카오 굿즈 상품 도입 문의 | 📅 6/10 (수) 카카오 회신 추적 → 후속 액션 결정 |
-| 23 | TODO-039 | ⭐ | 1Password 계정 정리 | ⏸ **백로그 (6/30)** — 우선순위 하향 |
-| 24 | TODO-011 | ⭐ | 푸시 옵트아웃 | ⏸ 처리 방식 결정 보류 |
+| 21 | TODO-043 | ⭐⭐ | 카카오 굿즈 상품 도입 문의 | 📅 6/10 (수) 카카오 회신 추적 → 후속 액션 결정 |
+| 22 | TODO-039 | ⭐ | 1Password 계정 정리 | ⏸ **백로그 (6/30)** — 우선순위 하향 |
+| 23 | TODO-011 | ⭐ | 푸시 옵트아웃 | ⏸ 처리 방식 결정 보류 |
 
 ### 🎉 최근 마일스톤 (6/1~6/10)
 
 - ✅ **TODO-028** 1회 구매자 cross-sell 분석 완료 (6/10) — 추천세트 v2(앱·웹) 확정·6/9 미팅 공유 → 후속 TODO-044
+- ✅ **TODO-024** 앱 개인화 분석 완료 (6/10) — 미착수분 **TODO-044 로 흡수**, 개인화 프레임워크(정의 4축·가설 H1~H4·가용 데이터) 이관
 - ✅ **TODO-019** 비트윈 서비스 목록 + Andy 어드민 권한 전달 완료 (6/5) — TODO-007 umbrella sub
 - ✅ **TODO-006** 홈탭 Phase #1 다른 스쿼드 UI 완료 (6/1) · **TODO-037** iOS 해외 앱 실행 오류 (6/1)
 - 🎉 **TODO-035** Braze 신 계약 완료 (마이그레이션 준비 착수) · **TODO-027** 2차 출시 일정 확정
@@ -78,7 +78,7 @@
 
 ### ⚠️ 주의 — 상태 확인 필요 / 임박 리스크
 
-- **TODO-024** — 6/2 마감 D+8, 미보고. TODO-028 분석 완료(6/9 미팅) → 후속 **TODO-044**(개인화 추천 액션 아이템 기획·리뷰) 신설. TODO-024 와 TODO-044 의 스코프 관계 정리 필요 (병합? 분리?).
+- ✅ **TODO-024 → TODO-044 흡수 종결 (6/10)** — 개인화 분석·방안 의도가 TODO-028(분석)+TODO-044(액션 기획)로 실현. TODO-024 개인화 프레임워크는 TODO-044 「승계 입력 자료」 섹션으로 이관 완료. 스코프 관계 "정리 필요" 해소.
 - **TODO-035 / TODO-027 동시 파도** — 6/12 (백필·캠페인 + 카카오 등록 + 홈탭 개발 + 스레드) 와 6/15 (SDK 배포 + 카카오 출시 + 가이드 초안) 에 부하 집중. 6/11~6/15 리소스 경합 주의.
 - **gcp-gemini** — 5/31 결판 목표 지났으나 외부(A 혁수님 IP제한 / B 메가존) 회신 상태 미확정. 재독촉 검토.
 - **TODO-013 / TODO-026** — 카카오 핫픽스 처리 방향 5/22 결정 마감 지남. 1차 출시는 완료됐으므로 잔여 정합화 일정 확정 필요.
@@ -102,7 +102,6 @@
 | TODO-016 | ⭐⭐ | 카카오 선물하기 슬랙 알림 기능 (쿠폰 등록 + 일별 통계 푸시) | ⚠ **5/20 마감 초과** — workspace:8 cmux 세션 진행 상태 확인 → 산출물 형태 결정 → /dev-* 위임 | 2026-05-15 | - | **5/20 (수)** | [상세](todos/TODO-016-kakao-gift-slack-notification.md) |
 | TODO-021 | ⭐⭐ | 구매자수·매출 YoY 하락 원인 — 5세 연령 × 플랫폼 세그먼트 분석 | 1차 EDA 완료 → Phase 6(A) Activation Funnel 착수 (다음 /dev-data 세션) | 2026-05-20 | 2026-05-20 | - | [상세](todos/TODO-021-yoy-decline-segment-analysis.md) |
 | TODO-022 | ⭐⭐ | [coop 핫픽스] 운영 어드민 사용취소 (ISS-056, **P0**) | ✅ 5/21 11:30 운영 배포 완료. 잔여: 운영 정합화 일정 결정 (TODO-013 내) | 2026-05-20 | 2026-05-20 | - | [상세](todos/TODO-022-coop-admin-cancel-hotfix.md) |
-| TODO-024 | ⭐⭐ | 헬로우봇 앱 개인화 — 데이터 분석 + 방안 도출 | ⚠ **6/2 마감 지남 (D+8) — 상태/스코프 확인 필요**. TODO-028 분석 완료 → 후속 TODO-044(개인화 추천 액션 아이템 기획)와 스코프 관계 정리 (병합? 분리?) | 2026-05-20 | - | **6/2 (화)** | [상세](todos/TODO-024-app-personalization-analysis.md) |
 | TODO-025 | ⭐ | 데이터 백로그 (umbrella) — 데이터 관련 할일·아이디어 누적 | 항목 추가 시 누적. 현재 3건: ① 사용자 리뷰 수집·분석 ② 스킬별 특성 구분 분석 ③ 첫 구매 스킬별 리텐션·LTV 분석. 승격 조건 충족 시 분리 | 2026-05-21 | 2026-05-21 | - | [상세](todos/TODO-025-data-backlog.md) |
 | TODO-026 | ⭐⭐⭐ | [coop 핫픽스] 스킬 교환권 상품 CRUD ↔ 쿠폰 정합성 (ISS-071, **P0**) | ⚠ 5/22 결정 마감 지남 — 결함 9건 라벨링(a/b/c/d) 처리 방향 결정 | 2026-05-21 | 2026-05-21 | **처리 방향 결정 필요** | [상세](todos/TODO-026-skill-coupon-product-sync-hotfix.md) |
 | TODO-027 | ⭐⭐⭐ | 카카오 스킬 교환권 2차 출시 (추가 20종) — 스펙 + 디자인 + 등록 | 🔥 **6/11 추가 이미지(10종) 전달 → 6/12 지난주 분 포함 20종 일괄 등록 → 6/15 출시**. 핵심 경로 = 추가 10종 스펙·디자인을 6/11 전달에 맞춰 준비 | 2026-05-22 | 2026-06-02 | **6/11 전달 / 6/12 등록 / 6/15 출시** | [상세](todos/TODO-027-kakao-skill-coupon-2nd-launch-spec.md) |
@@ -114,7 +113,7 @@
 | TODO-040 | ⭐⭐ | 2026 3Q/4Q Bottom-Up 이니셔티브 제안 스레드 | 📅 **6/12 (금)** — ① 이니셔티브 제안 스레드 생성 → ② 링크 기입(본 파일+TODO.md) → ③ 제안 작성. ⚠ **스레드 링크 미기입** | 2026-06-04 | - | **6/12 (금)** | [상세](todos/TODO-040-bottom-up-initiative-3q4q.md) |
 | TODO-041 | ⭐⭐ | 카카오 선물하기 어드민 — 쿠폰 사용 내역 거래 식별 정보 노출 (스킬명/ProductCode/사용자명) | **/dev-server 위임** — AdminJS 쿠폰 사용 내역(CoopMarketingCouponUsage 추정) 화면에 상품·사용자 식별 컬럼 추가. 스키마 변경 없음 예상. coop-integration scope · TODO-029 운영가이드 연계 | 2026-06-04 | - | - | [상세](todos/TODO-041-coop-admin-coupon-usage-visibility.md) |
 | TODO-042 | ⭐⭐ | MWAA(hellobot-mwaa) 현재 운영 작업 파악 (인기차트 배치 위치 결정 + K8s 마이그레이션 현황) | hellobot-mwaa DAG 인벤토리 + common-data-airflow 역할 분담 파악 → TODO-012 배치 위치 결정(D-7). 깊은 조사는 /dev-infra·/dev-data 위임 후보 | 2026-06-06 | - | - | [상세](todos/TODO-042-mwaa-current-workload.md) |
-| TODO-044 | ⭐⭐ | 개인화 추천 액션 아이템 기획 및 리뷰 (cross-sell 후속 · 2 트랙) | 🆕 트랙 A 리뷰 미팅 일정 수립 + 트랙 B 기획 구체화. TODO-028 추천세트 v2 → 적용 액션 아이템화. TODO-024 개인화 분석과 스코프 정리 | 2026-06-10 | - | - | [상세](todos/TODO-044-personalization-action-item-planning.md) |
+| TODO-044 | ⭐⭐ | 개인화 추천 액션 아이템 기획 및 리뷰 (cross-sell 후속 · 2 트랙) | 🟢 **트랙 B: 여정 프레임 재구성** ([journey-action-map.md](projects/20260525-cross-sell-recommendation/planning/journey-action-map.md) + [review-deck.html](projects/20260525-cross-sell-recommendation/planning/review-deck.html) 14장) — 사용자 3그룹×생애주기 상세(그룹1 D0~D30 / 그룹2 웹→앱이주 / 그룹3 반복구매사이클). → **트랙 A 리뷰 미팅 일정**. 입력 = TODO-028 v2 + TODO-024 흡수 | 2026-06-10 | 2026-06-10 | - | [상세](todos/TODO-044-personalization-action-item-planning.md) |
 
 ## 대기 (블로커 또는 미래 시작)
 
@@ -130,7 +129,7 @@
 | [gcp-gemini-cost-mitigation](projects/20260519-gcp-gemini-cost-mitigation/) | 3-트랙 병행 (A·B 외부 대기 / 🆕 3 신설) | TODO-017 승격 (2026-05-19). Tier 0·1 audit + Forensic 완료 (CRITICAL 2 + HIGH 8, 4/29 = 미국 동부 abuser). **트랙 A** IP 제한 적용 + **트랙 B** 메가존 협의 (현황 공유·4/29 비용 세부 내역·Google 구제 방안 문의) + **🆕 트랙 3 (2026-05-21)** API Key 보안 점검 가이드 수신 → API_RESTR 화이트리스트로 Gemini 호출 차단 |
 | [coop-integration](projects/20260324-coop-integration/) | 개발중 (배포 후 핫픽스 잔여) | 카카오 선물하기 — TODO-004(런칭/디자인) / TODO-013(핫픽스 잔여) 와 연관 |
 | [skill-coupon-product-sync-hotfix](projects/20260521-skill-coupon-product-sync-hotfix/) | 분석완료 · 설계·일정 결정 대기 | coop-integration 자식 핫픽스 — TODO-026 / ISS-071 P0. 스킬 교환권 상품 CRUD ↔ CouponSpec/CouponCondition 정합성 (결함 9건) |
-| [cross-sell-recommendation](projects/20260525-cross-sell-recommendation/) | 🟢 분석 완료 (추천세트 v2 확정·6/9 미팅 공유) · 후속 = TODO-044 + holdout 실험 | TODO-028(분석) 승격(2026-05-25) → ✅ 완료(2026-06-10). 분석 → 비판검증(노출정규화 POC 반증) → **2층 co-purchase 추천세트 확정**(앱 1,045앵커·직접 83% / 웹12 앱데이터 관심사추정). 적용 액션 아이템 기획·리뷰 = TODO-044, 효과검증 = holdout 실험. TODO-024 분리 유지 |
+| [cross-sell-recommendation](projects/20260525-cross-sell-recommendation/) | 🟢 분석 완료 (추천세트 v2 확정·6/9 미팅 공유) · 후속 = TODO-044 + holdout 실험 | TODO-028(분석) 승격(2026-05-25) → ✅ 완료(2026-06-10). 분석 → 비판검증(노출정규화 POC 반증) → **2층 co-purchase 추천세트 확정**(앱 1,045앵커·직접 83% / 웹12 앱데이터 관심사추정). 적용 액션 아이템 기획·리뷰 = TODO-044, 효과검증 = holdout 실험. TODO-024(앱 개인화) → TODO-044 로 흡수(6/10) |
 | [yoy-decline-segment-analysis](projects/20260520-yoy-decline-segment-analysis/) | 🟢 1차 EDA 완료 · 추가 분석 A/B/E 대기 | 1차 EDA 산출물 3종 + .pptx 는 `projects/20260513-age-group-5yr/` (cmux PR #1). 후속 Phase 6(A) Activation Funnel + 7(B) Android 2023→2024 폭락 + 8(E) 콘텐츠 drift — 우선 A → B → E |
 | [heart-balance-mart](projects/20260513-heart-balance-mart/) | 설계완료 · 개발대기 | 사용자 하트 잔고 일별 추이 환경 구축 (사용자 요청 #5) |
 | [age-group-5yr](projects/20260513-age-group-5yr/) | ✅ 적용완료 (2026-05-16) | 연령 세그먼트 5세 단위 추가 (사용자 요청 #8) — Phase 1~5 + PR #180 머지 완료. 다음 일배치 후 컬럼 분포·교차 검증만 남음 |
@@ -151,6 +150,7 @@
 | ID | 제목 | 등록일 | 시작일 | 완료일 | 상세 |
 |----|------|--------|--------|--------|------|
 | TODO-028 | 앱 1회 구매자 cross-sell 데이터 분석 (추천세트 v2 확정·6/9 미팅 공유) — 프로젝트 cross-sell-recommendation 으로 추적, 후속 TODO-044 | 2026-05-21 | 2026-05-25 | 2026-06-10 | [상세](todos/TODO-028-app-cross-sell-recommendation-analysis.md) |
+| TODO-024 | 헬로우봇 앱 개인화 분석 + 방안 도출 — 미착수분 **TODO-044 로 흡수** (개인화 프레임워크 이관) | 2026-05-20 | - | 2026-06-10 | [상세](todos/TODO-024-app-personalization-analysis.md) |
 
 ### 지난 주 (2026-06-01 ~ 06-07)
 

@@ -1,13 +1,13 @@
 # TODO-044 개인화 추천 액션 아이템 기획 및 리뷰
 
 **유형**: 액션 (기획) · 2 트랙
-**상태**: 진행 중 (신규 등록)
+**상태**: 진행 중 (트랙 B 리뷰 패킷 완료 → 개인화 4축 반영 + 트랙 A 일정)
 **등록**: 2026-06-10
-**시작**: -
+**시작**: 2026-06-10
 **완료**: -
 **마감**: - (리뷰 미팅 일정 확정 시 갱신)
 **담당**: 코디네이터 → 기획 구체화는 `/analyze`·`/dev-data` 위임 후보
-**관련**: [TODO-028 (cross-sell 분석 — 추천세트 v2, 본 작업의 입력)](TODO-028-app-cross-sell-recommendation-analysis.md) · [TODO-024 (앱 개인화 분석)](TODO-024-app-personalization-analysis.md) · [cross-sell-recommendation 프로젝트](../projects/20260525-cross-sell-recommendation/) · [activation 기획 인덱스](../projects/20260525-cross-sell-recommendation/planning/activation/readme.md)
+**관련**: [TODO-028 (cross-sell 분석 — 추천세트 v2, 본 작업의 입력)](TODO-028-app-cross-sell-recommendation-analysis.md) · **[TODO-024 (앱 개인화 분석 — ✅ 완료·본 TODO 로 흡수, 개인화 프레임워크 입력)](TODO-024-app-personalization-analysis.md)** · [cross-sell-recommendation 프로젝트](../projects/20260525-cross-sell-recommendation/) · [activation 기획 인덱스](../projects/20260525-cross-sell-recommendation/planning/activation/readme.md)
 
 ## 컨텍스트
 
@@ -25,25 +25,67 @@
 ## 트랙별 진행 상태
 
 ### 트랙 A — 리뷰 미팅 일정 수립
-- **현재**: 미시작. 개인화 추천 액션 아이템 기획안을 리뷰할 미팅 일정·참석자 조율 필요.
-- **다음**: 참석자(데이터·PO·관련 스쿼드) 확인 → 일정 후보 제안 → 미팅 확정. 확정 시 본 TODO 마감일 갱신.
+- **현재**: 6/9 미팅 = 데이터(추천세트 v2)만 공유, 기획·착수순서 미결 확인 → **기획 리뷰 미팅 신규 필요**. 안건 패킷(트랙 B) 준비됨.
+- **다음**: 참석자(데이터·PO·앱·웹·디자인·CRM) 확인 → 일정 후보 제안 → 미팅 확정. 확정 시 본 TODO 마감일 갱신. 패킷 §8(준비 메모) 참조.
 
 ### 트랙 B — 기획 구체화
-- **현재**: 미시작. [[TODO-028]] 산출물(`planning/action-priorities.md`, `planning/activation/`)을 입력으로 액션 아이템 구체화.
-- **다음**: 적용 지도·활성화 기획 3종을 리뷰 가능한 액션 아이템 단위로 정리(착수순서·표면별 세트·선결조건·KPI/실험 게이트). `/analyze` 또는 `/dev-data` 위임 후보.
+- **현재**: ✅ **여정 프레임으로 재구성 (2026-06-11, 사용자 지시)**. 조직 기준을 표면(화면) 중심 → **사용자 그룹 × 생애주기 여정 중심**으로 전환. 상위 문서 [`journey-action-map.md`](../projects/20260525-cross-sell-recommendation/planning/journey-action-map.md) 신설 (그룹1 앱신규 D0~D30 여정 상세 + 그룹2·3 골격 + 시그널 수집 맵). 기존 [`review-packet.md`](../projects/20260525-cross-sell-recommendation/planning/review-packet.md)(표면 상세)·[`review-deck.html`](../projects/20260525-cross-sell-recommendation/planning/review-deck.html)(13장 여정 덱)는 그 하위 뷰로 정렬.
+- **다음**: 트랙 B 본체 완료(여정판). 미팅에서 그룹 우선순위(1→2→3)·골든타임(D0~D3) 집중·D2 핵심 액션 확정 → 시점별 액션을 도구별 구현 과업으로 분해.
+
+## TODO-024 개인화 분석 프레임워크 (승계 입력 자료)
+
+> [[TODO-024]] (앱 개인화 — 데이터 분석 + 방안 도출, ✅ 2026-06-10 완료·본 TODO 로 흡수) 가 스코핑 단계에서 정리한 개인화 분석 프레임워크. **트랙 B(기획 구체화)에서 개인화 축 액션 아이템을 도출할 때 입력으로 활용**. cross-sell 추천세트 v2(TODO-028)는 "무엇을 추천하나"의 답, 본 프레임워크는 "개인화를 어디에·어떤 시그널로 적용하나"의 틀.
+
+### 개인화 정의 범위 (4축)
+
+| 축 | 범위 | 본 작업 연결 |
+|---|---|---|
+| **A** | 콘텐츠/스킬 추천 (노출 랭킹) | 즉시 영향 큼 — cross-sell 추천세트 v2 와 직접 연결. **홈 개인화 섹션·웹 아웃트로** 활성화 기획 |
+| **B** | 메시징·푸시 타이밍 | **카플친 푸시** 활성화 기획과 연결 |
+| **C** | 가격·프로모션 | 후속 |
+| **D** | 챗봇 응답 톤 | 후속 |
+
+### 사전 가설 (H1~H4) — 액션 기획 시 검증·반영
+
+- **H1**: 현재 노출은 고정 큐레이션·시즌 운영 중심 → 개인화 시그널(연령·성별·과거 결제·이용 콘텐츠) 반영도 낮을 가능성
+- **H2**: 결제·재방문 동력이 소수 핵심 스킬에 집중(롱테일 약함) → 개인화 매칭 정확도↑로 ARPU 상승 여지
+- **H3**: **연령 × 콘텐츠 fit** 이 가장 강한 시그널 (토픽별 연령 선호 분포 차이) — coop EDA 부분 검증
+- **H4**: 사용자 정보 입력률·정확도 갭 → 개인화 알고리즘 이전에 **시그널 수집 funnel 강화** 선행 필요 (액션 아이템의 선결 조건 후보)
+
+### 가용 시그널·데이터·산출물
+
+- **마트**: `union_mart_user_key_actions` (5세 연령 버킷 컬럼), `mart-catalog.md` Purchase·Content 도메인
+- **이벤트**: 콘텐츠 진입·이용 완료·결제·이용권 사용
+- **사용자 속성**: 생년월일·성별·관심 토픽 (입력 funnel 채움률 확인 = H4)
+- **기존 분석 자산**: coop-integration `planning/kakao_product_skills/` (segment-top3·skills-by-segment-12m·sku-by-age-12m·age-topic-12m) + cross-sell `planning/activation/`
+- **카탈로그 레시피**: `age-cohort-trend-analysis.md`, `feature-performance-measurement.md`
+
+### 인접 작업 연결
+
+- **[[TODO-012-home-tab-phase2]]** (노출 스킬 랭킹 자동화) — 개인화 추천을 노출 랭킹에 반영하는 적용 위치
+- **[[TODO-025-data-backlog]] #2·#3** (스킬별 특성 구분 / 첫 구매 스킬별 리텐션·LTV) — 개인화 추천 스킬 선정의 효과 근거
+- **age-group-5yr / yoy-decline ([[TODO-021-yoy-decline-segment-analysis]])** — 5세 연령 × 플랫폼 분석축 재활용
 
 ## 현재 상태
 
-신규 등록 (2026-06-10). [[TODO-028]] 분석 완료 직후 후속 액션으로 생성. 2 트랙(리뷰 미팅 일정 수립 + 기획 구체화) 모두 미시작. 트랙 B 의 입력 자료는 cross-sell-recommendation 프로젝트 `planning/` 산출물에 이미 존재하므로, 트랙 B 는 "새로 분석"이 아니라 "기존 기획을 리뷰 가능한 액션 아이템으로 구체화"하는 작업.
+신규 등록 (2026-06-10). [[TODO-028]] 분석 완료 직후 후속 액션으로 생성. 2 트랙(리뷰 미팅 일정 수립 + 기획 구체화) 모두 미시작. 트랙 B 의 입력 자료는 cross-sell-recommendation 프로젝트 `planning/` 산출물 + **위 TODO-024 개인화 분석 프레임워크**에 이미 존재하므로, 트랙 B 는 "새로 분석"이 아니라 "기존 기획·프레임워크를 리뷰 가능한 액션 아이템으로 구체화"하는 작업.
 
-⚠ [[TODO-024]] (앱 개인화 분석)과 스코프 관계 정리 필요 — TODO-028 단계에서 "분리 유지"로 결정했으나, 적용 기획 단계에서 개인화 축이 다시 겹칠 수 있음. 미팅 전 재확인 권장.
+✅ **[[TODO-024]] 스코프 관계 정리 완료 (2026-06-10)**: TODO-024(앱 개인화 분석)는 미착수 상태로 **본 TODO 에 흡수** — 개인화 분석 프레임워크(정의 범위 4축·가설 H1~H4·가용 시그널·데이터)를 위 「승계 입력 자료」 섹션으로 이관하고 TODO-024 는 완료 처리. 따라서 본 TODO 가 cross-sell 적용 + 개인화 축 양쪽을 포괄.
 
 ## 다음 단계
 
-- [ ] (트랙 A) 리뷰 미팅 참석자 확인 → 일정 후보 제안 → 확정 (확정 시 마감일 갱신)
-- [ ] (트랙 B) TODO-028 `planning/` 산출물 기반 액션 아이템 구체화 — 위임 여부(`/analyze`·`/dev-data`) 결정
-- [ ] [[TODO-024]] 와 스코프 관계 재확인 (병합? 분리 유지?)
+- [x] (트랙 B) TODO-028 `planning/` 산출물 통합 → 리뷰 패킷 작성 ([`review-packet.md`](../projects/20260525-cross-sell-recommendation/planning/review-packet.md), 2026-06-10 코디네이터 직접)
+- [x] (트랙 B) 패킷에 **TODO-024 개인화 4축(A~D) 매핑** 반영 (§6) — 축 A→슬롯·홈·웹, 축 B→푸시, C·D 후속 + H4(시그널 funnel) 조건부 선결
+- [x] (트랙 B) 공유용 **결정 미팅 슬라이드 덱** 작성 ([`review-deck.html`](../projects/20260525-cross-sell-recommendation/planning/review-deck.html), 11장, 빌더 `build_deck.py`) — 비전문가용 쉬운 말·4곳 비교표·"무엇부터" 결정 슬라이드 중심
+- [ ] (트랙 A) 리뷰 미팅 참석자 확인 → 일정 후보 제안 → 확정 (확정 시 마감일 갱신). 패킷 §8 참조
+- [x] [[TODO-024]] 와 스코프 관계 정리 → **본 TODO 로 흡수 확정** (2026-06-10)
 
 ## 진행 로그
 
 - 2026-06-10 — TODO 등록. [[TODO-028]] 완료(추천세트 v2 확정·6/9 미팅 공유) 후속 액션. 사용자 지시로 "개인화 추천 액션 아이템 기획 및 리뷰" = 트랙 A(리뷰 미팅 일정 수립) + 트랙 B(기획 구체화) 2 트랙 구조로 등록. 입력 자료 = cross-sell-recommendation `planning/action-priorities.md` + `planning/activation/` (활성화 기획 3종)
+- 2026-06-10 — **[[TODO-024]] 흡수 + 개인화 프레임워크 이관** (사용자). TODO-024(앱 개인화 분석·방안 도출)는 스코프 합의 대기로 미착수였으나 개인화 의도가 TODO-028(분석)+본 TODO(액션 기획)로 실현됨에 따라 완료 처리. TODO-024 의 정리 자산(개인화 정의 범위 4축·가설 H1~H4·가용 시그널·데이터·인접 작업 연결)을 「TODO-024 개인화 분석 프레임워크 (승계 입력 자료)」 섹션으로 이관 → 트랙 B 가 cross-sell 적용(무엇을 추천)과 개인화 축(어디에·어떤 시그널로) 양쪽을 포괄하게 됨. 스코프 관계 "재확인 필요" → "흡수 확정"으로 종결.
+- 2026-06-10 — **트랙 B 리뷰 패킷 작성** (코디네이터 직접). 6/9 미팅이 데이터(추천세트 v2)만 공유·기획 미결임을 확인하고, 흩어진 기획 3종(action-priorities 6/7·activation 3종 6/9·nbo-slot)을 리뷰 미팅용 1장 [`planning/review-packet.md`](../projects/20260525-cross-sell-recommendation/planning/review-packet.md) 로 통합. 구성 = TL;DR·액션 4(S 슬롯·P 푸시·H 홈·W 웹) 균일표·**착수순서 충돌(6/7 슬롯먼저 vs 6/9 푸시먼저)을 미팅 1번 결정으로**·횡단 선결 3·D1~D6 체크리스트·미팅 준비 메모. 이어 개인화 4축(§6, TODO-024 흡수) 매핑 반영. activation/readme 에 패킷 포인터 추가.
+- 2026-06-10 — **결정 미팅 슬라이드 덱 작성** (사용자 지시). 패킷을 비전문가용 11장 슬라이드 [`planning/review-deck.html`](../projects/20260525-cross-sell-recommendation/planning/review-deck.html) (자체완결 HTML, ←/→ 발표·🖨 PDF, 빌더 `build_deck.py`)로 옮김. 구성 = 표지 → 왜지금(1→2 31.5%) → 무엇을추천(쉬운말) → 4곳 개요(S·P·H·W 카드) → **4곳 비교표(한눈에)** → **무엇부터(푸시 vs 슬롯 결정)** → 데이터숙제 3 → 효과확인(반반비교 정직성) → 결정 체크리스트 → 결정후 경로 → 부록(개인화 4축). 전문용어 제거(NBO·holdout·적중률증분 → 쉬운 말).
+- 2026-06-11 — **접근 재구성: 표면 → 사용자 여정 중심** (사용자 지시). 미팅 조직 기준을 "어느 화면에 추천을 얹나"에서 **"사용자 그룹 × 생애주기 여정의 어느 시점에 무엇을·무슨 정보를"**로 전환. ① 신규 상위 문서 [`planning/journey-action-map.md`](../projects/20260525-cross-sell-recommendation/planning/journey-action-map.md) — 사용자 3그룹(1 앱신규/2 웹신규/3 앱기존, 우선순위 1→2→3) + **그룹1 D0~D30 여정 상세**(D0 가입·첫구매 / D1~D3 골든타임=1→2 전환 / D7 이탈 / D30 부활) + 시그널 수집 맵 + 도구(표면) 매핑 + 효과검증. ② [`review-deck.html`] 13장으로 **여정 프레임 재빌드**(표지→접근전환 전/후→3그룹→골든타임 31.5%→**여정 타임라인**→D0→골든타임 D1~D3→D7·D30→시그널맵→그룹2·3→도구매핑→효과확인→체크리스트). ③ 기존 review-packet 은 "표면 도구 상세 뷰"로 정렬(상단 프레임 변경 배너). **마크**: 일자별 액션은 제안/가설 — 미팅 확정·holdout 검증 대상.
+- 2026-06-11 — **그룹 2·3 여정 상세화** (사용자 지시). journey-action-map §3 을 그룹1과 동일 방식(전제→시점별 상태·목표·액션·받는 정보·도구)으로 확장: **그룹 2 웹신규** = 재접촉 약함 → "앱 이주가 핵심"(D0 웹 결제 인세션 추가구매+앱전환쿠폰 / D1~7 전환 리마인드 / 전환 성공 시 그룹1 합류 / 쿠폰 마진 가드레일), **그룹 3 앱기존** = 온보딩 아닌 "반복 구매 사이클"(상시 홈 추천 / 2→3 / 단골·VIP / 휴면 부활 + 웹투앱 전환자=따뜻한 신규 빠른 단골화). 덱 14장으로 재빌드(그룹2·3 여정 타임라인 2장 추가, 골든노드 6).
+- 2026-06-11 — **그룹 1 일자별 메시지·혜택안 구체화** (사용자 지시). 신규 스펙 [`planning/group1-message-incentive-spec.md`](../projects/20260525-cross-sell-recommendation/planning/group1-message-incentive-spec.md) — 시점별(D0 온보딩·홈·슬롯·이탈모달 / D1 / **D2 결정타** / D3 / D7·D30) **실제 카피 A/B 2안**(헬로우봇 운세 톤) + **혜택 설계 표**(D0 무료권 / D2 첫재구매 쿠폰 / D7·D30 컴백). 핵심 = **D2 2단 구조**(1차 추천만 → 미반응자만 혜택, 마진 보존) + 첫재구매 할인 vs 하트적립 A/B·30% 기준선·48h·holdout 순효과 가드레일. 공통 규칙(채널·야간금지·판매게이트·알림톡 승인) 포함. journey-action-map §2 에 포인터 추가. **마크**: 카피·할인율·스킬명은 콘텐츠/CRM/재무/법무 확정 대상 초안. **잔여**: 트랙 A 미팅 일정.
