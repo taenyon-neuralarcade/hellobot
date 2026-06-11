@@ -30,7 +30,7 @@
 - [x] 서버 배정 로그 훅(variant·fallback 포함 — winston 1차 seam, 고도화는 측정 이원화 결정 종속) — ✅ 06-11
 - [x] config·플래그 상수 (api-spec §4) — ✅ 06-11
 - [x] 구버전 폴백(recentPurchasedSkills) 무회귀 확인 (NFR-4 — getTabData·키18 분기 무수정) — ✅ 06-11
-- [ ] **코드 리뷰 수정 라운드(머지 전)** — ISS-001(chatbotSeq 변환, 블로커)·ISS-003(그룹 키)·ISS-004(menuSeq 중복 skip)·ISS-005(400 계약) + ISS-006(정책 확정 후) — [리뷰](reviews/code-review-5lens-20260611.md)
+- [ ] **코드 리뷰 수정 라운드(머지 전)** — ISS-001(chatbotSeq 변환, 블로커)·ISS-003(그룹 키)·ISS-004(menuSeq 중복 skip)·ISS-005(400 계약) + ISS-006(정책 확정 후) + L1-09 서빙 태그 정규화(06-11 결정 — 태그 비계열 섹션은 칩 태그 무시하고 `''` 로 랭킹 조회, AsIs "다른 섹션에서는 무시" 시맨틱 동기화. 적재 거절·어드민 입력 가드는 보류) — [리뷰](reviews/code-review-5lens-20260611.md)
 - [ ] 적재 에러 Slack 알림 훅 (06-11 결정) — `replaceRankings` try/catch에서 `notifyToSlack` 1회(redisKey dedup), 채널 = 신규 env `SLACK_SKILL_RANKING_ALERT_CHANNEL`(값은 사용자가 환경변수 목록 등록), SMS 제외
 - [ ] PR 리뷰·머지 — [hellobot-server#2444](https://github.com/thingsflow/hellobot-server/pull/2444) (✅ 생성 06-11, **5렌즈 리뷰 06-11 — 수정 라운드 후 머지**) + 핵클 키 발급 후 config 교체 커밋
 
