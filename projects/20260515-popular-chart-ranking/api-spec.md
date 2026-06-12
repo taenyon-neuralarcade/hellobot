@@ -1,6 +1,6 @@
 # API 명세 — 인기스킬 섹션 노출 자동화 (홈탭 Phase #2)
 
-> 작성: 2026-06-10 (/architect 세부 패스) · 상태: **v1** · 동기: [architecture.md](architecture.md)
+> 작성: 2026-06-10 (/architect 세부 패스) · 상태: **v1.2** (2026-06-11 구현 확정 + 5렌즈 리뷰 반영 개정 — Changelog 참조) · 동기: [architecture.md](architecture.md)
 > ⚠️ **계약 문서** — 수정 시 하단 Changelog 필수.
 > 표기: 경로·심볼 네이밍은 hellobot-server 리포 컨벤션 내에서 /dev-server가 조정 가능 — **계약 요소는 시맨틱(요청/응답 형상·트랜잭션·에러 규칙)**.
 
@@ -156,3 +156,4 @@ GET /api/home/featured-skills-tab/:tabSeq?layout={vertical|horizontal}
 | 2026-06-10 | 코디네이터(/architect 패스) | v1 신설 — 적재 PUT API·lazy 내부 분기·`home_skill_ranking` DDL·플래그/키/config. §2.3 variant 필드는 측정 이원화 결정 보류 | 사용자 검토 대기 |
 | 2026-06-11 | /dev-server | v1.1 구현 확정 반영 — ①tag `''` 정규화(NOT NULL, 외부 계약 null 유지) ②`UNSUPPORTED_SECTION` 그룹 거절 신설 ③config 항목 확정(rows 상한은 DTO). 구현 커밋 `7dc5b7bd` (feat/popular-chart-ranking) | 사용자 검토 대기 |
 | 2026-06-11 | 코디네이터(5렌즈 리뷰 반영) | v1.2 — ①§1 에러표 현실화: 403 행 제거(basicAuth 항상 401)·400 조건=서비스 일원화 검증(rankerId 불일치·row null/비객체·비실재 날짜·int4 초과·score 비유한, ISS-005 — malformed→500 구버전 기술 삭제) ②§1.2 skip reason 표 신설 + 신규 3종 `DUPLICATE_MENU`·`STALE_PAYLOAD`·`TOO_MANY_ROWS`·"그룹 거절"→"그룹 skip(200+`skipped[]`)" 용어 통일 ③§1.3 응답 예시 ResWrapper envelope(`.data.skipped` 판독 노트, ISS-008) ④§1.1 computedDate=7일 윈도우 종료일(실행일 전일, ISS-002 A안) ⑤§2.1 게이트 순서 정정(KR→master flag→대상칩→public→Hackle, ISS-009) | 사용자 확정(2026-06-11) 반영 |
+| 2026-06-12 | 코디네이터(/workspace 정합 점검) | 표기 정정 — 헤더 상태 `v1` → `v1.2` 동기 (06-11 개정 시 누락분, **내용 무변경**) | - |

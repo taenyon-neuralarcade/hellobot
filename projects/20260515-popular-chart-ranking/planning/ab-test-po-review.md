@@ -1,6 +1,6 @@
 # A/B 테스트 설계 PO 검토 — 인기스킬 섹션 자동화
 
-> 작성: 2026-06-10 · 작성자: PO 검토 에이전트 · 상태: **검토안 (사용자 결정 대기)**
+> 작성: 2026-06-10 · 작성자: PO 검토 에이전트 · 상태: **§2.3 권장안 채택(2026-06-10 사용자 확정 — 3군 L/C-M/C-A, FR-AB4 재개정)**. 잔여 결정(§6 #3~#10)은 미결 — 현황은 [status.md](../status.md) 참조. 본문은 검토 시점 스냅샷
 > 검토 대상: 프로덕트 총괄의 A/B 테스트 제안 (2군 — "섹션 없는 기존 상태" vs "칩 섹션+자동 랭킹")
 > 관련 문서: [readme.md](../readme.md)(PRD) · [data-measurement-plan.md](../data-measurement-plan.md)(측정 SSOT) · [requirements.md](../requirements.md)(FR-AB) · [status.md](../status.md) · [s5-asis-serving-analysis.md](s5-asis-serving-analysis.md)(현행 서빙·키18) · [s5-asis-implementation-audit.md](s5-asis-implementation-audit.md)(현행 감사·신규 결정 5건)
 > 통계 상세(표본 크기·검정력·기간 산정·보정): **[ab-test-analysis-design.md](ab-test-analysis-design.md)** (데이터 분석 파트, 병렬 작성 중) — 본 문서는 **제품 의사결정 구조**에 집중

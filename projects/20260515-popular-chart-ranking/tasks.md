@@ -2,7 +2,7 @@
 
 > 상위: [readme.md](readme.md) · [requirements.md](requirements.md) · [data-measurement-plan.md](data-measurement-plan.md)
 > 설계: **[architecture.md](architecture.md) · [api-spec.md](api-spec.md)** (2026-06-10 v1)
-> 상태: **설계 완료(2026-06-10)** — 개발 과업 착수 가능. 선행 확인 5건은 [architecture §9](architecture.md) (구현 비블로킹·실행 전 필요)
+> 상태: **구현 + 리뷰 수정 라운드 완료(2026-06-11)** — 데이터 PR #188 머지 대기 · **서버 PR #2444 닫음(06-12, 재오픈/재생성 결정 대기)**. 선행 확인 5건은 [architecture §9](architecture.md) (구현 비블로킹·실행 전 필요)
 
 ## 기획 (planning/)
 
@@ -33,7 +33,7 @@
 - [x] 구버전 폴백(recentPurchasedSkills) 무회귀 확인 (NFR-4 — getTabData·키18 분기 무수정) — ✅ 06-11
 - [x] **코드 리뷰 수정 라운드(머지 전)** — ✅ 06-11 커밋 4건(`022887d3`·`955bea18`·`db253761`·`24bf4350`, tsc 통과·푸시): ISS-001(chatbotSeq 변환)·ISS-003(JSON 그룹 키)·ISS-004(DUPLICATE_MENU)·ISS-005(서비스 일원화 400)·ISS-006 A안(적재 OR·서빙 디바이스 분기)·L1-09 태그 정규화·L2-06 hackleError 마커·L2-05 프리뷰 로그·L3-06 STALE_PAYLOAD·L3-13 TOO_MANY_ROWS·L3-08 Redis 쿼리 캐시(60s)·L1-08 version 실값·L2-03 null 가드·L3-11 isBigTag 공유 — [리뷰](reviews/code-review-5lens-20260611.md)
 - [x] 적재 에러 Slack 알림 훅 (06-11 결정) — ✅ 06-11 tx try/catch `notifyToSlack` 1회 후 rethrow(redisKey `skill-ranking-load-error` dedup), 채널 env `SLACK_SKILL_RANKING_ALERT_CHANNEL`(미설정 시 웹훅 기본 채널 — **값 등록은 사용자**), SMS 제외
-- [ ] PR 리뷰·머지 — [hellobot-server#2444](https://github.com/thingsflow/hellobot-server/pull/2444) (✅ 생성·리뷰·수정 라운드 반영 06-11 — **사용자 검토 후 머지 대기**) + 핵클 키 발급 후 config 교체 커밋
+- [ ] PR 재오픈/재생성 후 머지 — [hellobot-server#2444](https://github.com/thingsflow/hellobot-server/pull/2444)는 **06-12 사용자 지시로 close(머지 안 됨)**. 브랜치 `feat/popular-chart-ranking`·커밋·워크트리 전부 보존 — 재오픈/재생성 시점은 사용자 결정 대기 (리뷰·수정 라운드는 06-11 반영 완료) + 핵클 키 발급 후 config 교체 커밋
 
 ## 데이터 (/dev-data) — [architecture §1.2·§2](architecture.md)
 

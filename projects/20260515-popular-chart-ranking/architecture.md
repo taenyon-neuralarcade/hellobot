@@ -1,6 +1,6 @@
 # 기술 아키텍처 — 인기스킬 섹션 노출 자동화 (홈탭 Phase #2)
 
-> 작성: 2026-06-10 (/architect 세부 패스) · 상태: **v1**
+> 작성: 2026-06-10 (/architect 세부 패스) · 상태: **v1.1** (2026-06-11 5렌즈 리뷰 반영 개정 — Changelog 참조)
 > 상위: [readme.md(PRD)](readme.md) · [requirements.md](requirements.md) · [status.md](status.md) · API 계약: **[api-spec.md](api-spec.md)** (이 문서와 동기)
 > 선행(윤곽·현행): [s5-architecture-outline.md](planning/s5-architecture-outline.md) · [s5-asis-implementation-audit.md](planning/s5-asis-implementation-audit.md)(A 정의·seam) · [s5-asis-serving-analysis.md](planning/s5-asis-serving-analysis.md)
 > 실험 설계(3군): [ab-test-po-review.md](planning/ab-test-po-review.md) · [ab-test-analysis-design.md](planning/ab-test-analysis-design.md)
@@ -290,3 +290,4 @@ data  = 기존 섹션과 동일 shape 포장:
 |---|---|---|---|
 | 2026-06-10 | 코디네이터(/architect 패스) | v1 신설 — 5레이어 세부 설계(②→①③④→⑤), 3군(L/C-M/C-A)·결정 라운드 2 확정값 기반. 신규 설계 결정 §8 8건 | 사용자 검토 대기 |
 | 2026-06-11 | 코디네이터(5렌즈 리뷰 반영) | v1.1 — ①ISS-002 A안: computed_date=7일 윈도우 종료일(실행일 전일)·guard "어제"·서빙일 D↔computed_date D-1 노트(§1.1·§1.3) ②ISS-008: CronJob 추출 술어(`target_section IS NOT NULL`)·작성 노트 3종(400 전체 거절/ResWrapper envelope/INT64 캐스팅)·매니페스트 `concurrencyPolicy: Forbid`(§1.3) ③L5-09: 시트 sync 순서 보장 근거+운영 수칙 2건(§1.3) ④ISS-006 A안: visibility 적재=앱·웹 합집합/서빙=디바이스 분기(§1.4) ⑤ISS-009 드리프트 정정: §2.5 `chatbot_content_type`·§3.2 게이트 순서(+§8-5)·§1.4 rank 유니크만·§2.2 분모 `GREATEST(1,LEAST(7,…))`/new_boost 1~30일차·§3.4 알림 수단 표·§1.1 tag NOT NULL `''` ⑥L1-09 태그 비계열 `''` 조회(§3.3)·L2-06 `hackleError` 마커(§3.2) ⑦L3-14 운영 반영 순서 런북(§7) | 사용자 확정(2026-06-11) 반영 |
+| 2026-06-12 | 코디네이터(/workspace 정합 점검) | 표기 정정 — 헤더 상태 `v1` → `v1.1` 동기 (06-11 개정 시 누락분, **내용 무변경**) | - |

@@ -11,7 +11,7 @@ ISS-001~011 전부 5렌즈 코드 리뷰(2026-06-11, PR [#2444](https://github.c
 
 | ID | 분류 | 심각도 | 파트 | 현상 | 원인 | 상태 |
 |---|---|---|---|---|---|---|
-| ISS-001 | bug | **블로커** | 서버 | C-A 응답 `skills[].chatbotSeq`가 link 도메인 원값 — `chatbots` 맵 키(info.seq)와 불일치 → C-A on 시 앱 카드 조인 실패/오표기 (L2-01, 코드 재확인 완료) | 어댑터(`getRankedSkillPairs`)가 AsIs 경로의 `findChatbotCacheByLinkChatbotSeq(...)?.info.seq` 변환 누락 | 해결 (2026-06-11, PR 반영·머지 대기) |
+| ISS-001 | bug | **블로커** | 서버 | C-A 응답 `skills[].chatbotSeq`가 link 도메인 원값 — `chatbots` 맵 키(info.seq)와 불일치 → C-A on 시 앱 카드 조인 실패/오표기 (L2-01, 코드 재확인 완료) | 어댑터(`getRankedSkillPairs`)가 AsIs 경로의 `findChatbotCacheByLinkChatbotSeq(...)?.info.seq` 변환 누락 | 해결 (2026-06-11, 브랜치 반영 — 서버 PR 재생성 대기) |
 | ISS-002 | edge-case | **블로커** | 계약/데이터 | architecture §1.3 freshness guard("computed_date=오늘")대로 CronJob 작성 시 매일 push 실패(C-A 영구 미서빙+거짓 알람) (L4-01=L5-01) | 마트 computed_date=Airflow ds(실행일 전일)인데 계약 문서·SQL 헤더·서버 코멘트가 각각 다른 시맨틱 기술 — 방향 결정 필요(권고: 문서 개정+guard=어제) | 해결 (2026-06-11, A안 확정 — computed_date=윈도우 종료일(어제)·guard=어제, 문서 개정+주석 동기, SQL 무변경) |
 | ISS-003 | bug | 높음 | 서버 | 적재 그룹 키가 구분자 없는 `${section}${tag}` 연결 — 복합키 충돌 시 타 그룹 행 오염 적재/오스킵 (L1-03=L2-04=L3-01, 코드 재확인 완료) | 그룹화 키 설계 결함 + 그룹화가 화이트리스트 검사 선행 | 해결 (2026-06-11, JSON 그룹 키) |
 | ISS-004 | edge-case | 높음 | 서버 | 그룹 내 menuSeq 중복 시 유니크 위반 → 단일 tx **전 그룹 롤백+500**(재시도 루프) — rank 중복(그룹만 skip)과 비대칭 (L1-02=L3-03, 코드 재확인 완료) | skip 판정에 menuSeq 중복 케이스 부재(api-spec에도 미정의) | 해결 (2026-06-11, DUPLICATE_MENU skip) |

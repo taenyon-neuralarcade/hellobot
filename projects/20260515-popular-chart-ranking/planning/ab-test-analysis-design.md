@@ -1,6 +1,6 @@
 # A/B 테스트 분석 설계 — 홈탭 인기스킬 섹션 자동화
 
-> 작성: 2026-06-10 · 작성자: **데이터 분석가 에이전트** · 상태: **검토용 초안 — 사용자 결정 대기 항목 포함(§14)**
+> 작성: 2026-06-10 · 작성자: **데이터 분석가 에이전트** · 상태: **실험 구조(3군 L/C-M/C-A)는 2026-06-10 확정** — §14 잔여 결정(#2~#10: 1차 지표 승인·측정 이원화·기간 등)은 미결, 현황은 [status.md](../status.md) 참조. 본문은 검토 시점 스냅샷
 > 역할: ②랭킹 A/B(및 사용자 제안 통합 A/B)의 **측정·분석 설계 상세** — 실험 구조의 통계적 함의, 지표 체계, 표본·검정력, 검정 방법론, 판정 규칙
 > 관련 문서: [data-measurement-plan.md](../data-measurement-plan.md)(측정 SSOT — 본 문서는 dmp와 정합 유지, 충돌 제안은 "dmp 갱신 필요" 표기) · [readme.md §4·§5](../readme.md) · [status.md](../status.md) · [s5-asis-serving-analysis.md](s5-asis-serving-analysis.md) · [s5-asis-implementation-audit.md](s5-asis-implementation-audit.md) · **[ab-test-po-review.md](ab-test-po-review.md)(제품 의사결정 구조 — 병렬 작성)**: 실험 구조 옵션의 *제품적* 트레이드오프는 PO 문서가 담당, 본 문서는 *통계적* 함의 담당
 > 표기: ⚠️ = 미확정/실측 필요 · ✅ = BQ 실측 완료(2026-06-10, §6.1·부록)
