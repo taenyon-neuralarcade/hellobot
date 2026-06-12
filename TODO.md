@@ -67,6 +67,7 @@
 | 22 | TODO-043 | ⭐⭐ | 카카오 굿즈 상품 도입 문의 | 📅 6/10 (수) 카카오 회신 추적 → 후속 액션 결정 |
 | 23 | TODO-039 | ⭐ | 1Password 계정 정리 | ⏸ **백로그 (6/30)** — 우선순위 하향 |
 | 24 | TODO-011 | ⭐ | 푸시 옵트아웃 | ⏸ 처리 방식 결정 보류 |
+| 25 | TODO-046 | ⭐ | 하트 잔액 이상치 정리 (heart-balance 후속) | ⏸ 백로그 — 재개 시 A·B 26명 user_test_group 반영부터 |
 
 ### 🎉 최근 마일스톤 (6/1~6/10)
 
@@ -123,6 +124,7 @@
 |----|------|------|----------|--------|--------|------|------|
 | TODO-011 | ⭐ | 푸시 옵트아웃 일별 추이 데이터 검토 | ⏸ 처리 방식 결정 보류 (작은 프로젝트화 vs /dev-data 단발) — 사용자 결정 후 진행 | 2026-05-13 | - | - | [상세](todos/TODO-011-push-optout-trend.md) |
 | TODO-039 | ⭐ | 1Password 계정 정리 (사용자·Vault·seat·보안 점검 중 범위 확인 필요) | ⏸ **백로그 전환 (6/8)** — 마감 6/15 → 6/30 연기, 우선순위 하향. 6월 후반 처리. 사용자 확인 4건 → 현황 파악 → 정리 | 2026-05-27 | - | **6/30 (화)** | [상세](todos/TODO-039-1password-account-cleanup.md) |
+| TODO-046 | ⭐ | 하트 잔액 이상치 사용자 정리 (heart-balance-mart 후속) | ⏸ **백로그 (시점 미정)** — 분석·분류·방안 결정 완료 상태로 동결. 재개 시 A·B 26명 `user_test_group` 운영 DB INSERT 부터 → C·D·E 추적·음수 잔액 조사 (/dev-data) | 2026-06-12 | - | - | [상세](todos/TODO-046-heart-balance-outlier-cleanup.md) |
 
 ## 프로젝트로 추적 (프로젝트화된 항목 — 링크만, SSOT 는 status.md)
 
@@ -133,7 +135,7 @@
 | [skill-coupon-product-sync-hotfix](projects/20260521-skill-coupon-product-sync-hotfix/) | 분석완료 · 설계·일정 결정 대기 | coop-integration 자식 핫픽스 — TODO-026 / ISS-071 P0. 스킬 교환권 상품 CRUD ↔ CouponSpec/CouponCondition 정합성 (결함 9건) |
 | [cross-sell-recommendation](projects/20260525-cross-sell-recommendation/) | 🟢 분석 완료 (추천세트 v2 확정·6/9 미팅 공유) · 후속 = TODO-044 + holdout 실험 | TODO-028(분석) 승격(2026-05-25) → ✅ 완료(2026-06-10). 분석 → 비판검증(노출정규화 POC 반증) → **2층 co-purchase 추천세트 확정**(앱 1,045앵커·직접 83% / 웹12 앱데이터 관심사추정). 적용 액션 아이템 기획·리뷰 = TODO-044, 효과검증 = holdout 실험. TODO-024(앱 개인화) → TODO-044 로 흡수(6/10) |
 | [yoy-decline-segment-analysis](projects/20260520-yoy-decline-segment-analysis/) | 🟢 1차 EDA 완료 · 추가 분석 A/B/E 대기 | 1차 EDA 산출물 3종 + .pptx 는 `projects/20260513-age-group-5yr/` (cmux PR #1). 후속 Phase 6(A) Activation Funnel + 7(B) Android 2023→2024 폭락 + 8(E) 콘텐츠 drift — 우선 A → B → E |
-| [heart-balance-mart](projects/20260513-heart-balance-mart/) | 설계완료 · 개발대기 | 사용자 하트 잔고 일별 추이 환경 구축 (사용자 요청 #5) |
+| [heart-balance-mart](projects/20260513-heart-balance-mart/) | 🟢 R1 운영 안정 (모니터링 완료 6/12) · R2 대기 | 사용자 하트 잔고 일별 추이 환경 구축 (사용자 요청 #5) — R1 마트 일배치 운영 중 (PR #185·백필·1주 모니터링 ✅). 이상치 후속 = TODO-046, 잔여 = R2 리포트 마트 + Looker |
 | [age-group-5yr](projects/20260513-age-group-5yr/) | ✅ 적용완료 (2026-05-16) | 연령 세그먼트 5세 단위 추가 (사용자 요청 #8) — Phase 1~5 + PR #180 머지 완료. 다음 일배치 후 컬럼 분포·교차 검증만 남음 |
 | [workspace-evolution](projects/20260503-workspace-evolution/) | 분석중 | 워크스페이스 3차 진화 계획 (장기) |
 | [external-ds-handover](projects/20260511-external-ds-handover/) | 초안 완료 | 외부 DS 인계 패키지 |
@@ -166,7 +168,7 @@
 
 ## 운영 메모
 
-- **다음 번호**: TODO-046 (TODO-045 = [PMI] Slack 알림 기능 이전, 2026-06-11 등록)
+- **다음 번호**: TODO-047 (TODO-046 = 하트 잔액 이상치 사용자 정리, 2026-06-12 등록)
 - **번호 부여**: 직전 번호 +1 (완료 항목이 잘려나가도 번호는 재사용하지 않음). **다른 세션에서 동시 등록 가능성 있으면 등록 직전에 TODO.md 다음 번호 재확인**
 - **🎯 우선순위 보드 갱신**: 매일 일과 시작 시 또는 우선순위 변동 시 갱신. 보드 상단에 날짜 명시. ⭐⭐⭐ 최상 항목은 사용자 지정 (**2026-05-27 지정 · 2026-06-08 갱신** — 6월 신 국면, SDK 이관·카카오 2차 동시 진행: ① **신 계약 SDK 이관 (TODO-035, 현재 최대 과업)** — ✅ Braze 계약 완료 / 6/12 백필·캠페인 / 6/15 서버·앱 배포 / 7/1 cutover. Airbridge 계약 진행 중, ② **카카오 선물하기** — ✅ 1차 출시(5/26). TODO-027(2차 6/11 전달·6/12 등록·6/15 출시)·029(가이드 6/15)·041·013·026·043(굿즈 6/10), ③ **인프라 잔여** — TODO-005 Azure(6월 내)·033(6월 중순)·007 umbrella(019 ✅ → 033만 남음)·gcp-gemini(외부))
 - **상시 노출 항목**: 사용자가 "1순위 하단에 계속 노출" 등 명시한 항목은 ⓘ 표식으로 1순위 표 아래 추가, 4순위/모니터링 섹션에서는 제거 (이중 표시 방지). 현재: 없음

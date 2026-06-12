@@ -37,10 +37,12 @@
   - 정상성: 5월 최근 5일 평균 잔액 214 하트, 67.6만 사용자/일. flow 부호 (충전+/사용−) 정상
   - 알려진 이슈: 음수 잔액 1건/일 발견 (0.0001%) — 추후 조사
 - [x] **일배치 운영 모드 전환** (수동 → mart_pipeline 스케줄에 흡수) — 2026-05-21 Airflow develop sync + 옵션 A 전체 `hellobot_datamart_mart_pipeline` 수동 트리거로 5/20·5/21 파티션 추가 적재 검증 완료. balance +1.35M / flow +10.8K rows. avg balance 214.6~214.8 안정. 다음 KST 11시부터 자동 흡수.
-- [ ] 1주 모니터링 (5/22~5/28 daily run 정상성 확인 — D-2~D 부분 갱신, row count 안정성)
-- [ ] 음수 잔액 케이스 조사 (1건/일, min_bal -1313 동일 user 추정)
+- [x] 1주 모니터링 (5/22~5/28 daily run 정상성 확인) — ✅ 2026-06-12 사용자 확인: BQ 파이프라인 정상 동작
+- [ ] 음수 잔액 케이스 조사 (1건/일, min_bal -1313 동일 user 추정) — → [TODO-046](../../todos/TODO-046-heart-balance-outlier-cleanup.md) 으로 추적
 
 ### High-balance outlier 분석 및 정리 (2026-05-21 신규 발견)
+
+> ↗ **2026-06-12 — 미완료 항목 전체를 [TODO-046](../../todos/TODO-046-heart-balance-outlier-cleanup.md) 백로그로 분리** (사용자 지시 — 나중에라도 수행 가능하게 보존). 아래 체크리스트는 과업 SSOT 로 유지, 진행 시 TODO-046 과 동기.
 
 balance ≥ 1000 normal heart 보유 실사용자 667명 분석 결과 — admin-dominant 그룹 59명 중 대다수가 테스터·운영진·이관 batch.
 

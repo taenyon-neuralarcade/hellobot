@@ -4,7 +4,7 @@
 
 | 파트 | 상태 | 비고 |
 |---|---|---|
-| 데이터 | R1 일배치 자동화 적용 완료 / 1주 모니터링 시작 / R2 구현 대기 | PR #185 머지 (2026-05-20), Airflow develop sync + 수동 트리거로 5/20·5/21 신규 적재 검증 완료 (2026-05-21). 5/22~ 11 KST 자동 트리거에 자연 흡수 |
+| 데이터 | **R1 운영 안정 (모니터링 완료 2026-06-12)** / R2 구현 대기 | PR #185 머지 (2026-05-20) → 일배치 운영 진입 (2026-05-21) → 1주+ 모니터링 완료 — 사용자 확인 (2026-06-12): BQ 파이프라인 정상 동작. 이상치 후속 처리는 [TODO-046](../../todos/TODO-046-heart-balance-outlier-cleanup.md) 으로 분리 |
 | 서버 | 해당 없음 | 잔액 산출은 BQ 측 (server-side 변경 불필요) |
 | 클라이언트 | 해당 없음 | 대시보드 소비만 |
 
@@ -27,6 +27,7 @@
 | 2026-05-21 | 일배치 자동화 운영 모드 진입 — 옵션 A (`hellobot_datamart_mart_pipeline` 전체 수동 트리거) 로 첫 사이클 검증 | Airflow develop sync 후 14:27 KST 완료. 5/20·5/21 파티션 신규 적재 (balance +1.35M / flow +10.8K), avg balance 214.6~214.8. D-2~D 부분 갱신 동작 정상. 5/22~ 11 KST 자동 흡수 |
 | 2026-05-21 | High-balance outlier 정리 방안 = 기존 데이터파이프라인 규칙(`user_test_group` 필터) 재사용 | `staging_key_events_*` / `pay_for_contents_*` / `mart_user_heart_*` 등 헬로우봇 모든 마트가 `server_rdb.user_test_group` 을 표준 필터로 사용 중 — 신규 컬럼 없이 추가만으로 자동 제외. 카탈로그 ISS 등록은 보류 |
 | 2026-05-21 | balance ≥ 1000 outlier 5개 카테고리(A·B·C·D·E) 분류 후 처리 우선순위 결정 | A(입력실수 2명) + B(명백한 테스터·QA 24명) = 즉시 `user_test_group` 추가 (INSERT SQL 작성). A 잔여 하트는 운영팀 회수 요청. C·D·E (32명, 직원·이관 batch·초기) 는 데이터로 batch 식별·검증하는 후속 과업으로 |
+| 2026-06-12 | R1 모니터링 종료 + 이상치 후속을 [TODO-046](../../todos/TODO-046-heart-balance-outlier-cleanup.md) 으로 분리 | 사용자 확인 — BQ 파이프라인 정상 동작. 이상치 정리(A·B INSERT, C·D·E 추적, 음수 잔액)는 프로젝트 본류(R2)와 분리해 백로그로 보존 — 나중에라도 수행 가능하게 |
 
 ## 갭·이슈
 
@@ -36,9 +37,8 @@
 
 ## 다음 액션
 
-1. **1주 모니터링 (5/22~5/28)** — daily 11 KST run 이 D-2~D 부분 갱신 정상 동작 확인. row count 안정성 (balance ~677K/일, flow 5K~15K/일), avg balance ~214 유지 여부
-2. **A·B 26명 `user_test_group` 추가** — PostgreSQL INSERT SQL 운영 DB 실행 + A 2명(59927025, 49246379) 잔여 하트 회수 요청 (운영팀)
-3. **C·D·E 카테고리 데이터 추적** — 직원/이관 batch/초기 batch 의 user_seq 범위를 BQ 쿼리로 식별 + 마킹 정책 결정 (`is_migrated_user` 컬럼 신설 vs `user_test_group` 일괄 추가)
-4. **R2 구현** (`report_avg_heart_balance_daily` SQL/queries/DAG, 별도 PR)
-5. **음수 잔액 1건/일 조사** — heart_log 데이터 이상치 여부 확인 (min_bal -1313 동일 user 추정)
-6. Looker 대시보드 (별도 작업)
+1. **R2 구현** (`report_avg_heart_balance_daily` SQL/queries/DAG, 별도 PR) — 모집단·분포 컬럼 정의부터
+2. Looker 대시보드 (별도 작업)
+
+> ✅ 1주 모니터링 완료 (2026-06-12 사용자 확인 — BQ 파이프라인 정상 동작)
+> ↗ 이상치 후속 (A·B 26명 `user_test_group` 추가 / C·D·E 추적 / 음수 잔액 조사 / 모니터링 쿼리 정기화) → [TODO-046](../../todos/TODO-046-heart-balance-outlier-cleanup.md) 백로그로 분리
