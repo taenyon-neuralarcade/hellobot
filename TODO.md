@@ -19,7 +19,7 @@
 | # | ID | 중요 | 제목 | 액션 |
 |---|----|------|------|------|
 | 1 | TODO-035 | ⭐⭐⭐ | Airbridge + Braze 신 계약 SDK 이관 (umbrella) | 🔥 **✅ Braze 계약 완료** → 6/10 준비 / **6/12 데이터 백필 + 마케팅 푸시 캠페인 세팅** / **6/15 서버 듀얼발송 + 앱 배포** / 7/1 cutover. Airbridge 계약 진행 중 + **프로젝트 승격 권장** |
-| 2 | TODO-047 | ⭐⭐⭐ | 카카오 선물하기 플랫폼 활성화 방안 (출시 후속) | ✅ **기획 초안 작성(6/12)** → 초안 리뷰 + 결정 6항목(프로모션 스킴 등) 확정 + 쿠프 노출 현황·판매 데이터 문의 발신 |
+| 2 | TODO-047 | ⭐⭐⭐ | 카카오 선물하기 플랫폼 활성화 방안 (출시 후속) | ✅ **기획 초안 v2(6/12, 내부 실행 중심)** → 초안 리뷰 + 결정 6항목(발신 채널·시점·판정선 등) 확정 → 노출 점검·자체 발신 실행 |
 | 3 | TODO-012 | ⭐⭐ | 홈탭 Phase #2 — 랭킹 자동화 | 📅 **6/12 (금) 개발 완료** (6/5 기획·설계 → 6/12 개발로 연장). S5(/architect) → /dev-* |
 
 ### 2순위 — 이번 주~다음 주 마감 (6/12~6/15)
@@ -44,7 +44,7 @@
 
 | # | ID | 중요 | 제목 | 액션 |
 |---|----|------|------|------|
-| 12 | TODO-044 | ⭐⭐ | 개인화 추천 액션 아이템 기획 및 리뷰 (cross-sell 후속) | 🟢 트랙 B 여정 프레임(3그룹 상세, journey-action-map + 덱 14장) → 트랙 A 미팅 일정 |
+| 12 | TODO-044 | ⭐⭐ | 개인화 추천 액션 아이템 기획 및 리뷰 (cross-sell 후속) | 🟢 트랙 B 상태×채널 지도 전환(segment-map + S5 세분화·복귀 트랙) → 덱 재구성·트랙 A 미팅 일정 |
 | 13 | TODO-013 | ⭐⭐⭐ | 카카오 핫픽스 잔여 (umbrella) | ⚠ 5/22 결정 마감 지남 — 1차 출시(5/26) 완료 → 잔여 정합화 일정 결정 |
 | 14 | TODO-026 | ⭐⭐⭐ | 스킬 교환권 상품↔쿠폰 정합성 (ISS-071 P0) | ⚠ 5/22 결정 마감 지남 — 결함 9건 처리 방향 결정 |
 | 15 | TODO-022 | ⭐⭐ | 운영 어드민 사용취소 (ISS-056 P0) | ✅ 5/21 배포 — 정합화 일정 TODO-013 내 |
@@ -107,7 +107,7 @@
 | TODO-022 | ⭐⭐ | [coop 핫픽스] 운영 어드민 사용취소 (ISS-056, **P0**) | ✅ 5/21 11:30 운영 배포 완료. 잔여: 운영 정합화 일정 결정 (TODO-013 내) | 2026-05-20 | 2026-05-20 | - | [상세](todos/TODO-022-coop-admin-cancel-hotfix.md) |
 | TODO-025 | ⭐ | 데이터 백로그 (umbrella) — 데이터 관련 할일·아이디어 누적 | 항목 추가 시 누적. 현재 3건: ① 사용자 리뷰 수집·분석 ② 스킬별 특성 구분 분석 ③ 첫 구매 스킬별 리텐션·LTV 분석. 승격 조건 충족 시 분리 | 2026-05-21 | 2026-05-21 | - | [상세](todos/TODO-025-data-backlog.md) |
 | TODO-026 | ⭐⭐⭐ | [coop 핫픽스] 스킬 교환권 상품 CRUD ↔ 쿠폰 정합성 (ISS-071, **P0**) | ⚠ 5/22 결정 마감 지남 — 결함 9건 라벨링(a/b/c/d) 처리 방향 결정 | 2026-05-21 | 2026-05-21 | **처리 방향 결정 필요** | [상세](todos/TODO-026-skill-coupon-product-sync-hotfix.md) |
-| TODO-047 | ⭐⭐⭐ | 카카오 선물하기 플랫폼 활성화 방안 (출시 후속) | ✅ **6/12 기획 초안 작성 완료** ([활성화 방안](projects/20260324-coop-integration/planning/platform-activation-plan.md)). 다음 = 초안 리뷰·결정 6항목 확정 + 쿠프 문의 발신 | 2026-06-12 | 2026-06-12 | 6/12 기획 1차 ✅ | [상세](todos/TODO-047-kakao-gift-platform-activation.md) |
+| TODO-047 | ⭐⭐⭐ | 카카오 선물하기 플랫폼 활성화 방안 (출시 후속) | ✅ **6/12 기획 초안 v2 (내부 실행 중심)** ([활성화 방안](projects/20260324-coop-integration/planning/platform-activation-plan.md)). 다음 = 초안 리뷰·결정 6항목 확정 → 노출 점검·자체 발신. 외부 협의(배너·기획전)는 내부 실적 확보 후 | 2026-06-12 | 2026-06-12 | 6/12 기획 1차 ✅ | [상세](todos/TODO-047-kakao-gift-platform-activation.md) |
 | TODO-029 | ⭐⭐⭐ | 카카오 선물하기 운영 가이드 문서 작성 (내부 운영팀 인계용) | 🟢 **진행 (6/2~)** — 문서 0·1·2 + 6(운영 FAQ·앱 에러 메시지별 조치) 초안 완료(`docs/operations/kakao-gift/`). 다음: 문서 3·4·5 드래프트 + doc4/FAQ 중복정리 + 식별자 확인. 초안 6/15 | 2026-05-22 | 2026-06-02 | **6/15 (월)** | [상세](todos/TODO-029-kakao-gift-operations-guide.md) |
 | TODO-032 | ⭐⭐ | accadmin 2중인증 발신채널·전화번호 변경 (umbrella · 2 트랙) | 사용자 확인 5건 → 트랙 1 (발신채널, 즉시) + 트랙 2 (전화번호, 법인폰 개통 대기) | 2026-05-22 | - | - | [상세](todos/TODO-032-accadmin-2fa-update.md) |
 | TODO-033 | ⭐⭐⭐ | 비트윈 인프라 의존성 인벤토리·정리 (딜라이트룸 협의) | 📅 6월 초~중순 — Phase A 1번 콘솔 인벤토리 (단독) + Phase B 딜라이트룸 1차 협의 메일 → Phase C 단계적 정리 | 2026-05-25 | 2026-05-25 | - | [상세](todos/TODO-033-bitwin-infra-dependency-handover.md) |
@@ -116,7 +116,7 @@
 | TODO-040 | ⭐⭐ | 2026 3Q/4Q Bottom-Up 이니셔티브 제안 스레드 | 📅 **6/12 (금)** — ① 이니셔티브 제안 스레드 생성 → ② 링크 기입(본 파일+TODO.md) → ③ 제안 작성. ⚠ **스레드 링크 미기입** | 2026-06-04 | - | **6/12 (금)** | [상세](todos/TODO-040-bottom-up-initiative-3q4q.md) |
 | TODO-041 | ⭐⭐ | 카카오 선물하기 어드민 — 쿠폰 사용 내역 거래 식별 정보 노출 (스킬명/ProductCode/사용자명) | **/dev-server 위임** — AdminJS 쿠폰 사용 내역(CoopMarketingCouponUsage 추정) 화면에 상품·사용자 식별 컬럼 추가. 스키마 변경 없음 예상. coop-integration scope · TODO-029 운영가이드 연계 | 2026-06-04 | - | - | [상세](todos/TODO-041-coop-admin-coupon-usage-visibility.md) |
 | TODO-042 | ⭐⭐ | MWAA(hellobot-mwaa) 현재 운영 작업 파악 (인기차트 배치 위치 결정 + K8s 마이그레이션 현황) | hellobot-mwaa DAG 인벤토리 + common-data-airflow 역할 분담 파악 → TODO-012 배치 위치 결정(D-7). 깊은 조사는 /dev-infra·/dev-data 위임 후보 | 2026-06-06 | - | - | [상세](todos/TODO-042-mwaa-current-workload.md) |
-| TODO-044 | ⭐⭐ | 개인화 추천 액션 아이템 기획 및 리뷰 (cross-sell 후속 · 2 트랙) | 🟢 **트랙 B: 여정 프레임 재구성** ([journey-action-map.md](projects/20260525-cross-sell-recommendation/planning/journey-action-map.md) + [review-deck.html](projects/20260525-cross-sell-recommendation/planning/review-deck.html) 14장) — 사용자 3그룹×생애주기 상세(그룹1 D0~D30 / 그룹2 웹→앱이주 / 그룹3 반복구매사이클). → **트랙 A 리뷰 미팅 일정**. 입력 = TODO-028 v2 + TODO-024 흡수 | 2026-06-10 | 2026-06-10 | - | [상세](todos/TODO-044-personalization-action-item-planning.md) |
+| TODO-044 | ⭐⭐ | 개인화 추천 액션 아이템 기획 및 리뷰 (cross-sell 후속 · 2 트랙) | 🟢 **트랙 B: 상태×채널 지도 전환** ([segment-map.md](projects/20260525-cross-sell-recommendation/planning/segment-map.md) 레이어 1 신설, 사용자 승인) — 상태 S0~S5 × 앱/웹 + **S5 단골 세분화**(개인 구매주기 P 시계·VIP recognition) + **복귀 유입 트랙 T1~T4**(식별 게이트·혜택 원장). journey-action-map = 레이어 2 강등. → 덱 지도 프레임 재구성 · P1~P3 셀 풀스키마 · **트랙 A 리뷰 미팅 일정** | 2026-06-10 | 2026-06-10 | - | [상세](todos/TODO-044-personalization-action-item-planning.md) |
 | TODO-045 | ⭐⭐ | [PMI] Slack 알림 기능 이전 (A→B 워크스페이스) | 🆕 코드 조사 완료(6/11) — **선행: B 워크스페이스에 레거시 incoming webhook(채널 override 지원) 생성 가능 여부 확인**. 이후 채널 ~10개 생성 → 웹훅 2개(메인+AI프로필) 발급 → 시크릿 2곳 교체(/dev-infra) → subteam 멘션 하드코딩 수정(/dev-server) → 채널별 테스트 발송 검증 | 2026-06-11 | - | - | [상세](todos/TODO-045-pmi-slack-notification-migration.md) |
 
 ## 대기 (블로커 또는 미래 시작)
